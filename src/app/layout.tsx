@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Montserrat, Literata } from "next/font/google";
+import { Globe } from "lucide-react";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -10,6 +11,18 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+const montserrat = Montserrat({
+  variable: "--font-montserrat",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+});
+
+const literata = Literata({
+  variable: "--font-literata",
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800"],
 });
 
 export const metadata: Metadata = {
@@ -23,8 +36,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
-      <body>{children}</body>
+    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} ${montserrat.variable} ${literata.variable}`}>
+      <body suppressHydrationWarning>
+        {children}
+        {/* Floating Language Toggler */}
+        <div className="fixed bottom-6 right-6 z-50">
+          <button className="flex items-center gap-2 rounded-full bg-black/10 backdrop-blur-md border border-black/5 px-4 py-2 text-sm font-medium text-page-text/90 shadow-lg transition-all hover:bg-black/20 hover:scale-105 font-montserrat">
+            <Globe className="h-4 w-4 opacity-70" />
+            <span>EN / ES</span>
+          </button>
+        </div>
+      </body>
     </html>
   );
 }
+

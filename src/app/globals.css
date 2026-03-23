@@ -1,49 +1,62 @@
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* Tailwind 4 CSS */
+@import "tailwindcss";
+
+@theme {
+  --font-montserrat: var(--font-montserrat, 'Montserrat', sans-serif);
+  --font-literata: var(--font-literata, 'Literata', serif);
+
+  /* ── Brand Colors (Landing / Main) ── */
+  --color-brand-blue: #1e3a8a;
+  --color-brand-sand: #e3cba8;
+  --color-brand-orange: #ea580c;
+  --color-brand-purple: #2e1065;
+
+  /* ── Inner Pages Default ── */
+  --color-page-bg: #FAF5F0;
+  --color-page-bg-alt: #F3EBE0;
+  --color-page-text: #2C1A0E;
+  --color-page-text-hover: #3d2820;
+
+  /* ── Sunset Condominios Sub-brand ── */
+  --color-sc-bg: #FBF1E6;
+  --color-sc-bg-alt: #F3E4D1;
+  --color-sc-text: #3D1C0A;
+  --color-sc-primary: #E57E6E;
+  --color-sc-primary-dark: #B5432E;
+  --color-sc-contrast: #53b076;
+  --color-sc-contrast-light: #85c99f;
+  --color-sc-accent: #D4728C;
+  --color-sc-accent-light: #EBB5C4;
 }
 
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
   }
-}
 
-html {
-  height: 100%;
-}
-
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-body {
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-@media (prefers-color-scheme: dark) {
   html {
+    height: 100%;
     color-scheme: dark;
+  }
+
+  html,
+  body {
+    max-width: 100vw;
+    overflow-x: clip;
+  }
+
+  body {
+    min-height: 100%;
+    color: var(--foreground);
+    background: var(--background);
+    font-family: Arial, Helvetica, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
   }
 }
