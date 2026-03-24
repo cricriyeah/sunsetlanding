@@ -24,7 +24,7 @@ export function Navbar() {
       initial={{ y: -50, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
-      className={`fixed top-0 left-0 w-full z-[100] py-4 transition-colors duration-500 ${isScrolled ? 'bg-gradient-to-b from-page-text/60 to-transparent' : 'bg-transparent'}`}
+      className={`fixed top-0 left-0 w-full z-[100] py-4 transition-colors duration-500 ${isScrolled ? 'bg-gradient-to-b from-page-text/40 to-transparent' : 'bg-transparent'}`}
     >
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="relative flex h-16 items-center justify-between">

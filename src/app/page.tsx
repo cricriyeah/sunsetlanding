@@ -4,7 +4,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Sparkles, Home as HomeIcon, Bath, Utensils } from "lucide-react";
 import { ShadowOverlay } from "@/components/ui/ShadowOverlay";
 import { Navbar } from "@/components/Navbar";
 import { HeroContent } from "@/components/HeroContent";
@@ -26,7 +26,7 @@ export default function Home() {
     <div className="min-h-screen bg-page-bg text-page-text overflow-x-hidden">
 
       {/* ──── HERO ──── */}
-      <section className="relative min-h-screen w-full overflow-hidden bg-gradient-to-br from-brand-blue via-brand-sand to-brand-orange">
+      <section className="relative min-h-screen w-full overflow-hidden bg-gradient-to-br from-brand-blue via-brand-sand to-brand-orange flex flex-col">
         <div className="absolute inset-0 z-0">
           <ShadowOverlay
             color="rgba(253, 186, 116, 0.85)"
@@ -136,6 +136,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+
 
       {/* ──── CTA ──── */}
       <section className="relative py-24 sm:py-32">

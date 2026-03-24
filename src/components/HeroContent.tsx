@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 
 export function HeroContent() {
   return (
-    <div className="relative z-10 flex min-h-[calc(100vh-4rem)] items-center justify-start">
+    <div className="relative z-10 flex flex-1 items-end pb-32 sm:pb-48">
       <div className="w-full max-w-7xl px-6 lg:px-8 mx-auto flex justify-start">
         <div className="max-w-3xl text-left">
 

@@ -109,7 +109,7 @@ function CarouselSlide({ slide, index, total, scrollYProgress }: any) {
   return (
     <motion.div
       style={{ opacity, scale, y, filter }}
-      className="group relative shrink-0 w-[85vw] sm:w-[70vw] lg:w-[55vw] aspect-[16/10] rounded-2xl overflow-hidden border border-sc-primary/10 bg-sc-primary/[0.03]"
+      className="group relative shrink-0 w-[90vw] sm:w-[82vw] lg:w-[72vw] aspect-video sm:aspect-[21/9] rounded-2xl sm:rounded-3xl overflow-hidden border border-sc-primary/10 bg-sc-primary/[0.03] shadow-2xl shadow-black/10"
     >
       <Image
         src={slide.image}
@@ -190,9 +190,9 @@ export default function SunsetCondominiosPage() {
         {/* Rustic terracotta pure gradient */}
         <div className="absolute inset-0 bg-gradient-to-br from-sc-primary via-sc-primary-dark to-sc-contrast/80" />
         <div className="absolute inset-0 bg-gradient-to-t from-sc-bg via-sc-bg/60 to-transparent" />
-        
+
         {/* Noise Filter */}
-        <div 
+        <div
           className="absolute inset-0 z-0 opacity-[0.075] pointer-events-none mix-blend-overlay"
           style={{
             backgroundImage: `url("https://framerusercontent.com/images/g0QcWrxr87K0ufOxIUFBakwYA8.png")`,
@@ -323,7 +323,7 @@ export default function SunsetCondominiosPage() {
       <HorizontalGallery />
 
       {/* ──── AMENITIES ──── */}
-      <section className="relative py-24 sm:py-32 bg-sc-primary text-white">
+      <section className="relative py-24 sm:py-32 bg-sc-text text-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <motion.div
             initial="hidden"
@@ -333,7 +333,7 @@ export default function SunsetCondominiosPage() {
             variants={fadeUp}
             className="mb-16"
           >
-            <span className="font-montserrat font-medium text-sm text-sc-primary-dark tracking-[0.2em] uppercase block mb-3">Servicios Integrados</span>
+            <span className="font-montserrat font-medium text-sm text-sc-primary tracking-[0.2em] uppercase block mb-3">Servicios Integrados</span>
             <h2 className="text-3xl sm:text-5xl font-literata font-light text-white italic">
               Otras Amenidades
             </h2>
@@ -348,13 +348,13 @@ export default function SunsetCondominiosPage() {
                 viewport={{ once: true, margin: "-60px" }}
                 custom={index * 0.1}
                 variants={fadeUp}
-                className="group p-6 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 hover:shadow-md hover:shadow-page-text/5 transition-all duration-500 hover:-translate-y-1"
+                className="group p-6 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 hover:shadow-2xl hover:shadow-black/20 transition-all duration-500 hover:-translate-y-1"
               >
-                <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center mb-4 group-hover:bg-white/20 transition-all">
-                  <item.icon className="w-5 h-5 text-white/80 group-hover:text-white transition-colors" />
+                <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center mb-4 group-hover:bg-sc-primary transition-all">
+                  <item.icon className="w-5 h-5 text-white group-hover:scale-110 transition-transform" />
                 </div>
                 <h3 className="text-base font-literata text-white mb-2">{item.title}</h3>
-                <p className="text-white/60 font-montserrat text-sm leading-relaxed">{item.description}</p>
+                <p className="text-white/70 font-montserrat text-sm leading-relaxed">{item.description}</p>
               </motion.div>
             ))}
           </div>
@@ -396,6 +396,113 @@ export default function SunsetCondominiosPage() {
                 <p className="text-sc-text/60 font-montserrat text-sm leading-relaxed">{item.description}</p>
               </motion.div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ──── PRECIOS Y PREVENTA ──── */}
+      <section className="relative py-24 sm:py-32 bg-sc-bg-alt border-y border-sc-primary/10">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            custom={0}
+            variants={fadeUp}
+            className="text-center mb-16"
+          >
+            <span className="font-montserrat font-medium text-sm text-sc-primary-dark tracking-[0.2em] uppercase block mb-3">
+              Inversión Inteligente
+            </span>
+            <h2 className="text-3xl sm:text-5xl font-literata font-light text-sc-text italic mb-6">
+              Oportunidad de Preventa
+            </h2>
+            <div className="inline-block bg-sc-primary/10 border border-sc-primary/20 rounded-full px-6 py-3 shadow-sm">
+              <p className="text-sc-primary-dark font-montserrat font-semibold flex items-center gap-2">
+                <Sparkles className="w-5 h-5" />
+                Ahorra $500,000 MXN asegurando tu precio antes del fin de obra
+              </p>
+            </div>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            {/* Tarjeta Planta Baja */}
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-50px" }}
+              custom={0.1}
+              variants={fadeUp}
+              className="bg-white rounded-3xl p-8 sm:p-10 shadow-xl shadow-sc-text/5 border border-sc-primary/10 flex flex-col transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-sc-primary/10"
+            >
+              <h3 className="text-2xl font-literata text-sc-text mb-2">Planta Baja</h3>
+              <p className="text-sc-text/60 font-montserrat text-sm mb-6 pb-6 border-b border-sc-bg-alt">
+                Ideal para accesibilidad y comodidad inmediata.
+              </p>
+              <div className="mb-6">
+                <span className="text-4xl font-light font-literata text-sc-primary-dark">$950,000</span>
+                <span className="text-sc-text/50 font-montserrat text-sm ml-2">MXN</span>
+              </div>
+
+              <ul className="space-y-4 font-montserrat text-sm text-sc-text/80 mb-8 flex-1">
+                <li className="flex items-center gap-3"><Home className="w-4 h-4 text-sc-primary" /> 1 Recámara</li>
+                <li className="flex items-center gap-3"><Bath className="w-4 h-4 text-sc-primary" /> 1 Baño completo</li>
+                <li className="flex items-center gap-3"><Utensils className="w-4 h-4 text-sc-primary" /> Sala y Comedor</li>
+              </ul>
+
+              <div className="space-y-3 font-montserrat text-sm bg-sc-bg p-5 rounded-2xl">
+                <div className="flex justify-between items-center text-sc-contrast-dark font-medium">
+                  <span>Pago de Contado:</span>
+                  <span className="bg-sc-contrast/20 text-sc-contrast px-2 py-1 rounded text-xs">- $50,000 MXN</span>
+                </div>
+                <div className="h-px w-full bg-sc-primary/10 my-2" />
+                <div className="flex flex-col gap-1 text-sc-text/70">
+                  <span className="font-medium text-sc-text">Plan de Crédito:</span>
+                  <span>• 30% de enganche</span>
+                  <span>• 24 pagos mensuales</span>
+                  <span>• 6% de interés anual</span>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Tarjeta Planta Alta */}
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-50px" }}
+              custom={0.2}
+              variants={fadeUp}
+              className="bg-sc-primary rounded-3xl p-8 sm:p-10 shadow-xl shadow-sc-primary/20 border border-sc-primary-dark/20 flex flex-col text-white transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-sc-primary/40"
+            >
+              <h3 className="text-2xl font-literata mb-2">Planta Alta</h3>
+              <p className="text-white/70 font-montserrat text-sm mb-6 pb-6 border-b border-white/10">
+                Mayor privacidad, espacio y vistas superiores.
+              </p>
+              <div className="mb-6">
+                <span className="text-4xl font-light font-literata">$1,500,000</span>
+                <span className="text-white/60 font-montserrat text-sm ml-2">MXN</span>
+              </div>
+
+              <ul className="space-y-4 font-montserrat text-sm text-white/90 mb-8 flex-1">
+                <li className="flex items-center gap-3"><Home className="w-4 h-4 text-sc-bg" /> 2 Recámaras</li>
+                <li className="flex items-center gap-3"><Bath className="w-4 h-4 text-sc-bg" /> 1 Baño completo</li>
+                <li className="flex items-center gap-3"><Utensils className="w-4 h-4 text-sc-bg" /> Sala y Comedor</li>
+              </ul>
+
+              <div className="space-y-3 font-montserrat text-sm bg-black/10 p-5 rounded-2xl border border-white/5">
+                <div className="flex justify-between items-center font-medium">
+                  <span>Pago de Contado:</span>
+                  <span className="bg-white/20 text-white px-2 py-1 rounded text-xs">- $50,000 MXN</span>
+                </div>
+                <div className="h-px w-full bg-white/10 my-2" />
+                <div className="flex flex-col gap-1 text-white/80">
+                  <span className="font-medium text-white">Plan de Crédito:</span>
+                  <span>• 30% de enganche</span>
+                  <span>• 24 pagos mensuales</span>
+                  <span>• 6% de interés anual</span>
+                </div>
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>

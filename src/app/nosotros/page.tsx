@@ -22,7 +22,7 @@ export default function NosotrosPage() {
   return (
     <div className="min-h-screen bg-page-bg text-page-text overflow-x-hidden">
       {/* ──── HERO ──── */}
-      <section className="relative min-h-[70vh] w-full overflow-hidden flex flex-col">
+      <section className="relative min-h-screen w-full overflow-hidden flex flex-col">
         <div className="absolute inset-0 bg-gradient-to-br from-brand-blue/80 via-brand-sand/30 to-brand-orange/20" />
         <div className="absolute inset-0 bg-gradient-to-t from-page-bg via-transparent to-transparent" />
         
@@ -40,7 +40,7 @@ export default function NosotrosPage() {
           <Navbar />
         </div>
 
-        <div className="relative z-20 flex flex-1 items-end pb-16 sm:pb-24">
+        <div className="relative z-20 flex flex-1 items-end pb-32 sm:pb-48">
           <div className="max-w-7xl w-full mx-auto px-6 lg:px-8">
             <motion.span
               initial={{ opacity: 0, y: 10 }}
