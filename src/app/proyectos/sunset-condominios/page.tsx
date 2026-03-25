@@ -131,11 +131,13 @@ function HorizontalGallery() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const [scrollRange, setScrollRange] = useState(0);
+  const [viewportHeight, setViewportHeight] = useState(0);
 
   useEffect(() => {
     const measure = () => {
       if (trackRef.current) {
         setScrollRange(trackRef.current.scrollWidth - window.innerWidth);
+        setViewportHeight(window.innerHeight);
       }
     };
     measure();
@@ -151,7 +153,11 @@ function HorizontalGallery() {
   const x = useTransform(scrollYProgress, [0, 1], [0, -scrollRange]);
 
   return (
-    <section ref={sectionRef} style={{ height: `${scrollRange + window.innerHeight}px` }} className="relative bg-sc-bg-alt">
+    <section 
+      ref={sectionRef} 
+      style={{ height: viewportHeight > 0 ? `${scrollRange + viewportHeight}px` : "300vh" }} 
+      className="relative bg-sc-bg-alt"
+    >
       <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden">
         {/* Header */}
         <div className="max-w-7xl mx-auto w-full px-6 lg:px-8 mb-8">
