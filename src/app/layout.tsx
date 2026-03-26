@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Montserrat, Literata } from "next/font/google";
-import { Globe } from "lucide-react";
+import { Globe, MessageCircle } from "lucide-react";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -40,11 +40,32 @@ export default function RootLayout({
       <body suppressHydrationWarning>
         {children}
         {/* Floating Language Toggler */}
-        <div className="fixed bottom-6 right-6 z-50">
+        <div className="fixed bottom-24 right-6 z-[120] sm:bottom-6">
           <button className="flex items-center gap-2 rounded-full bg-black/10 backdrop-blur-md border border-black/5 px-4 py-2 text-sm font-medium text-page-text/90 shadow-lg transition-all hover:bg-black/20 hover:scale-105 font-montserrat">
             <Globe className="h-4 w-4 opacity-70" />
             <span>EN / ES</span>
           </button>
+        </div>
+
+        {/* Global WhatsApp FAB */}
+        <div className="fixed bottom-40 right-6 z-[120] sm:bottom-6 sm:left-6 sm:right-auto">
+          <a
+            href="https://wa.me/526121234567"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-14 h-14 bg-green-500 text-white rounded-full flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all group relative"
+            aria-label="Contact via WhatsApp"
+          >
+            <MessageCircle className="w-7 h-7" />
+            
+            {/* Tooltip (Left on desktop, Right on mobile) */}
+            <span className="absolute hidden sm:block left-full ml-4 bg-white text-page-text px-4 py-2 rounded-xl text-xs font-montserrat font-semibold shadow-xl opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all pointer-events-none whitespace-nowrap border border-black/5">
+              ¿Dudas rápidas? Escríbenos
+            </span>
+            <span className="absolute sm:hidden right-full mr-4 bg-white text-page-text px-4 py-2 rounded-xl text-xs font-montserrat font-semibold shadow-xl opacity-0 translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all pointer-events-none whitespace-nowrap border border-black/5">
+              ¿Dudas rápidas?
+            </span>
+          </a>
         </div>
       </body>
     </html>

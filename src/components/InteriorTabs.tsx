@@ -85,7 +85,7 @@ export function InteriorTabs() {
                   transition={{ delay: 0.3, duration: 0.7 }}
                 >
                   <h3 className="text-2xl sm:text-3xl font-literata text-page-bg mb-4 italic">{activeContent.title}</h3>
-                  <p className="text-page-bg/85 font-montserrat text-base sm:text-lg leading-relaxed max-w-2xl">
+                  <p className="text-page-bg font-montserrat font-light text-base sm:text-lg leading-relaxed max-w-2xl">
                     {activeContent.description}
                   </p>
                 </motion.div>
@@ -108,7 +108,7 @@ export function InteriorTabs() {
                 className={`group relative px-6 sm:px-8 py-2.5 sm:py-3 rounded-full font-montserrat text-sm sm:text-base transition-all duration-500 overflow-hidden
                   ${isActive
                     ? "text-page-bg shadow-lg shadow-sc-primary/20 scale-105"
-                    : "text-page-text/60 hover:text-page-text bg-white/40 backdrop-blur-md border border-page-text/10 hover:border-page-text/20"
+                    : "text-page-text hover:text-page-text bg-white/40 backdrop-blur-md border border-page-text/10 hover:border-page-text/20"
                   }`}
               >
                 {/* Active Pill Background */}

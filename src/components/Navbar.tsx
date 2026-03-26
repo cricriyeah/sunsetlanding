@@ -20,131 +20,210 @@ export function Navbar() {
   }, []);
 
   return (
-    <motion.nav
-      initial={{ y: -50, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
-      className={`fixed top-0 left-0 w-full z-[100] py-4 transition-colors duration-500 ${isScrolled ? 'bg-gradient-to-b from-page-text/40 to-transparent' : 'bg-transparent'}`}
-    >
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="relative flex h-16 items-center justify-between">
-          <div className="flex items-center">
-            <Image src="/logo-color.svg" alt="Sunset Desarrolladora Logo" width={24} height={24} className="brightness-0 invert object-contain" priority />
-          </div>
+    <>
+      {/* ──── TOP HEADER (Always Fixed Top) ──── */}
+      <div className={`fixed top-0 left-0 w-full z-[110] py-6 px-6 lg:px-8 pointer-events-none transition-colors duration-500 ${isScrolled ? 'bg-gradient-to-b from-page-text/40 to-transparent' : 'bg-transparent'}`}>
+        <div className="mx-auto max-w-7xl flex items-center justify-between pointer-events-auto">
+          {/* Logo */}
+          <Link href="/" className="flex items-center">
+            <Image 
+              src="/logo-color.svg" 
+              alt="Sunset Logo" 
+              width={24} 
+              height={24} 
+              className="brightness-0 invert object-contain" 
+            />
+          </Link>
 
-          <motion.div
-            initial={false}
-            animate={isExpanded ? "expanded" : "collapsed"}
-            variants={{
-              collapsed: {
-                width: "310px",
-                height: "44px",
-                borderRadius: "9999px",
-                backgroundColor: "rgba(255, 255, 255, 0.05)",
-                borderColor: "rgba(255, 255, 255, 0.1)",
-                transition: {
-                  height: { delay: 0.2, duration: 0.4, ease: "easeInOut" },
-                  width: { delay: 0.6, duration: 0.4, ease: "easeInOut" },
-                  borderRadius: { delay: 0.6, duration: 0.4, ease: "easeInOut" },
-                  backgroundColor: { delay: 0.2, duration: 0.4 },
-                  borderColor: { delay: 0.2, duration: 0.4 }
-                }
-              },
-              expanded: {
-                width: "800px",  // Restricted width to prevent overlap
-                height: "60vh",
-                borderRadius: "24px",
-                backgroundColor: "rgba(44, 26, 14, 0.45)", // Darker background for better readability
-                borderColor: "rgba(255, 255, 255, 0.2)",
-                transition: {
-                  width: { delay: 0, duration: 0.4, ease: "easeInOut" },
-                  height: { delay: 0.4, duration: 0.5, ease: "easeInOut" },
-                  borderRadius: { delay: 0.1, duration: 0.4, ease: "easeInOut" },
-                  backgroundColor: { duration: 0.4 },
-                  borderColor: { duration: 0.4 }
-                }
-              }
-            }}
-            className="absolute left-1/2 top-[10px] -translate-x-1/2 overflow-hidden backdrop-blur-3xl border flex flex-col shadow-2xl origin-top max-w-[calc(100vw-32px)]"
-          >
-            {/* Navbar Links Row (Always visible) */}
-            <div className="flex w-full items-center p-1 shrink-0 h-[44px] relative">
-              <div className="flex items-center space-x-1 mx-auto">
-                <a
-                  href="/"
-                  className={`font-montserrat rounded-full px-4 py-1.5 text-sm font-medium transition-all ${isExpanded ? 'text-white/60 hover:text-white' : 'text-white/100 hover:bg-white/10'}`}
-                  onClick={() => setIsExpanded(false)}
-                >
-                  Inicio
-                </a>
-                <button
-                  className={`flex items-center gap-1.5 font-montserrat rounded-full pl-4 pr-3 py-1.5 text-sm font-medium transition-all ${isExpanded ? 'bg-white/10 text-white shadow-inner' : 'text-white/100 hover:bg-white/10 hover:text-white'}`}
-                  onClick={() => setIsExpanded(!isExpanded)}
-                >
-                  <span>Proyectos</span>
-                  <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${isExpanded ? 'rotate-180 text-white/70' : 'text-white/50 group-hover:text-white'}`} />
-                </button>
-                <a
-                  href="/nosotros"
-                  className={`font-montserrat rounded-full px-4 py-1.5 text-sm font-medium transition-all ${isExpanded ? 'text-white/60 hover:text-white' : 'text-white/100 hover:bg-white/10'}`}
-                  onClick={() => setIsExpanded(false)}
-                >
-                  Nosotros
-                </a>
-              </div>
-
-              {isExpanded && (
-                <button
-                  onClick={() => setIsExpanded(false)}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 rounded-full text-white/50 hover:bg-white/10 hover:text-white transition-all"
-                >
-                  <X className="w-5 h-5" />
-                </button>
-              )}
-            </div>
-
-            {/* Expanded Body: Projects Vertical List */}
-            <AnimatePresence>
-              {isExpanded && (
-                <motion.div
-                  initial={{ opacity: 0, filter: "blur(10px)", y: -10 }}
-                  animate={{ opacity: 1, filter: "blur(0px)", y: 0, transition: { delay: 0.7, duration: 0.5 } }}
-                  exit={{ opacity: 0, filter: "blur(5px)", y: -10, transition: { duration: 0.2 } }}
-                  className="flex-1 w-full p-4 sm:px-6 sm:py-8 overflow-y-auto"
-                >
-                  <h2 className="text-1xl font-literata text-white/90 italic font-light tracking-wide mb-6 sm:mb-8 text-left">
-                    Nuestros Proyectos
-                  </h2>
-                  <div className="flex flex-col gap-6">
-                    {/* Project 1 */}
-                    <Link href="/proyectos/sunset-condominios" onClick={() => setIsExpanded(false)} className="group flex flex-col sm:flex-row items-center gap-4 sm:gap-6 bg-white/5 hover:bg-white/10 transition-all duration-300 hover:-translate-y-1 p-3 rounded-2xl border border-transparent hover:border-white/10">
-                      <div className="w-full sm:w-[160px] h-[100px] shrink-0 rounded-xl bg-black/20 overflow-hidden relative">
-                        <Image src="/herocondo3.png" alt="Sunset Condominios" fill className="object-cover" />
-                        <div className="absolute inset-0 bg-gradient-to-tr from-brand-orange/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                      </div>
-                      <div className="flex-1 text-center sm:text-left">
-                        <h3 className="text-lg sm:text-xl font-literata text-white mb-1">Sunset Condominios</h3>
-                        <p className="text-white/60 font-montserrat text-sm leading-relaxed">
-                          La cúspide del confort junto al mar. Espacios pensados para fluir con la brisa.
-                        </p>
-                      </div>
-                    </Link>
-
-
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </motion.div>
-
-          <div className="flex items-center space-x-4">
-            <Button size="sm" className="font-montserrat shadow-2xl shadow-white/25 font-semibold">
-              Agenda una visita
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
-          </div>
+          {/* Action Button */}
+          <Button href="/contacto" size="sm" className="font-montserrat shadow-2xl shadow-white/20 font-semibold h-10 px-6">
+            <span className="hidden sm:inline">Agenda una visita</span>
+            <span className="sm:hidden">Agendar</span>
+            <ArrowRight className="ml-2 h-4 w-4" />
+          </Button>
         </div>
       </div>
-    </motion.nav>
+      {/* ──── BOTTOM GRADIENT (Mobile Only on Scroll) ──── */}
+      <div 
+        className={`fixed bottom-0 left-0 w-full h-32 z-[90] pointer-events-none transition-opacity duration-500 sm:hidden ${isScrolled ? 'opacity-100 bg-gradient-to-t from-page-text/40 to-transparent' : 'opacity-0'}`} 
+      />
+
+      {/* ──── FLOATING PILL NAVBAR (Bottom Mobile / Top Desktop) ──── */}
+      <motion.nav
+        initial={false}
+        animate={isExpanded ? "expanded" : "collapsed"}
+        variants={{
+          collapsed: {
+            width: "420px",
+            height: "44px",
+            borderRadius: "99px",
+            backgroundColor: "rgba(0, 0, 0, 0.1)",
+            borderColor: "rgba(0, 0, 0, 0.05)",
+            y: 0,
+            transition: {
+              height: { delay: 0.2, duration: 0.4, ease: "easeInOut" },
+              width: { delay: 0.6, duration: 0.4, ease: "easeInOut" },
+              borderRadius: { delay: 0.6, duration: 0.4, ease: "easeInOut" },
+              backgroundColor: { delay: 0.2, duration: 0.4 },
+              borderColor: { delay: 0.2, duration: 0.4 }
+            }
+          },
+          expanded: {
+            width: "800px",
+            height: "60vh",
+            borderRadius: "24px",
+            backgroundColor: "rgba(44, 26, 14, 0.45)",
+            borderColor: "rgba(255, 255, 255, 0.2)",
+            y: 0,
+            transition: {
+              width: { delay: 0, duration: 0.4, ease: "easeInOut" },
+              height: { delay: 0.4, duration: 0.5, ease: "easeInOut" },
+              borderRadius: { delay: 0.1, duration: 0.4, ease: "easeInOut" },
+              backgroundColor: { duration: 0.4 },
+              borderColor: { duration: 0.4 }
+            }
+          }
+        }}
+        className={`fixed z-[150] left-1/2 -translate-x-1/2 backdrop-blur-3xl border flex flex-col shadow-2xl overflow-hidden max-w-[calc(100vw-48px)] bottom-6 sm:bottom-auto sm:top-[20px] origin-bottom sm:origin-top`}
+      >
+        {/* Navbar Links Row (Always visible) */}
+        <div className="flex w-full items-center p-1 shrink-0 h-[44px] relative justify-center">
+          <motion.div
+            layout
+            className="flex items-center space-x-1"
+          >
+            <button
+              className={`flex items-center gap-1.5 font-montserrat rounded-full pl-4 pr-3 py-1.5 text-sm font-medium transition-all cursor-pointer ${isExpanded ? 'bg-white/10 text-white shadow-inner' : 'text-white hover:bg-white/10'}`}
+              onClick={() => setIsExpanded(!isExpanded)}
+            >
+              <span>Proyectos</span>
+              <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`} />
+            </button>
+            <Link
+              href="/"
+              className="font-montserrat rounded-full px-3 py-1.5 text-xs sm:text-sm font-medium text-white hover:bg-white/10 cursor-pointer"
+              onClick={() => setIsExpanded(false)}
+            >
+              Inicio
+            </Link>
+            <Link
+              href="/financiamiento"
+              className="font-montserrat rounded-full px-3 py-1.5 text-xs sm:text-sm font-medium text-white hover:bg-white/10 cursor-pointer"
+              onClick={() => setIsExpanded(false)}
+            >
+              Crédito
+            </Link>
+            <Link
+              href="/nosotros"
+              className="font-montserrat rounded-full px-3 py-1.5 text-xs sm:text-sm font-medium text-white hover:bg-white/10 cursor-pointer"
+              onClick={() => setIsExpanded(false)}
+            >
+              Nosotros
+            </Link>
+          </motion.div>
+
+          {isExpanded && (
+            <button
+              onClick={() => setIsExpanded(false)}
+              className="absolute right-4 top-1/2 -translate-y-1/2 p-1 rounded-full hover:bg-white/10 text-white/50 hover:text-white transition-all cursor-pointer"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          )}
+        </div>
+
+        <AnimatePresence>
+          {isExpanded && (
+            <motion.div
+              initial={{ opacity: 0, filter: "blur(10px)", y: 10 }}
+              animate={{ opacity: 1, filter: "blur(0px)", y: 0, transition: { delay: 0.7, duration: 0.5 } }}
+              exit={{ opacity: 0, filter: "blur(5px)", y: 10, transition: { duration: 0.2 } }}
+              className="flex-1 w-full p-4 sm:px-6 sm:py-8 overflow-y-auto subtle-scrollbar"
+            >
+              <h2 className="text-1xl font-literata text-white italic font-light tracking-wide mb-6 sm:mb-8 text-left">
+                Nuestros Proyectos
+              </h2>
+              <div className="flex flex-col gap-6 pb-8">
+                {/* Project 1 */}
+                <Link href="/proyectos/sunset-condominios" onClick={() => setIsExpanded(false)} className="group flex flex-col sm:flex-row items-stretch bg-white/5 hover:bg-white/10 transition-all duration-300 hover:-translate-y-1 rounded-2xl border border-transparent hover:border-white/10 overflow-hidden min-h-[110px]">
+                  <div className="w-full sm:w-[180px] shrink-0 bg-black/20 overflow-hidden relative min-h-[140px] sm:min-h-[auto]">
+                    <Image src="/herocondo3.png" alt="Sunset Condominios" fill className="object-cover" />
+                    <div className="absolute inset-0 bg-gradient-to-tr from-brand-orange/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  </div>
+                  <div className="flex-1 flex flex-col justify-center text-center sm:text-left py-4 px-6">
+                    <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 mb-1">
+                      <h3 className="text-lg sm:text-xl font-literata text-white">Sunset Condominios</h3>
+                      <span className="px-2 py-0.5 rounded-full bg-sc-contrast/80 text-white font-montserrat font-light text-[9px] tracking-widest uppercase border border-white/10">
+                        Preventa
+                      </span>
+                    </div>
+                    <p className="text-white font-montserrat font-light text-sm leading-relaxed">
+                      La cúspide del confort junto al mar. Espacios pensados para fluir con la brisa.
+                    </p>
+                  </div>
+                </Link>
+
+                {/* Project 2 */}
+                <Link href="/proyectos/casas-sur" onClick={() => setIsExpanded(false)} className="group flex flex-col sm:flex-row items-stretch bg-white/5 hover:bg-white/10 transition-all duration-300 hover:-translate-y-1 rounded-2xl border border-transparent hover:border-white/10 overflow-hidden min-h-[110px]">
+                  <div className="w-full sm:w-[180px] shrink-0 bg-black/20 overflow-hidden relative min-h-[140px] sm:min-h-[auto]">
+                    <Image src="/casasur/hero.png" alt="Casas Sur" fill className="object-cover" />
+                    <div className="absolute inset-0 bg-gradient-to-tr from-brand-blue/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  </div>
+                  <div className="flex-1 flex flex-col justify-center text-center sm:text-left py-4 px-6">
+                    <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 mb-1">
+                      <h3 className="text-lg sm:text-xl font-literata text-white">Casas Sur</h3>
+                      <span className="px-2 py-0.5 rounded-full bg-brand-orange text-white font-montserrat font-bold text-[9px] tracking-widest uppercase border border-white/10">
+                        Desde $280,000 MXN
+                      </span>
+                    </div>
+                    <p className="text-white font-montserrat font-light text-sm leading-relaxed">
+                      Vivienda modular de diseño industrial lista en 30 días. Tu hogar, rápido y accesible.
+                    </p>
+                  </div>
+                </Link>
+
+                {/* Project 3 */}
+                <Link href="/proyectos/residencia-armok" onClick={() => setIsExpanded(false)} className="group flex flex-col sm:flex-row items-stretch bg-white/5 hover:bg-white/10 transition-all duration-300 hover:-translate-y-1 rounded-2xl border border-transparent hover:border-white/10 overflow-hidden min-h-[110px]">
+                  <div className="w-full sm:w-[180px] shrink-0 bg-black/20 overflow-hidden relative min-h-[140px] sm:min-h-[auto]">
+                    <Image src="/amrok/hero1.png" alt="Residencia Armok" fill className="object-cover" />
+                    <div className="absolute inset-0 bg-gradient-to-tr from-brand-orange/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  </div>
+                  <div className="flex-1 flex flex-col justify-center text-center sm:text-left py-4 px-6">
+                    <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 mb-1">
+                      <h3 className="text-lg sm:text-xl font-literata text-white">Residencia Armok</h3>
+                      <span className="px-2 py-0.5 rounded-full bg-white/20 text-white font-montserrat font-light text-[9px] tracking-widest uppercase border border-white/20">
+                        Obra Entregada
+                      </span>
+                    </div>
+                    <p className="text-white font-montserrat font-light text-sm leading-relaxed">
+                      Brutalismo y descanso en el desierto. Una pieza única de arquitectura de autor.
+                    </p>
+                  </div>
+                </Link>
+
+                {/* Project 4 */}
+                <Link href="/proyectos/residencia-quintard" onClick={() => setIsExpanded(false)} className="group flex flex-col sm:flex-row items-stretch bg-white/5 hover:bg-white/10 transition-all duration-300 hover:-translate-y-1 rounded-2xl border border-transparent hover:border-white/10 overflow-hidden min-h-[110px]">
+                  <div className="w-full sm:w-[180px] shrink-0 bg-black/20 overflow-hidden relative min-h-[140px] sm:min-h-[auto]">
+                    <Image src="/quintard_hero_1774501764500.png" alt="Residencia Quintard" fill className="object-cover" />
+                    <div className="absolute inset-0 bg-gradient-to-tr from-brand-orange/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  </div>
+                  <div className="flex-1 flex flex-col justify-center text-center sm:text-left py-4 px-6">
+                    <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 mb-1">
+                      <h3 className="text-lg sm:text-xl font-literata text-white">Residencia Quintard</h3>
+                      <span className="px-2 py-0.5 rounded-full bg-white/20 text-white font-montserrat font-light text-[9px] tracking-widest uppercase border border-white/20">
+                        Obra Entregada
+                      </span>
+                    </div>
+                    <p className="text-white font-montserrat font-light text-sm leading-relaxed">
+                      Diálogo entre la piedra y el horizonte de La Baja. Un refugio contemporáneo en El Centenario.
+                    </p>
+                  </div>
+                </Link>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.nav>
+    </>
   );
 }

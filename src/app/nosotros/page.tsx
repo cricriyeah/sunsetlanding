@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import { Target, Compass, ArrowRight } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { CinematicHeading } from "@/components/ui/CinematicHeading";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30, filter: "blur(6px)" },
@@ -46,40 +47,23 @@ export default function NosotrosPage() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="font-montserrat text-sm text-page-text/40 tracking-[0.2em] uppercase block mb-4"
+              className="font-montserrat font-medium text-sm text-page-text tracking-[0.2em] uppercase block mb-4"
             >
               Quiénes somos
             </motion.span>
 
-            <motion.h1
-              initial="hidden"
-              animate="visible"
-              variants={{
-                hidden: { opacity: 0 },
-                visible: { opacity: 1, transition: { staggerChildren: 0.03, delayChildren: 0.4 } },
-              }}
+            <CinematicHeading
+              text="Nosotros"
               className="text-4xl sm:text-6xl lg:text-7xl font-literata font-light tracking-tight mb-6 text-page-text"
-            >
-              {"Nosotros".split("").map((char, i) => (
-                <motion.span
-                  key={i}
-                  style={{ display: "inline-block", whiteSpace: "pre" }}
-                  variants={{
-                    hidden: { opacity: 0, filter: "blur(12px)", y: 15 },
-                    visible: { opacity: 1, filter: "blur(0px)", y: 0 },
-                  }}
-                  transition={{ duration: 0.8, ease: [0.2, 0.65, 0.3, 0.9] as [number, number, number, number] }}
-                >
-                  {char}
-                </motion.span>
-              ))}
-            </motion.h1>
+              type="word"
+              delayChildren={0.4}
+            />
 
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.8 }}
-              className="text-lg sm:text-xl text-page-text/55 font-montserrat font-medium max-w-2xl leading-relaxed"
+              className="text-lg sm:text-xl text-page-text font-montserrat font-light max-w-2xl leading-relaxed"
             >
               Creemos en un desarrollo que honra el entorno y eleva la experiencia de vida.
             </motion.p>
@@ -100,14 +84,14 @@ export default function NosotrosPage() {
             >
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-10 h-10 rounded-xl bg-page-text/5 border border-page-text/5 flex items-center justify-center">
-                  <Target className="w-5 h-5 text-page-text/40" />
+                  <Target className="w-5 h-5 text-page-text" />
                 </div>
-                <span className="font-montserrat text-sm text-page-text/40 tracking-[0.2em] uppercase">Nuestra Misión</span>
+                <span className="font-montserrat font-medium text-sm text-page-text tracking-[0.2em] uppercase">Nuestra Misión</span>
               </div>
-              <h2 className="text-3xl sm:text-4xl font-literata font-light text-page-text/90 italic mb-8">
+              <h2 className="text-3xl sm:text-4xl font-literata font-light text-page-text italic mb-8">
                 Experiencias de vida sin compromisos
               </h2>
-              <p className="text-page-text/55 font-montserrat text-base sm:text-lg leading-relaxed">
+              <p className="text-page-text font-montserrat font-light text-base sm:text-lg leading-relaxed">
                 Facilitar una experiencia de vida sin compromisos, donde la tecnología y la sostenibilidad se integran de forma invisible en el paisaje de La Paz. Diseñamos hogares que respetan el entorno local mientras ofrecen la funcionalidad y el confort del mercado global.
               </p>
             </motion.div>
@@ -157,14 +141,14 @@ export default function NosotrosPage() {
             >
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-10 h-10 rounded-xl bg-page-text/5 border border-page-text/5 flex items-center justify-center">
-                  <Compass className="w-5 h-5 text-page-text/40" />
+                  <Compass className="w-5 h-5 text-page-text" />
                 </div>
-                <span className="font-montserrat text-sm text-page-text/40 tracking-[0.2em] uppercase">Nuestra Visión</span>
+                <span className="font-montserrat font-medium text-sm text-page-text tracking-[0.2em] uppercase">Nuestra Visión</span>
               </div>
-              <h2 className="text-3xl sm:text-4xl font-literata font-light text-page-text/90 italic mb-8">
+              <h2 className="text-3xl sm:text-4xl font-literata font-light text-page-text italic mb-8">
                 El puente entre vanguardia y naturaleza
               </h2>
-              <p className="text-page-text/55 font-montserrat text-base sm:text-lg leading-relaxed">
+              <p className="text-page-text font-montserrat font-light text-base sm:text-lg leading-relaxed">
                 Redefinir el desarrollo inmobiliario en la península, convirtiéndonos en el puente entre la vanguardia arquitectónica y la calidez del estilo de vida costero. Queremos ser el referente de quienes buscan invertir en un futuro inteligente sin perder la conexión con la naturaleza.
               </p>
             </motion.div>
@@ -182,10 +166,10 @@ export default function NosotrosPage() {
             custom={0}
             variants={fadeUp}
           >
-            <h2 className="text-3xl sm:text-5xl font-literata font-light text-page-text/90 italic mb-6">
+            <h2 className="text-3xl sm:text-5xl font-literata font-light text-page-text italic mb-6">
               Construyamos juntos
             </h2>
-            <p className="text-page-text/50 font-montserrat text-lg max-w-xl mx-auto mb-10">
+            <p className="text-page-text font-montserrat font-light text-lg max-w-xl mx-auto mb-10">
               Conócenos y descubre cómo estamos transformando el paisaje residencial de La Paz.
             </p>
             <Link

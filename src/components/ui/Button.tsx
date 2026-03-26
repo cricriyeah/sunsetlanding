@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "default" | "outline" | "ghost";
+  variant?: "default" | "outline" | "ghost" | "brand";
   size?: "sm" | "lg";
   href?: string;
   children: React.ReactNode;
@@ -14,6 +14,7 @@ export const Button = ({ variant = "default", size = "sm", className = "", href,
 
   const variants = {
     default: "bg-white text-black hover:bg-gray-100",
+    brand: "bg-brand-orange text-white hover:bg-brand-orange/90",
     outline: "border border-white/20 bg-white/5 backdrop-blur-xl text-white hover:bg-white/10 hover:border-white/30",
     ghost: "text-white/90 hover:text-white hover:bg-white/10",
   };

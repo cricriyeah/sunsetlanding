@@ -18,15 +18,23 @@
   --color-page-text-hover: #3d2820;
 
   /* ── Sunset Condominios Sub-brand ── */
-  --color-sc-bg: #FBF1E6;
-  --color-sc-bg-alt: #F3E4D1;
+  --color-sc-bg: #FAF5F0;
+  --color-sc-bg-alt: #FBF1E6;
   --color-sc-text: #3D1C0A;
-  --color-sc-primary: #E57E6E;
+  --color-sc-primary: #e6846a;
   --color-sc-primary-dark: #B5432E;
   --color-sc-contrast: #53b076;
   --color-sc-contrast-light: #85c99f;
   --color-sc-accent: #D4728C;
   --color-sc-accent-light: #EBB5C4;
+
+  /* ── Residencia Armok Sub-brand ── */
+  --color-armok-bg: #FAF5F0;
+  --color-armok-bg-alt: #F3EBE0;
+  --color-armok-text: #2C1A0E;
+  --color-armok-primary: #1e3a8a;
+  --color-armok-secondary: rgba(44, 26, 14, 0.05);
+  --color-armok-accent: #1e40af;
 }
 
 @layer base {
@@ -58,5 +66,29 @@
   a {
     color: inherit;
     text-decoration: none;
+  }
+}
+
+@layer utilities {
+  .subtle-scrollbar::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .subtle-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .subtle-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+  }
+
+  .subtle-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.25);
+  }
+
+  .subtle-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
   }
 }
