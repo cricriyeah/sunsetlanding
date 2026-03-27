@@ -37,7 +37,7 @@ const benefits = [
 
 const models = [
   {
-    num: "01", tag: "Planta baja", title: "Un nivel",
+    num: "01", tag: "Planta baja", title: "1 Recámara",
     description: "Accesibilidad total y conexión directa con los espacios comunes. Ideal para quienes buscan comodidad sin compromisos.",
     specs: [
       { label: "Recámaras", value: "1" },
@@ -49,7 +49,7 @@ const models = [
     ],
   },
   {
-    num: "02", tag: "Planta alta", title: "Dos niveles",
+    num: "02", tag: "Planta alta", title: "2 Recámaras",
     description: "Mayor privacidad, doble amplitud y las vistas más abiertas del desarrollo. Para quienes buscan vivir en otro nivel.",
     specs: [
       { label: "Recámaras", value: "2" },
@@ -180,14 +180,27 @@ function ConceptSection() {
     <section className="relative pt-20 sm:pt-28 pb-28 sm:pb-28 bg-sc-primary/20 overflow-hidden">
       <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
 
-        <span className="font-montserrat font-medium text-sm text-sc-primary-dark tracking-[0.2em] uppercase block mb-10">
+        <motion.span
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-80px" }}
+          custom={0}
+          variants={fadeUp}
+          className="font-montserrat font-medium text-sm text-sc-primary-dark tracking-[0.2em] uppercase block mb-10"
+        >
           El Concepto
-        </span>
+        </motion.span>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20 items-start">
 
           {/* Titular */}
-          <div>
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-80px" }}
+            custom={0.1}
+            variants={fadeUp}
+          >
             <h2 className="font-literata font-light text-3xl sm:text-4xl lg:text-5xl text-sc-text leading-snug mb-6">
               Donde la vida<br />
               <span className="italic text-sc-text/70">encuentra su lugar.</span>
@@ -197,18 +210,23 @@ function ConceptSection() {
               La respuesta es esta: espacios que respiran, que dejan entrar la luz,
               que no compiten con el paisaje — lo enmarcan.
             </p>
-          </div>
+          </motion.div>
 
           {/* Cards de valores */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {values.map((v) => (
-              <div
+            {values.map((v, i) => (
+              <motion.div
                 key={v.title}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-60px" }}
+                custom={0.15 + i * 0.1}
+                variants={fadeUp}
                 className="p-5 rounded-2xl bg-sc-primary/5 border border-sc-primary/20 hover:bg-sc-primary/20 transition-all duration-500 hover:-translate-y-1"
               >
                 <h3 className="font-literata text-base text-sc-text mb-1">{v.title}</h3>
                 <p className="font-montserrat text-xs text-sc-text font-light leading-relaxed">{v.description}</p>
-              </div>
+              </motion.div>
             ))}
           </div>
 
@@ -285,14 +303,23 @@ export default function SunsetCondominiosPage() {
                 Preventa
               </span>
               <div className="flex items-center gap-2">
-                <Home className="w-4 h-4 text-page-text shrink-0" />
-                <span className="font-montserrat text-xs sm:text-sm text-page-text tracking-wider uppercase font-medium">
+                <Home className="w-4 h-4 text-page-bg shrink-0" />
+                <span className="font-montserrat text-xs sm:text-sm text-page-bg tracking-wider uppercase font-medium drop-shadow-sm">
                   La Paz · B.C.S · Proyecto residencial
                 </span>
               </div>
             </motion.div>
 
-            <div className="mb-8">
+            <div className="mb-8 flex items-center gap-4 sm:gap-6">
+              <motion.img
+                src="/logocondo.svg"
+                alt="Sunset Condominios logo"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+                className="w-8 h-8 sm:w-[60px] sm:h-[60px] lg:w-24 lg:h-24 shrink-0 self-center"
+                style={{ filter: "brightness(0) saturate(100%) invert(12%) sepia(30%) saturate(600%) hue-rotate(340deg) brightness(90%)" }}
+              />
               <CinematicHeading
                 text="Sunset Condominios"
                 className="text-3xl sm:text-6xl lg:text-8xl font-literata font-light tracking-tight text-sc-text leading-tight"
@@ -393,7 +420,7 @@ export default function SunsetCondominiosPage() {
               className="relative rounded-2xl p-8 sm:p-10 flex flex-col bg-white/40 backdrop-blur-md border border-sc-primary/15 transition-all duration-500 hover:-translate-y-1"
             >
               <span className="font-montserrat font-medium text-sm text-sc-primary-dark tracking-[0.2em] uppercase block mb-3">Planta baja</span>
-              <h3 className="text-2xl font-literata text-sc-text font-light mb-1">Un nivel</h3>
+              <h3 className="text-2xl font-literata text-sc-text font-light mb-1">1 Recámara</h3>
               <p className="text-sc-text font-montserrat text-sm font-light mb-8 leading-relaxed">Accesibilidad inmediata y conexión directa con los espacios comunes.</p>
               <div className="flex items-baseline gap-2 mb-8 pb-8 border-b border-sc-primary/20">
                 <span className="text-5xl font-literata font-light text-sc-text">$950,000</span>
@@ -430,7 +457,7 @@ export default function SunsetCondominiosPage() {
               className="relative rounded-2xl p-8 sm:p-10 flex flex-col bg-sc-primary/20 backdrop-blur-md border border-sc-primary/20 transition-all duration-500 hover:-translate-y-1"
             >
               <span className="font-montserrat font-medium text-sm text-sc-primary-dark tracking-[0.2em] uppercase block mb-3">Planta alta</span>
-              <h3 className="text-2xl font-literata text-sc-text font-light mb-1">Dos niveles</h3>
+              <h3 className="text-2xl font-literata text-sc-text font-light mb-1">2 Recámaras</h3>
               <p className="text-sc-text font-montserrat text-sm font-light mb-8 leading-relaxed">Mayor privacidad, amplitud y las mejores vistas del desarrollo.</p>
               <div className="flex items-baseline gap-2 mb-8 pb-8 border-b border-sc-primary/15">
                 <span className="text-5xl font-literata font-light text-sc-text">$1,500,000</span>

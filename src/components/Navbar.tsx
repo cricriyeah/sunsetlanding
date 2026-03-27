@@ -204,7 +204,7 @@ export function Navbar() {
                 {/* Project 4 */}
                 <Link href="/proyectos/residencia-quintard" onClick={() => setIsExpanded(false)} className="group flex flex-col sm:flex-row items-stretch bg-white/5 hover:bg-white/10 transition-all duration-300 hover:-translate-y-1 rounded-2xl border border-transparent hover:border-white/10 overflow-hidden min-h-[110px]">
                   <div className="w-full sm:w-[180px] shrink-0 bg-black/20 overflow-hidden relative min-h-[140px] sm:min-h-[auto]">
-                    <Image src="/quintard_hero_1774501764500.png" alt="Residencia Quintard" fill className="object-cover" />
+                    <Image src="/quintard.png" alt="Residencia Quintard" fill className="object-cover" />
                     <div className="absolute inset-0 bg-gradient-to-tr from-brand-orange/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   </div>
                   <div className="flex-1 flex flex-col justify-center text-center sm:text-left py-4 px-6">

@@ -53,8 +53,8 @@ export default function NosotrosPage() {
             </motion.span>
 
             <CinematicHeading
-              text="Nosotros"
-              className="text-4xl sm:text-6xl lg:text-7xl font-literata font-light tracking-tight mb-6 text-page-text"
+              text="El estándar americano, arraigado en el espíritu de Baja."
+              className="text-3xl sm:text-5xl lg:text-6xl font-literata font-light tracking-tight mb-6 text-page-text"
               type="word"
               delayChildren={0.4}
             />
@@ -65,7 +65,7 @@ export default function NosotrosPage() {
               transition={{ duration: 0.8, delay: 0.8 }}
               className="text-lg sm:text-xl text-page-text font-montserrat font-light max-w-2xl leading-relaxed"
             >
-              Creemos en un desarrollo que honra el entorno y eleva la experiencia de vida.
+              Experiencia inmobiliaria de alta gama en La Paz. Fusionamos la innovación de las smart homes y la energía renovable con la esencia indomable del Mar de Cortés. No es un destino nuevo, es el estilo de vida que ya conoces, en el lugar que siempre soñaste.
             </motion.p>
           </div>
         </div>
@@ -89,10 +89,10 @@ export default function NosotrosPage() {
                 <span className="font-montserrat font-medium text-sm text-page-text tracking-[0.2em] uppercase">Nuestra Misión</span>
               </div>
               <h2 className="text-3xl sm:text-4xl font-literata font-light text-page-text italic mb-8">
-                Experiencias de vida sin compromisos
+                Transformar el paisaje inmobiliario de La Paz
               </h2>
               <p className="text-page-text font-montserrat font-light text-base sm:text-lg leading-relaxed">
-                Facilitar una experiencia de vida sin compromisos, donde la tecnología y la sostenibilidad se integran de forma invisible en el paisaje de La Paz. Diseñamos hogares que respetan el entorno local mientras ofrecen la funcionalidad y el confort del mercado global.
+                Nuestra misión es transformar el paisaje inmobiliario de La Paz a través de desarrollos inteligentes y sostenibles que cumplen con los más altos estándares internacionales de confort. Buscamos ofrecer a nuestros clientes una transición sin fricciones entre la modernidad tecnológica y la autenticidad costera de Baja California Sur.
               </p>
             </motion.div>
 
@@ -146,10 +146,10 @@ export default function NosotrosPage() {
                 <span className="font-montserrat font-medium text-sm text-page-text tracking-[0.2em] uppercase">Nuestra Visión</span>
               </div>
               <h2 className="text-3xl sm:text-4xl font-literata font-light text-page-text italic mb-8">
-                El puente entre vanguardia y naturaleza
+                Ser la desarrolladora líder del noroeste de México
               </h2>
               <p className="text-page-text font-montserrat font-light text-base sm:text-lg leading-relaxed">
-                Redefinir el desarrollo inmobiliario en la península, convirtiéndonos en el puente entre la vanguardia arquitectónica y la calidez del estilo de vida costero. Queremos ser el referente de quienes buscan invertir en un futuro inteligente sin perder la conexión con la naturaleza.
+                Ser la desarrolladora líder en el noroeste de México, reconocida por traer la visión vanguardista del mercado estadounidense a entornos naturales privilegiados. Aspiramos a crear comunidades que definan el nuevo lujo: un equilibrio perfecto entre eficiencia energética, diseño cosmopolita y respeto absoluto por la identidad local.
               </p>
             </motion.div>
           </div>

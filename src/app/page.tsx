@@ -75,7 +75,7 @@ export default function Home() {
               viewport={{ once: true, margin: "-100px" }}
               custom={0.2}
               variants={fadeUp}
-              className="relative aspect-square md:aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl"
+              className="relative aspect-square md:aspect-[4/3] overflow-hidden shadow-sm"
             >
               <div className="absolute inset-0 bg-brand-sand/10 mix-blend-overlay z-10" />
               <Image
@@ -233,7 +233,7 @@ export default function Home() {
                   </div>
 
                   <Image
-                    src="/quintard_hero_1774501764500.png"
+                    src="/quintard.png"
                     alt="Residencia Quintard"
                     fill
                     className="object-cover transition-transform duration-700 group-hover:scale-105"

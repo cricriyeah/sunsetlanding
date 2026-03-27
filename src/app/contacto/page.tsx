@@ -9,6 +9,7 @@ import {
   ArrowRight,
   Instagram,
   Facebook,
+  MessageCircle,
 } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
@@ -150,7 +151,7 @@ export default function ContactoPage() {
                 <h3 className="text-xl font-literata font-light italic text-page-text mb-6">
                   Síguenos
                 </h3>
-                <div className="flex gap-4">
+                <div className="flex gap-4 flex-wrap">
                   {[Instagram, Facebook].map((Icon, i) => (
                     <a
                       key={i}
@@ -160,6 +161,15 @@ export default function ContactoPage() {
                       <Icon className="w-4 h-4" />
                     </a>
                   ))}
+                  <a
+                    href="https://wa.me/526121234567"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-10 h-10 rounded-full border border-page-text/10 flex items-center justify-center hover:bg-green-500 hover:border-green-500 hover:text-white transition-all duration-300"
+                    aria-label="WhatsApp"
+                  >
+                    <MessageCircle className="w-4 h-4" />
+                  </a>
                 </div>
               </motion.div>
             </div>
