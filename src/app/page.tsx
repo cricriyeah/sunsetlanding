@@ -157,7 +157,7 @@ export default function Home() {
 
                   {/* Status Badge */}
                   <div className="absolute top-4 right-4 z-20 px-4 py-1.5 rounded-full bg-brand-orange text-white font-montserrat font-bold text-[10px] tracking-[0.2em] uppercase border border-white/10 backdrop-blur-md">
-                    Desde $280,000 MXN
+                    Empieza con $10,000 MXN
                   </div>
 
                   <Image

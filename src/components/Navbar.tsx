@@ -26,12 +26,12 @@ export function Navbar() {
         <div className="mx-auto max-w-7xl flex items-center justify-between pointer-events-auto">
           {/* Logo */}
           <Link href="/" className="flex items-center">
-            <Image 
-              src="/logo-color.svg" 
-              alt="Sunset Logo" 
-              width={24} 
-              height={24} 
-              className="brightness-0 invert object-contain" 
+            <Image
+              src="/logo-color.svg"
+              alt="Sunset Logo"
+              width={24}
+              height={24}
+              className="brightness-0 invert object-contain"
             />
           </Link>
 
@@ -44,8 +44,8 @@ export function Navbar() {
         </div>
       </div>
       {/* ──── BOTTOM GRADIENT (Mobile Only on Scroll) ──── */}
-      <div 
-        className={`fixed bottom-0 left-0 w-full h-32 z-[90] pointer-events-none transition-opacity duration-500 sm:hidden ${isScrolled ? 'opacity-100 bg-gradient-to-t from-page-text/40 to-transparent' : 'opacity-0'}`} 
+      <div
+        className={`fixed bottom-0 left-0 w-full h-32 z-[90] pointer-events-none transition-opacity duration-500 sm:hidden ${isScrolled ? 'opacity-100 bg-gradient-to-t from-page-text/40 to-transparent' : 'opacity-0'}`}
       />
 
       {/* ──── FLOATING PILL NAVBAR (Bottom Mobile / Top Desktop) ──── */}
@@ -93,7 +93,7 @@ export function Navbar() {
             className="flex items-center space-x-1"
           >
             <button
-              className={`flex items-center gap-1.5 font-montserrat rounded-full pl-4 pr-3 py-1.5 text-sm font-medium transition-all cursor-pointer ${isExpanded ? 'bg-white/10 text-white shadow-inner' : 'text-white hover:bg-white/10'}`}
+              className={`flex items-center gap-1.5 font-montserrat rounded-full px-3 py-1.5 text-xs sm:text-sm font-medium transition-all cursor-pointer ${isExpanded ? 'bg-white/10 text-white shadow-inner' : 'text-white hover:bg-white/10'}`}
               onClick={() => setIsExpanded(!isExpanded)}
             >
               <span>Proyectos</span>
@@ -173,7 +173,7 @@ export function Navbar() {
                     <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 mb-1">
                       <h3 className="text-lg sm:text-xl font-literata text-white">Casas Sur</h3>
                       <span className="px-2 py-0.5 rounded-full bg-brand-orange text-white font-montserrat font-bold text-[9px] tracking-widest uppercase border border-white/10">
-                        Desde $280,000 MXN
+                        Empieza con $10,000 MXN
                       </span>
                     </div>
                     <p className="text-white font-montserrat font-light text-sm leading-relaxed">

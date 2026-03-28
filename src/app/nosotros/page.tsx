@@ -31,7 +31,7 @@ export default function NosotrosPage() {
         <div 
           className="absolute inset-0 z-0 opacity-[0.075] pointer-events-none mix-blend-overlay"
           style={{
-            backgroundImage: `url("https://framerusercontent.com/images/g0QcWrxr87K0ufOxIUFBakwYA8.png")`,
+            backgroundImage: `url("/noise-texture.png")`,
             backgroundSize: "240px",
             backgroundRepeat: "repeat",
           }}

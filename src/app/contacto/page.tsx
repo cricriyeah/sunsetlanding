@@ -43,7 +43,7 @@ export default function ContactoPage() {
         <div
           className="absolute inset-0 z-0 opacity-[0.05] pointer-events-none mix-blend-overlay"
           style={{
-            backgroundImage: `url("https://framerusercontent.com/images/g0QcWrxr87K0ufOxIUFBakwYA8.png")`,
+            backgroundImage: `url("/noise-texture.png")`,
             backgroundSize: "240px",
             backgroundRepeat: "repeat",
           }}
@@ -187,48 +187,48 @@ export default function ContactoPage() {
                 <form className="space-y-6">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                      <label className="font-montserrat text-[10px] tracking-[0.2em] uppercase font-semibold text-page-text/40 ml-1">Nombre</label>
+                      <label className="font-montserrat text-[10px] tracking-[0.2em] uppercase font-semibold text-page-text/80 ml-1">Nombre</label>
                       <input
                         type="text"
                         placeholder="Escribe tu nombre"
-                        className="w-full h-12 bg-white/40 border border-page-text/5 rounded-2xl px-5 font-montserrat font-light text-sm focus:outline-none focus:ring-1 focus:ring-sc-accent/30 transition-all placeholder:text-page-text/30"
+                        className="w-full h-12 bg-white/40 border border-page-text/20 rounded-2xl px-5 font-montserrat font-light text-sm focus:outline-none focus:ring-1 focus:ring-page-text/30 transition-all text-page-text placeholder:text-page-text/40"
                       />
                     </div>
                     <div className="space-y-2">
-                      <label className="font-montserrat text-[10px] tracking-[0.2em] uppercase font-semibold text-page-text/40 ml-1">Email</label>
+                      <label className="font-montserrat text-[10px] tracking-[0.2em] uppercase font-semibold text-page-text/80 ml-1">Email</label>
                       <input
                         type="email"
                         placeholder="tu@email.com"
-                        className="w-full h-12 bg-white/40 border border-page-text/5 rounded-2xl px-5 font-montserrat font-light text-sm focus:outline-none focus:ring-1 focus:ring-sc-accent/30 transition-all placeholder:text-page-text/30"
+                        className="w-full h-12 bg-white/40 border border-page-text/20 rounded-2xl px-5 font-montserrat font-light text-sm focus:outline-none focus:ring-1 focus:ring-page-text/30 transition-all text-page-text placeholder:text-page-text/40"
                       />
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                      <label className="font-montserrat text-[10px] tracking-[0.2em] uppercase font-semibold text-page-text/40 ml-1">Teléfono</label>
+                      <label className="font-montserrat text-[10px] tracking-[0.2em] uppercase font-semibold text-page-text/80 ml-1">Teléfono</label>
                       <input
                         type="tel"
                         placeholder="+52 (...) ..."
-                        className="w-full h-12 bg-white/40 border border-page-text/5 rounded-2xl px-5 font-montserrat font-light text-sm focus:outline-none focus:ring-1 focus:ring-sc-accent/30 transition-all placeholder:text-page-text/30"
+                        className="w-full h-12 bg-white/40 border border-page-text/20 rounded-2xl px-5 font-montserrat font-light text-sm focus:outline-none focus:ring-1 focus:ring-page-text/30 transition-all text-page-text placeholder:text-page-text/40"
                       />
                     </div>
                     <div className="space-y-2">
-                      <label className="font-montserrat text-[10px] tracking-[0.2em] uppercase font-semibold text-page-text/40 ml-1">Proyecto de interés</label>
-                      <select className="w-full h-12 bg-white/40 border border-page-text/5 rounded-2xl px-5 font-montserrat font-light text-sm focus:outline-none focus:ring-1 focus:ring-sc-accent/30 transition-all appearance-none cursor-pointer text-page-text/60">
-                        <option>Otro</option>
-                        <option>Sunset Condominios</option>
-                        <option>Casas Sur</option>
+                      <label className="font-montserrat text-[10px] tracking-[0.2em] uppercase font-semibold text-page-text/80 ml-1">Proyecto de interés</label>
+                      <select className="w-full h-12 bg-white/40 border border-page-text/20 rounded-2xl px-5 font-montserrat font-light text-sm focus:outline-none focus:ring-1 focus:ring-page-text/30 transition-all appearance-none cursor-pointer text-page-text">
+                        <option className="bg-white text-page-text">Otro</option>
+                        <option className="bg-white text-page-text">Sunset Condominios</option>
+                        <option className="bg-white text-page-text">Casas Sur</option>
                       </select>
                     </div>
                   </div>
 
                   <div className="space-y-2">
-                    <label className="font-montserrat text-[10px] tracking-[0.2em] uppercase font-semibold text-page-text/40 ml-1">Mensaje</label>
+                    <label className="font-montserrat text-[10px] tracking-[0.2em] uppercase font-semibold text-page-text/80 ml-1">Mensaje</label>
                     <textarea
                       placeholder="Cuéntanos sobre tu visión..."
                       rows={5}
-                      className="w-full bg-white/40 border border-page-text/5 rounded-[1.5rem] p-5 font-montserrat font-light text-sm focus:outline-none focus:ring-1 focus:ring-sc-accent/30 transition-all resize-none placeholder:text-page-text/30"
+                      className="w-full bg-white/40 border border-page-text/20 rounded-[1.5rem] p-5 font-montserrat font-light text-sm focus:outline-none focus:ring-1 focus:ring-page-text/30 transition-all resize-none text-page-text placeholder:text-page-text/40"
                     />
                   </div>
 

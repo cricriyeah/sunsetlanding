@@ -13,7 +13,8 @@ import {
   Percent,
   Clock,
   Phone,
-  MessageSquare
+  MessageSquare,
+  X
 } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
@@ -42,7 +43,7 @@ export default function FinanciamientoPage() {
         <div
           className="absolute inset-0 z-0 opacity-[0.075] pointer-events-none mix-blend-overlay"
           style={{
-            backgroundImage: `url("https://framerusercontent.com/images/g0QcWrxr87K0ufOxIUFBakwYA8.png")`,
+            backgroundImage: `url("/noise-texture.png")`,
             backgroundSize: "240px",
             backgroundRepeat: "repeat",
           }}
@@ -83,7 +84,7 @@ export default function FinanciamientoPage() {
       </section>
 
       {/* ──── PROGRAMA 40/60 ──── */}
-      <section className="relative pt-0 pb-16 sm:pb-24">
+      <section className="relative pt-12 sm:pt-20 pb-16 sm:pb-24">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <motion.div
@@ -133,12 +134,12 @@ export default function FinanciamientoPage() {
               variants={fadeUp}
               className="grid grid-cols-1 sm:grid-cols-2 gap-6"
             >
-              <div className="p-12 sm:p-14 rounded-[2.5rem] bg-sc-contrast/10 border border-sc-contrast/10 text-center flex flex-col items-center justify-center hover:bg-sc-contrast/10 transition-colors group">
+              <div className="p-12 sm:p-14 rounded-[2.5rem] bg-sc-contrast/10 border border-sc-contrast/10 text-center flex flex-col items-center justify-center hover:bg-sc-contrast/10 transition-colors group sm:-translate-y-8">
                 <span className="text-5xl sm:text-7xl font-literata font-light text-sc-contrast mb-4 group-hover:scale-110 transition-transform">40%</span>
                 <p className="text-page-text font-montserrat font-light text-sm sm:text-base uppercase tracking-widest font-semibold">Tú aportas</p>
                 <p className="text-page-text font-montserrat font-light text-xs sm:text-sm mt-3 italic leading-tight">Terreno y aportación inicial</p>
               </div>
-              <div className="p-12 sm:p-14 rounded-[2.5rem] bg-sc-contrast-light/10 border border-sc-contrast-light/10 text-center flex flex-col items-center justify-center hover:bg-sc-contrast-light/10 transition-colors group sm:translate-y-8">
+              <div className="p-12 sm:p-14 rounded-[2.5rem] bg-sc-contrast-light/10 border border-sc-contrast-light/10 text-center flex flex-col items-center justify-center hover:bg-sc-contrast-light/10 transition-colors group sm:translate-y-16">
                 <span className="text-5xl sm:text-7xl font-literata font-light text-sc-contrast-light mb-4 group-hover:scale-110 transition-transform">60%</span>
                 <p className="text-page-text font-montserrat font-light text-sm sm:text-base uppercase tracking-widest font-semibold">Financiamos</p>
                 <p className="text-page-text font-montserrat font-light text-xs sm:text-sm mt-3 italic leading-tight">Del costo total de obra</p>
@@ -172,19 +173,19 @@ export default function FinanciamientoPage() {
               viewport={{ once: true, margin: "-60px" }}
               custom={0.1}
               variants={fadeUp}
-              className="relative flex gap-6"
+              className="relative flex flex-col sm:flex-row items-start gap-6"
             >
               <div className="shrink-0 w-12 h-12 rounded-2xl bg-white border border-page-text/5 shadow-sm flex items-center justify-center font-literata text-xl text-sc-contrast">1</div>
               <div>
-                <h3 className="text-2xl font-literata text-page-text/90 mb-4 flex items-center gap-2">
-                  <UserCheck className="w-5 h-5 text-page-text/30" />
+                <h3 className="text-2xl font-literata text-page-text mb-4 flex items-center gap-2">
+                  <UserCheck className="w-5 h-5 text-page-text" />
                   Entrevista Inicial
                 </h3>
                 <p className="text-page-text font-montserrat font-light text-base leading-relaxed mb-4">
                   Reunión presencial o vía Zoom para definir las especificaciones de la obra.
                 </p>
-                <div className="bg-white/50 p-4 rounded-xl border border-page-text/5">
-                  <p className="text-xs font-montserrat font-semibold italic text-page-text/40 uppercase tracking-wider mb-2">Fundamental:</p>
+                <div className="bg-white/50 p-4 rounded-xl border border-page-text/5 text-left">
+                  <p className="text-xs font-montserrat font-semibold italic text-page-text uppercase tracking-wider mb-2">Fundamental:</p>
                   <p className="text-sm text-page-text font-montserrat font-light leading-relaxed">
                     En caso de ser una pareja casada, es fundamental que ambos asistan para asegurar el consenso en el diseño y visión del hogar.
                   </p>
@@ -198,12 +199,12 @@ export default function FinanciamientoPage() {
               viewport={{ once: true, margin: "-60px" }}
               custom={0.2}
               variants={fadeUp}
-              className="relative flex gap-6"
+              className="relative flex flex-col sm:flex-row items-start gap-6"
             >
               <div className="shrink-0 w-12 h-12 rounded-2xl bg-white border border-page-text/5 shadow-sm flex items-center justify-center font-literata text-xl text-sc-contrast-light">2</div>
               <div>
-                <h3 className="text-2xl font-literata text-page-text/90 mb-4 flex items-center gap-2">
-                  <FileText className="w-5 h-5 text-page-text/30" />
+                <h3 className="text-2xl font-literata text-page-text mb-4 flex items-center gap-2">
+                  <FileText className="w-5 h-5 text-page-text" />
                   Cotización y Plazos
                 </h3>
                 <p className="text-page-text font-montserrat font-light text-base leading-relaxed mb-4">
@@ -237,7 +238,7 @@ export default function FinanciamientoPage() {
               </h2>
               <div className="space-y-8">
                 <div className="bg-sc-contrast/[0.03] border border-sc-contrast/10 p-8 rounded-3xl group hover:bg-sc-contrast/5 transition-all">
-                  <h4 className="font-literata text-xl text-page-text/90 mb-4 flex items-center justify-between">
+                  <h4 className="font-literata text-xl text-page-text mb-4 flex items-center justify-between">
                     Con Financiamiento
                     <HandCoins className="w-5 h-5 text-sc-contrast group-hover:scale-110 transition-transform" />
                   </h4>
@@ -247,9 +248,9 @@ export default function FinanciamientoPage() {
                 </div>
 
                 <div className="bg-sc-contrast-light/[0.03] border border-sc-contrast-light/10 p-8 rounded-3xl group hover:bg-sc-contrast-light/5 transition-all">
-                  <h4 className="font-literata text-xl text-page-text/90 mb-4 flex items-center justify-between">
+                  <h4 className="font-literata text-xl text-page-text mb-4 flex items-center justify-between">
                     Sin Financiamiento
-                    <HandCoins className="w-5 h-5 text-sc-contrast-light group-hover:scale-110 transition-transform" />
+                    <X className="w-5 h-5 text-sc-contrast-light group-hover:scale-110 transition-transform" />
                   </h4>
                   <p className="text-page-text font-montserrat font-light text-base leading-relaxed">
                     El depósito inicial es del 25% del costo total de la obra, con pagos mensuales subsecuentes conforme al catálogo de conceptos.
