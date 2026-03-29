@@ -129,7 +129,7 @@ function ModelCard({ model, index }: { model: (typeof models)[0]; index: number 
       initial={{ opacity: 0, y: 24 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.7, delay: index * 0.15, ease: [0.22, 0.65, 0.3, 0.9] }}
-      className={`relative rounded-2xl p-8 sm:p-10 backdrop-blur-md border transition-all duration-500 hover:-translate-y-1 ${cardStyles}`}
+      className={`relative rounded-2xl p-8 sm:p-10 backdrop-blur-md border transition-card duration-500 hover:-translate-y-1 ${cardStyles}`}
     >
       <div
         aria-hidden
@@ -222,7 +222,7 @@ function ConceptSection() {
                 viewport={{ once: true, margin: "-60px" }}
                 custom={0.15 + i * 0.1}
                 variants={fadeUp}
-                className="animate-on-scroll p-5 rounded-2xl bg-sc-primary/5 border border-sc-primary/20 hover:bg-sc-primary/20 transition-all duration-500 hover:-translate-y-1"
+                className="animate-on-scroll p-5 rounded-2xl bg-sc-primary/5 border border-sc-primary/20 hover:bg-sc-primary/20 transition-card duration-500 hover:-translate-y-1"
               >
                 <h3 className="font-literata text-base text-sc-text mb-1">{v.title}</h3>
                 <p className="font-montserrat text-xs text-sc-text font-light leading-relaxed">{v.description}</p>
@@ -373,7 +373,7 @@ export default function SunsetCondominiosPage() {
                 initial="hidden" whileInView="visible"
                 viewport={{ once: true, margin: "-60px" }}
                 custom={index * 0.1} variants={fadeUp}
-                className="animate-on-scroll group p-6 rounded-2xl bg-sc-primary/5 border border-sc-primary/20 hover:bg-sc-primary/20  transition-all duration-500 hover:-translate-y-1"
+                className="animate-on-scroll group p-6 rounded-2xl bg-sc-primary/5 border border-sc-primary/20 hover:bg-sc-primary/20 transition-card duration-500 hover:-translate-y-1"
               >
                 <div className="w-10 h-10 rounded-xl bg-sc-primary/20 flex items-center justify-center mb-4 group-hover:bg-sc-primary/20 transition-all">
                   <item.icon className="w-5 h-5 text-sc-primary/80 group-hover:text-sc-primary transition-colors" />
@@ -411,7 +411,7 @@ export default function SunsetCondominiosPage() {
               initial="hidden" whileInView="visible"
               viewport={{ once: true, margin: "-50px" }}
               custom={0.1} variants={fadeUp}
-              className="animate-on-scroll relative rounded-2xl p-8 sm:p-10 flex flex-col bg-white/40 backdrop-blur-md border border-sc-primary/15 transition-all duration-500 hover:-translate-y-1"
+              className="animate-on-scroll relative rounded-2xl p-8 sm:p-10 flex flex-col bg-white/40 backdrop-blur-md border border-sc-primary/15 transition-card duration-500 hover:-translate-y-1"
             >
               <span className="font-montserrat font-medium text-sm text-sc-primary-dark tracking-[0.2em] uppercase block mb-3">Planta baja</span>
               <h3 className="text-2xl font-literata text-sc-text font-light mb-1">1 Recámara</h3>
@@ -448,7 +448,7 @@ export default function SunsetCondominiosPage() {
               initial="hidden" whileInView="visible"
               viewport={{ once: true, margin: "-50px" }}
               custom={0.2} variants={fadeUp}
-              className="animate-on-scroll relative rounded-2xl p-8 sm:p-10 flex flex-col bg-sc-primary/20 backdrop-blur-md border border-sc-primary/20 transition-all duration-500 hover:-translate-y-1"
+              className="animate-on-scroll relative rounded-2xl p-8 sm:p-10 flex flex-col bg-sc-primary/20 backdrop-blur-md border border-sc-primary/20 transition-card duration-500 hover:-translate-y-1"
             >
               <span className="font-montserrat font-medium text-sm text-sc-primary-dark tracking-[0.2em] uppercase block mb-3">Planta alta</span>
               <h3 className="text-2xl font-literata text-sc-text font-light mb-1">2 Recámaras</h3>

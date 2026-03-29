@@ -324,7 +324,7 @@ export default function CasasSurPage() {
                 viewport={{ once: true, margin: "-60px" }}
                 custom={i * 0.1}
                 variants={fadeUp}
-                className="animate-on-scroll group shadow-md p-8 rounded-3xl bg-page-text border border-white/5 transition-all duration-500 hover:-translate-y-1 hover:shadow-md hover:shadow-page-text/20"
+                className="animate-on-scroll group shadow-md p-8 rounded-3xl bg-page-text border border-white/5 transition-card duration-500 hover:-translate-y-1 hover:shadow-md hover:shadow-page-text/20"
               >
                 <div className="w-14 h-14 rounded-2xl bg-brand-orange/80 flex items-center justify-center mb-5 transition-all">
                   <p.icon className="w-7 h-7 text-white/90 group-hover:scale-110 transition-transform" />
@@ -627,7 +627,7 @@ export default function CasasSurPage() {
                     {/* Shadow glow on hover */}
                     <div className="absolute -inset-2 bg-brand-orange/5 blur-2xl rounded-[2.5rem] opacity-0 group-hover/card:opacity-100 transition-opacity" />
 
-                    <div className="relative p-6 px-7 rounded-[2rem] bg-white/70 backdrop-blur-md border border-brand-orange/10 shadow-xl shadow-brand-orange/5 transition-all duration-500 hover:-translate-y-1 hover:bg-white/80 hover:border-brand-orange/20">
+                    <div className="relative p-6 px-7 rounded-[2rem] bg-white/70 backdrop-blur-md border border-brand-orange/10 shadow-xl shadow-brand-orange/5 transition-card duration-500 hover:-translate-y-1 hover:bg-white/80 hover:border-brand-orange/20">
                       <span className="font-montserrat font-bold text-[10px] text-brand-orange/80 tracking-[0.3em] uppercase block mb-4">
                         Paso {i + 1}
                       </span>
@@ -693,7 +693,7 @@ export default function CasasSurPage() {
                 viewport={{ once: true, margin: "-60px" }}
                 custom={i * 0.1}
                 variants={fadeUp}
-                className="animate-on-scroll group p-8 rounded-3xl bg-page-text border border-white/5 text-center hover:-translate-y-1 transition-all duration-500 shadow-xl shadow-page-text/20"
+                className="animate-on-scroll group p-8 rounded-3xl bg-page-text border border-white/5 text-center hover:-translate-y-1 transition-card duration-500 shadow-xl shadow-page-text/20"
               >
                 <div className="w-12 h-12 rounded-2xl bg-brand-orange/80 flex items-center justify-center mb-4 mx-auto transition-all">
                   <card.icon className="w-6 h-6 text-white/100" />

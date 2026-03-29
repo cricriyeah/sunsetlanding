@@ -64,10 +64,10 @@ export function Footer() {
         <div>
           <h4 className="font-montserrat text-sm font-semibold text-page-bg mb-6 uppercase tracking-wider">Síguenos</h4>
           <div className="flex items-center gap-4">
-            <a href="#" className="w-10 h-10 rounded-full bg-page-bg/5 border border-page-bg/10 flex items-center justify-center text-page-bg hover:bg-page-bg/20 hover:text-white transition-all hover:-translate-y-1">
+            <a href="#" className="w-10 h-10 rounded-full bg-page-bg/5 border border-page-bg/10 flex items-center justify-center text-page-bg hover:bg-page-bg/20 hover:text-white transition-card hover:-translate-y-1">
               <Instagram className="w-4 h-4" />
             </a>
-            <a href="#" className="w-10 h-10 rounded-full bg-page-bg/5 border border-page-bg/10 flex items-center justify-center text-page-bg hover:bg-page-bg/20 hover:text-white transition-all hover:-translate-y-1">
+            <a href="#" className="w-10 h-10 rounded-full bg-page-bg/5 border border-page-bg/10 flex items-center justify-center text-page-bg hover:bg-page-bg/20 hover:text-white transition-card hover:-translate-y-1">
               <Facebook className="w-4 h-4" />
             </a>
           </div>

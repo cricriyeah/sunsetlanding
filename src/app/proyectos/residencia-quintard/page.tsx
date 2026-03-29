@@ -207,7 +207,7 @@ export default function ResidenciaQuintardPage() {
                 viewport={{ once: true, margin: "-60px" }}
                 custom={index * 0.1}
                 variants={fadeUp}
-                className="group p-8 rounded-[2rem] bg-page-bg border border-page-text/5 hover:border-brand-orange/20 transition-all duration-500 hover:shadow-xl hover:shadow-brand-orange/5"
+                className="group p-8 rounded-[2rem] bg-page-bg border border-page-text/5 hover:border-brand-orange/20 transition-card duration-500 hover:shadow-xl hover:shadow-brand-orange/5"
               >
                 <div className="w-12 h-12 rounded-2xl bg-brand-orange/10 flex items-center justify-center mb-6 group-hover:bg-brand-orange/20 transition-all">
                   <item.icon className="w-6 h-6 text-brand-orange group-hover:text-brand-orange transition-colors" />
@@ -221,9 +221,6 @@ export default function ResidenciaQuintardPage() {
           </div>
         </div>
       </section>
-
-      {/* ──── FOOTER ──── */}
-      <Footer />
 
       <Footer />
     </div>

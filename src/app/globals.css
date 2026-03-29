@@ -96,12 +96,20 @@
 /* ── Anti-flicker for Framer Motion scroll animations ──
    Elements with this class start invisible via pure CSS,
    preventing the visible → hidden → animate FOUC on mobile.
-   Framer Motion overrides these styles once JS hydrates.
-   NOTE: We intentionally do NOT set transform here because
-   cards with transition-all would catch the transform change
-   from Framer Motion and create a double-animation (flicker). */
+   Framer Motion overrides these styles once JS hydrates. */
 .animate-on-scroll {
   opacity: 0;
   filter: blur(6px);
   will-change: transform, opacity, filter;
+}
+
+/* ── Card transition utility ──
+   Use instead of transition-all on elements that ALSO have
+   Framer Motion animations. Excludes transform, opacity, and
+   filter from CSS transitions to prevent double-animation. */
+.transition-card {
+  transition-property: color, background-color, border-color,
+                       text-decoration-color, fill, stroke,
+                       box-shadow, backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }

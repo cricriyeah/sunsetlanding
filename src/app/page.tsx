@@ -124,7 +124,7 @@ export default function Home() {
               variants={fadeUp}
               className="animate-on-scroll"
             >
-              <Link href="/proyectos/sunset-condominios" className="group block h-full rounded-3xl bg-page-text/5 border border-page-text/10 hover:bg-page-text/10 hover:shadow-md hover:shadow-page-text/5 transition-all duration-500 hover:-translate-y-1 xl:-translate-y-2 overflow-hidden">
+              <Link href="/proyectos/sunset-condominios" className="group block h-full rounded-3xl bg-page-text/5 border border-page-text/10 hover:bg-page-text/10 hover:shadow-md hover:shadow-page-text/5 transition-card duration-500 hover:-translate-y-1 xl:-translate-y-2 overflow-hidden">
                 <div className="relative aspect-[4/3] overflow-hidden">
                   <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-500 z-10" />
 
@@ -161,7 +161,7 @@ export default function Home() {
               variants={fadeUp}
               className="animate-on-scroll"
             >
-              <Link href="/proyectos/casas-sur" className="group block h-full rounded-3xl bg-brand-blue/5 border border-brand-blue/10 hover:bg-brand-blue/10 hover:shadow-md hover:shadow-brand-blue/5 transition-all duration-500 hover:-translate-y-1 xl:-translate-y-2 overflow-hidden">
+              <Link href="/proyectos/casas-sur" className="group block h-full rounded-3xl bg-brand-blue/5 border border-brand-blue/10 hover:bg-brand-blue/10 hover:shadow-md hover:shadow-brand-blue/5 transition-card duration-500 hover:-translate-y-1 xl:-translate-y-2 overflow-hidden">
                 <div className="relative aspect-[4/3] overflow-hidden">
                   <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-500 z-10" />
 
@@ -198,7 +198,7 @@ export default function Home() {
               variants={fadeUp}
               className="animate-on-scroll"
             >
-              <Link href="/proyectos/residencia-armok" className="group block h-full rounded-3xl bg-page-text/5 border border-page-text/10 hover:bg-page-text/10 hover:shadow-md hover:shadow-page-text/5 transition-all duration-500 hover:-translate-y-1 xl:-translate-y-2 overflow-hidden">
+              <Link href="/proyectos/residencia-armok" className="group block h-full rounded-3xl bg-page-text/5 border border-page-text/10 hover:bg-page-text/10 hover:shadow-md hover:shadow-page-text/5 transition-card duration-500 hover:-translate-y-1 xl:-translate-y-2 overflow-hidden">
                 <div className="relative aspect-[4/3] overflow-hidden">
                   <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-500 z-10" />
 
@@ -235,7 +235,7 @@ export default function Home() {
               variants={fadeUp}
               className="animate-on-scroll"
             >
-              <Link href="/proyectos/residencia-quintard" className="group block h-full rounded-3xl bg-page-text/5 border border-page-text/10 hover:bg-page-text/10 hover:shadow-md hover:shadow-page-text/5 transition-all duration-500 hover:-translate-y-1 xl:-translate-y-2 overflow-hidden">
+              <Link href="/proyectos/residencia-quintard" className="group block h-full rounded-3xl bg-page-text/5 border border-page-text/10 hover:bg-page-text/10 hover:shadow-md hover:shadow-page-text/5 transition-card duration-500 hover:-translate-y-1 xl:-translate-y-2 overflow-hidden">
                 <div className="relative aspect-[4/3] overflow-hidden">
                   <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-500 z-10" />
 

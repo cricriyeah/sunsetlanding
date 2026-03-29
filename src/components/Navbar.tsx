@@ -154,7 +154,7 @@ export function Navbar() {
               </h2>
               <div className="flex flex-col gap-6 pb-8">
                 {/* Project 1 */}
-                <Link href="/proyectos/sunset-condominios" onClick={() => setIsExpanded(false)} className="group flex flex-col sm:flex-row items-stretch bg-white/5 hover:bg-white/10 transition-all duration-300 hover:-translate-y-1 rounded-2xl border border-transparent hover:border-white/10 overflow-hidden min-h-[110px]">
+                <Link href="/proyectos/sunset-condominios" onClick={() => setIsExpanded(false)} className="group flex flex-col sm:flex-row items-stretch bg-white/5 hover:bg-white/10 transition-card duration-300 hover:-translate-y-1 rounded-2xl border border-transparent hover:border-white/10 overflow-hidden min-h-[110px]">
                   <div className="w-full sm:w-[180px] shrink-0 bg-black/20 overflow-hidden relative min-h-[140px] sm:min-h-[auto]">
                     <Image src="/herocondo3.png" alt="Sunset Condominios" fill className="object-cover" />
                     <div className="absolute inset-0 bg-gradient-to-tr from-brand-orange/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -173,7 +173,7 @@ export function Navbar() {
                 </Link>
 
                 {/* Project 2 */}
-                <Link href="/proyectos/casas-sur" onClick={() => setIsExpanded(false)} className="group flex flex-col sm:flex-row items-stretch bg-white/5 hover:bg-white/10 transition-all duration-300 hover:-translate-y-1 rounded-2xl border border-transparent hover:border-white/10 overflow-hidden min-h-[110px]">
+                <Link href="/proyectos/casas-sur" onClick={() => setIsExpanded(false)} className="group flex flex-col sm:flex-row items-stretch bg-white/5 hover:bg-white/10 transition-card duration-300 hover:-translate-y-1 rounded-2xl border border-transparent hover:border-white/10 overflow-hidden min-h-[110px]">
                   <div className="w-full sm:w-[180px] shrink-0 bg-black/20 overflow-hidden relative min-h-[140px] sm:min-h-[auto]">
                     <Image src="/casasur/hero.png" alt="Casas Sur" fill className="object-cover" />
                     <div className="absolute inset-0 bg-gradient-to-tr from-brand-blue/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -192,7 +192,7 @@ export function Navbar() {
                 </Link>
 
                 {/* Project 3 */}
-                <Link href="/proyectos/residencia-armok" onClick={() => setIsExpanded(false)} className="group flex flex-col sm:flex-row items-stretch bg-white/5 hover:bg-white/10 transition-all duration-300 hover:-translate-y-1 rounded-2xl border border-transparent hover:border-white/10 overflow-hidden min-h-[110px]">
+                <Link href="/proyectos/residencia-armok" onClick={() => setIsExpanded(false)} className="group flex flex-col sm:flex-row items-stretch bg-white/5 hover:bg-white/10 transition-card duration-300 hover:-translate-y-1 rounded-2xl border border-transparent hover:border-white/10 overflow-hidden min-h-[110px]">
                   <div className="w-full sm:w-[180px] shrink-0 bg-black/20 overflow-hidden relative min-h-[140px] sm:min-h-[auto]">
                     <Image src="/amrok/hero1.png" alt="Residencia Armok" fill className="object-cover" />
                     <div className="absolute inset-0 bg-gradient-to-tr from-brand-orange/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -211,7 +211,7 @@ export function Navbar() {
                 </Link>
 
                 {/* Project 4 */}
-                <Link href="/proyectos/residencia-quintard" onClick={() => setIsExpanded(false)} className="group flex flex-col sm:flex-row items-stretch bg-white/5 hover:bg-white/10 transition-all duration-300 hover:-translate-y-1 rounded-2xl border border-transparent hover:border-white/10 overflow-hidden min-h-[110px]">
+                <Link href="/proyectos/residencia-quintard" onClick={() => setIsExpanded(false)} className="group flex flex-col sm:flex-row items-stretch bg-white/5 hover:bg-white/10 transition-card duration-300 hover:-translate-y-1 rounded-2xl border border-transparent hover:border-white/10 overflow-hidden min-h-[110px]">
                   <div className="w-full sm:w-[180px] shrink-0 bg-black/20 overflow-hidden relative min-h-[140px] sm:min-h-[auto]">
                     <Image src="/quintard.png" alt="Residencia Quintard" fill className="object-cover" />
                     <div className="absolute inset-0 bg-gradient-to-tr from-brand-orange/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />

@@ -212,7 +212,7 @@ export default function ResidenciaArmokPage() {
                 viewport={{ once: true, margin: "-60px" }}
                 custom={index * 0.1}
                 variants={fadeUp}
-                className="group p-8 rounded-3xl bg-armok-secondary border border-armok-text/5 hover:bg-armok-primary/5 transition-all duration-500"
+                className="group p-8 rounded-3xl bg-armok-secondary border border-armok-text/5 hover:bg-armok-primary/5 transition-card duration-500"
               >
                 <div className="w-12 h-12 rounded-2xl bg-armok-primary/10 flex items-center justify-center mb-6 group-hover:bg-armok-primary/20 transition-all">
                   <item.icon className="w-6 h-6 text-armok-primary transition-colors" />

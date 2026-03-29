@@ -239,7 +239,7 @@ export default function FinanciamientoPage() {
                 Esquemas de Pagos
               </h2>
               <div className="space-y-8">
-                <div className="bg-sc-contrast/[0.03] border border-sc-contrast/10 p-8 rounded-3xl group hover:bg-sc-contrast/5 transition-all">
+                <div className="bg-sc-contrast/[0.03] border border-sc-contrast/10 p-8 rounded-3xl group hover:bg-sc-contrast/5 transition-card">
                   <h4 className="font-literata text-xl text-page-text mb-4 flex items-center justify-between">
                     Con Financiamiento
                     <HandCoins className="w-5 h-5 text-sc-contrast group-hover:scale-110 transition-transform" />
@@ -249,7 +249,7 @@ export default function FinanciamientoPage() {
                   </p>
                 </div>
 
-                <div className="bg-sc-contrast-light/[0.03] border border-sc-contrast-light/10 p-8 rounded-3xl group hover:bg-sc-contrast-light/5 transition-all">
+                <div className="bg-sc-contrast-light/[0.03] border border-sc-contrast-light/10 p-8 rounded-3xl group hover:bg-sc-contrast-light/5 transition-card">
                   <h4 className="font-literata text-xl text-page-text mb-4 flex items-center justify-between">
                     Sin Financiamiento
                     <X className="w-5 h-5 text-sc-contrast-light group-hover:scale-110 transition-transform" />
