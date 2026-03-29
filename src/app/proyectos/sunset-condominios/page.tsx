@@ -186,7 +186,7 @@ function ConceptSection() {
           viewport={{ once: true, margin: "-80px" }}
           custom={0}
           variants={fadeUp}
-          className="font-montserrat font-medium text-sm text-sc-primary-dark tracking-[0.2em] uppercase block mb-10"
+          className="animate-on-scroll font-montserrat font-medium text-sm text-sc-primary-dark tracking-[0.2em] uppercase block mb-10"
         >
           El Concepto
         </motion.span>
@@ -222,7 +222,7 @@ function ConceptSection() {
                 viewport={{ once: true, margin: "-60px" }}
                 custom={0.15 + i * 0.1}
                 variants={fadeUp}
-                className="p-5 rounded-2xl bg-sc-primary/5 border border-sc-primary/20 hover:bg-sc-primary/20 transition-all duration-500 hover:-translate-y-1"
+                className="animate-on-scroll p-5 rounded-2xl bg-sc-primary/5 border border-sc-primary/20 hover:bg-sc-primary/20 transition-all duration-500 hover:-translate-y-1"
               >
                 <h3 className="font-literata text-base text-sc-text mb-1">{v.title}</h3>
                 <p className="font-montserrat text-xs text-sc-text font-light leading-relaxed">{v.description}</p>
@@ -356,7 +356,7 @@ export default function SunsetCondominiosPage() {
           <motion.div
             initial="hidden" whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
-            custom={0} variants={fadeUp} className="mb-16"
+            custom={0} variants={fadeUp} className="animate-on-scroll mb-16"
           >
             <span className="font-montserrat font-medium text-sm text-sc-contrast tracking-[0.2em] uppercase block mb-3">
               Confort y Seguridad
@@ -373,7 +373,7 @@ export default function SunsetCondominiosPage() {
                 initial="hidden" whileInView="visible"
                 viewport={{ once: true, margin: "-60px" }}
                 custom={index * 0.1} variants={fadeUp}
-                className="group p-6 rounded-2xl bg-sc-primary/5 border border-sc-primary/20 hover:bg-sc-primary/20  transition-all duration-500 hover:-translate-y-1"
+                className="animate-on-scroll group p-6 rounded-2xl bg-sc-primary/5 border border-sc-primary/20 hover:bg-sc-primary/20  transition-all duration-500 hover:-translate-y-1"
               >
                 <div className="w-10 h-10 rounded-xl bg-sc-primary/20 flex items-center justify-center mb-4 group-hover:bg-sc-primary/20 transition-all">
                   <item.icon className="w-5 h-5 text-sc-primary/80 group-hover:text-sc-primary transition-colors" />
@@ -392,7 +392,7 @@ export default function SunsetCondominiosPage() {
           <motion.div
             initial="hidden" whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
-            custom={0} variants={fadeUp} className="text-center mb-16"
+            custom={0} variants={fadeUp} className="animate-on-scroll text-center mb-16"
           >
             <span className="font-montserrat font-medium text-sm text-sc-primary-dark tracking-[0.2em] uppercase block mb-3">
               Inversión
@@ -411,7 +411,7 @@ export default function SunsetCondominiosPage() {
               initial="hidden" whileInView="visible"
               viewport={{ once: true, margin: "-50px" }}
               custom={0.1} variants={fadeUp}
-              className="relative rounded-2xl p-8 sm:p-10 flex flex-col bg-white/40 backdrop-blur-md border border-sc-primary/15 transition-all duration-500 hover:-translate-y-1"
+              className="animate-on-scroll relative rounded-2xl p-8 sm:p-10 flex flex-col bg-white/40 backdrop-blur-md border border-sc-primary/15 transition-all duration-500 hover:-translate-y-1"
             >
               <span className="font-montserrat font-medium text-sm text-sc-primary-dark tracking-[0.2em] uppercase block mb-3">Planta baja</span>
               <h3 className="text-2xl font-literata text-sc-text font-light mb-1">1 Recámara</h3>
@@ -448,7 +448,7 @@ export default function SunsetCondominiosPage() {
               initial="hidden" whileInView="visible"
               viewport={{ once: true, margin: "-50px" }}
               custom={0.2} variants={fadeUp}
-              className="relative rounded-2xl p-8 sm:p-10 flex flex-col bg-sc-primary/20 backdrop-blur-md border border-sc-primary/20 transition-all duration-500 hover:-translate-y-1"
+              className="animate-on-scroll relative rounded-2xl p-8 sm:p-10 flex flex-col bg-sc-primary/20 backdrop-blur-md border border-sc-primary/20 transition-all duration-500 hover:-translate-y-1"
             >
               <span className="font-montserrat font-medium text-sm text-sc-primary-dark tracking-[0.2em] uppercase block mb-3">Planta alta</span>
               <h3 className="text-2xl font-literata text-sc-text font-light mb-1">2 Recámaras</h3>
@@ -490,7 +490,7 @@ export default function SunsetCondominiosPage() {
             initial="hidden" whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
             variants={fadeUp} custom={0}
-            className="max-w-3xl mx-auto text-center"
+            className="animate-on-scroll max-w-3xl mx-auto text-center"
           >
             <span className="font-montserrat text-sm font-medium text-sc-contrast tracking-[0.2em] uppercase block mb-3">Ubicación</span>
             <h2 className="text-3xl sm:text-5xl font-literata font-light text-sc-text italic mb-8">
@@ -520,7 +520,7 @@ export default function SunsetCondominiosPage() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="w-full relative aspect-[21/9] sm:aspect-[25/7] min-h-[450px] bg-sc-primary/5 border-y border-sc-primary/20 overflow-hidden"
+          className="animate-on-scroll w-full relative aspect-[21/9] sm:aspect-[25/7] min-h-[450px] bg-sc-primary/5 border-y border-sc-primary/20 overflow-hidden"
         >
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d14548.97!2d-110.312!3d24.142!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2smx!4v1711411511511!5m2!1ses-419!2smx"
@@ -544,6 +544,7 @@ export default function SunsetCondominiosPage() {
             initial="hidden" whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
             custom={0} variants={fadeUp}
+            className="animate-on-scroll"
           >
             <h2 className="text-3xl sm:text-5xl font-literata font-light text-white italic mb-6">
               ¿Listo para empezar una nueva historia?

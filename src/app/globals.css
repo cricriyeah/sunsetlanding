@@ -92,3 +92,14 @@
     scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
   }
 }
+
+/* ── Anti-flicker for Framer Motion scroll animations ──
+   Elements with this class start invisible via pure CSS,
+   preventing the visible → hidden → animate FOUC on mobile.
+   Framer Motion overrides these styles once JS hydrates. */
+.animate-on-scroll {
+  opacity: 0;
+  filter: blur(6px);
+  transform: translateY(30px);
+  will-change: transform, opacity, filter;
+}

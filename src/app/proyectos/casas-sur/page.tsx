@@ -302,7 +302,7 @@ export default function CasasSurPage() {
             viewport={{ once: true, margin: "-100px" }}
             variants={fadeUp}
             custom={0}
-            className="text-center mb-16"
+            className="animate-on-scroll text-center mb-16"
           >
             <span className="font-montserrat font-medium text-sm text-brand-orange/90 tracking-[0.2em] uppercase block mb-3">
               BENEFICIOS
@@ -321,7 +321,7 @@ export default function CasasSurPage() {
                 viewport={{ once: true, margin: "-60px" }}
                 custom={i * 0.1}
                 variants={fadeUp}
-                className="group shadow-md p-8 rounded-3xl bg-page-text border border-white/5 transition-all duration-500 hover:-translate-y-1 hover:shadow-md hover:shadow-page-text/20"
+                className="animate-on-scroll group shadow-md p-8 rounded-3xl bg-page-text border border-white/5 transition-all duration-500 hover:-translate-y-1 hover:shadow-md hover:shadow-page-text/20"
               >
                 <div className="w-14 h-14 rounded-2xl bg-brand-orange/80 flex items-center justify-center mb-5 transition-all">
                   <p.icon className="w-7 h-7 text-white/90 group-hover:scale-110 transition-transform" />
@@ -521,7 +521,7 @@ export default function CasasSurPage() {
             viewport={{ once: true, margin: "-100px" }}
             variants={fadeUp}
             custom={0}
-            className="text-center mb-16"
+            className="animate-on-scroll text-center mb-16"
           >
             <span className="font-montserrat font-medium text-sm text-brand-orange/90 tracking-[0.2em] uppercase block mb-3">
               Tu Camino
@@ -538,7 +538,7 @@ export default function CasasSurPage() {
             viewport={{ once: true, margin: "-60px" }}
             variants={fadeUp}
             custom={0.1}
-            className="flex justify-center mb-12"
+            className="animate-on-scroll flex justify-center mb-12"
           >
             <div className="inline-flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 px-6 py-4 sm:py-3 rounded-3xl sm:rounded-full bg-brand-orange/10 border border-brand-orange/20 text-center sm:text-left">
               <DollarSign className="w-5 h-5 text-brand-orange/90 shrink-0" />
@@ -592,7 +592,7 @@ export default function CasasSurPage() {
                   viewport={{ once: true, margin: "-60px" }}
                   custom={i * 0.15}
                   variants={fadeUp}
-                  className={`relative text-center ${i % 2 === 0 ? "lg:mt-[200px]" : "lg:mt-0"}`}
+                  className={`animate-on-scroll relative text-center ${i % 2 === 0 ? "lg:mt-[200px]" : "lg:mt-0"}`}
                 >
                   {/* Floating Effect for Node */}
                   <div className="relative mb-6">
@@ -647,7 +647,7 @@ export default function CasasSurPage() {
             viewport={{ once: true, margin: "-100px" }}
             variants={fadeUp}
             custom={0}
-            className="text-center mb-16"
+            className="animate-on-scroll text-center mb-16"
           >
             <span className="font-montserrat font-medium text-sm text-brand-orange/90 tracking-[0.2em] uppercase block mb-3">
               BENEFICIOS
@@ -682,7 +682,7 @@ export default function CasasSurPage() {
                 viewport={{ once: true, margin: "-60px" }}
                 custom={i * 0.1}
                 variants={fadeUp}
-                className="group p-8 rounded-3xl bg-page-text border border-white/5 text-center hover:-translate-y-1 transition-all duration-500 shadow-xl shadow-page-text/20"
+                className="animate-on-scroll group p-8 rounded-3xl bg-page-text border border-white/5 text-center hover:-translate-y-1 transition-all duration-500 shadow-xl shadow-page-text/20"
               >
                 <div className="w-12 h-12 rounded-2xl bg-brand-orange/80 flex items-center justify-center mb-4 mx-auto transition-all">
                   <card.icon className="w-6 h-6 text-white/100" />
@@ -703,7 +703,7 @@ export default function CasasSurPage() {
             viewport={{ once: true }}
             variants={fadeUp}
             custom={0.3}
-            className="flex justify-center"
+            className="animate-on-scroll flex justify-center"
           >
             <div className="inline-flex flex-col sm:flex-row items-center justify-center gap-2 px-6 py-3 sm:py-2.5 rounded-3xl sm:rounded-full bg-brand-orange/90 text-white font-montserrat text-md sm:text-lg shadow-lg shadow-brand-orange/20 text-center sm:text-left">
               <MapPin className="w-4 h-4 shrink-0" />
@@ -734,6 +734,7 @@ export default function CasasSurPage() {
             viewport={{ once: true, margin: "-100px" }}
             variants={fadeUp}
             custom={0}
+            className="animate-on-scroll"
           >
             <h2 className="text-3xl sm:text-5xl lg:text-6xl font-literata font-light mb-6 leading-tight">
               ¿Hablamos?

@@ -93,6 +93,7 @@ export default function FinanciamientoPage() {
               viewport={{ once: true, margin: "-100px" }}
               custom={0}
               variants={fadeUp}
+              className="animate-on-scroll"
             >
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-10 h-10 rounded-xl bg-page-text/5 border border-page-text/5 flex items-center justify-center">
@@ -132,7 +133,7 @@ export default function FinanciamientoPage() {
               viewport={{ once: true, margin: "-100px" }}
               custom={0.2}
               variants={fadeUp}
-              className="grid grid-cols-1 sm:grid-cols-2 gap-6"
+              className="animate-on-scroll grid grid-cols-1 sm:grid-cols-2 gap-6"
             >
               <div className="p-12 sm:p-14 rounded-[2.5rem] bg-sc-contrast/10 border border-sc-contrast/10 text-center flex flex-col items-center justify-center hover:bg-sc-contrast/10 transition-colors group sm:-translate-y-8">
                 <span className="text-5xl sm:text-7xl font-literata font-light text-sc-contrast mb-4 group-hover:scale-110 transition-transform">40%</span>
@@ -158,7 +159,7 @@ export default function FinanciamientoPage() {
             viewport={{ once: true, margin: "-100px" }}
             custom={0}
             variants={fadeUp}
-            className="mb-16 text-center max-w-3xl mx-auto"
+            className="animate-on-scroll mb-16 text-center max-w-3xl mx-auto"
           >
             <span className="font-montserrat font-medium text-sm text-page-text tracking-[0.2em] uppercase block mb-3">El Camino</span>
             <h2 className="text-3xl sm:text-5xl font-literata font-light text-page-text italic">
@@ -173,7 +174,7 @@ export default function FinanciamientoPage() {
               viewport={{ once: true, margin: "-60px" }}
               custom={0.1}
               variants={fadeUp}
-              className="relative flex flex-col sm:flex-row items-start gap-6"
+              className="animate-on-scroll relative flex flex-col sm:flex-row items-start gap-6"
             >
               <div className="shrink-0 w-12 h-12 rounded-2xl bg-white border border-page-text/5 shadow-sm flex items-center justify-center font-literata text-xl text-sc-contrast">1</div>
               <div>
@@ -199,7 +200,7 @@ export default function FinanciamientoPage() {
               viewport={{ once: true, margin: "-60px" }}
               custom={0.2}
               variants={fadeUp}
-              className="relative flex flex-col sm:flex-row items-start gap-6"
+              className="animate-on-scroll relative flex flex-col sm:flex-row items-start gap-6"
             >
               <div className="shrink-0 w-12 h-12 rounded-2xl bg-white border border-page-text/5 shadow-sm flex items-center justify-center font-literata text-xl text-sc-contrast-light">2</div>
               <div>
@@ -231,6 +232,7 @@ export default function FinanciamientoPage() {
               viewport={{ once: true, margin: "-100px" }}
               custom={0}
               variants={fadeUp}
+              className="animate-on-scroll"
             >
               <span className="font-montserrat font-medium text-sm text-page-text tracking-[0.2em] uppercase block mb-3">Transparencia</span>
               <h2 className="text-3xl sm:text-4xl font-literata font-light text-page-text italic mb-8">
@@ -265,7 +267,7 @@ export default function FinanciamientoPage() {
               viewport={{ once: true, margin: "-100px" }}
               custom={0.2}
               variants={fadeUp}
-              className="bg-white/40 border border-page-text/5 p-10 rounded-3xl shadow-xl shadow-page-text/5 relative overflow-hidden"
+              className="animate-on-scroll bg-white/40 border border-page-text/5 p-10 rounded-3xl shadow-xl shadow-page-text/5 relative overflow-hidden"
             >
 
 
@@ -316,6 +318,7 @@ export default function FinanciamientoPage() {
             viewport={{ once: true, margin: "-100px" }}
             variants={fadeUp}
             custom={0}
+            className="animate-on-scroll"
           >
             <h2 className="text-3xl sm:text-5xl font-literata font-light text-white italic mb-6">
               ¿Listo para dar el primer paso?

@@ -81,6 +81,7 @@ export default function NosotrosPage() {
               viewport={{ once: true, margin: "-100px" }}
               custom={0}
               variants={fadeUp}
+              className="animate-on-scroll"
             >
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-10 h-10 rounded-xl bg-page-text/5 border border-page-text/5 flex items-center justify-center">
@@ -102,7 +103,7 @@ export default function NosotrosPage() {
               viewport={{ once: true, margin: "-100px" }}
               custom={0.2}
               variants={fadeUp}
-              className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-page-text/[0.03] border border-page-text/8"
+              className="animate-on-scroll relative aspect-[4/3] rounded-2xl overflow-hidden bg-page-text/[0.03] border border-page-text/8"
             >
               <div className="absolute inset-0 bg-gradient-to-tr from-brand-orange/5 to-brand-blue/5" />
               <div className="absolute inset-0 flex items-center justify-center">
@@ -123,7 +124,7 @@ export default function NosotrosPage() {
               viewport={{ once: true, margin: "-100px" }}
               custom={0}
               variants={fadeUp}
-              className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-white/50 border border-page-text/5 order-2 lg:order-1"
+              className="animate-on-scroll relative aspect-[4/3] rounded-2xl overflow-hidden bg-white/50 border border-page-text/5 order-2 lg:order-1"
             >
               <div className="absolute inset-0 bg-gradient-to-bl from-brand-blue/5 to-brand-orange/5" />
               <div className="absolute inset-0 flex items-center justify-center">
@@ -137,7 +138,7 @@ export default function NosotrosPage() {
               viewport={{ once: true, margin: "-100px" }}
               custom={0.2}
               variants={fadeUp}
-              className="order-1 lg:order-2"
+              className="animate-on-scroll order-1 lg:order-2"
             >
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-10 h-10 rounded-xl bg-page-text/5 border border-page-text/5 flex items-center justify-center">
@@ -165,6 +166,7 @@ export default function NosotrosPage() {
             viewport={{ once: true, margin: "-100px" }}
             custom={0}
             variants={fadeUp}
+            className="animate-on-scroll"
           >
             <h2 className="text-3xl sm:text-5xl font-literata font-light text-page-text italic mb-6">
               Construyamos juntos

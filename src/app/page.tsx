@@ -56,6 +56,7 @@ export default function Home() {
               viewport={{ once: true, margin: "-100px" }}
               custom={0}
               variants={fadeUp}
+              className="animate-on-scroll"
             >
               <span className="font-montserrat text-sm font-medium text-page-text tracking-[0.2em] uppercase block mb-3">Filosofía</span>
               <h2 className="text-3xl sm:text-5xl font-literata font-light text-page-text italic mb-6">
@@ -75,7 +76,7 @@ export default function Home() {
               viewport={{ once: true, margin: "-100px" }}
               custom={0.2}
               variants={fadeUp}
-              className="relative aspect-square md:aspect-[4/3] overflow-hidden shadow-sm"
+              className="animate-on-scroll relative aspect-square md:aspect-[4/3] overflow-hidden shadow-sm"
             >
               <div className="absolute inset-0 bg-brand-sand/10 mix-blend-overlay z-10" />
               <Image
@@ -98,7 +99,7 @@ export default function Home() {
             viewport={{ once: true, margin: "-100px" }}
             custom={0}
             variants={fadeUp}
-            className="mb-16 text-center max-w-3xl mx-auto"
+            className="animate-on-scroll mb-16 text-center max-w-3xl mx-auto"
           >
             <span className="font-montserrat text-sm font-medium text-page-text tracking-[0.2em] uppercase block mb-3">Nuestras Obras</span>
             <h2 className="text-3xl sm:text-5xl font-literata font-light text-page-text italic">
@@ -114,6 +115,7 @@ export default function Home() {
               viewport={{ once: true, margin: "-60px" }}
               custom={0.1}
               variants={fadeUp}
+              className="animate-on-scroll"
             >
               <Link href="/proyectos/sunset-condominios" className="group block h-full rounded-3xl bg-page-text/5 border border-page-text/10 hover:bg-page-text/10 hover:shadow-md hover:shadow-page-text/5 transition-all duration-500 hover:-translate-y-1 xl:-translate-y-2 overflow-hidden">
                 <div className="relative aspect-[4/3] overflow-hidden">
@@ -150,6 +152,7 @@ export default function Home() {
               viewport={{ once: true, margin: "-60px" }}
               custom={0.2}
               variants={fadeUp}
+              className="animate-on-scroll"
             >
               <Link href="/proyectos/casas-sur" className="group block h-full rounded-3xl bg-brand-blue/5 border border-brand-blue/10 hover:bg-brand-blue/10 hover:shadow-md hover:shadow-brand-blue/5 transition-all duration-500 hover:-translate-y-1 xl:-translate-y-2 overflow-hidden">
                 <div className="relative aspect-[4/3] overflow-hidden">
@@ -186,6 +189,7 @@ export default function Home() {
               viewport={{ once: true, margin: "-60px" }}
               custom={0.3}
               variants={fadeUp}
+              className="animate-on-scroll"
             >
               <Link href="/proyectos/residencia-armok" className="group block h-full rounded-3xl bg-page-text/5 border border-page-text/10 hover:bg-page-text/10 hover:shadow-md hover:shadow-page-text/5 transition-all duration-500 hover:-translate-y-1 xl:-translate-y-2 overflow-hidden">
                 <div className="relative aspect-[4/3] overflow-hidden">
@@ -222,6 +226,7 @@ export default function Home() {
               viewport={{ once: true, margin: "-60px" }}
               custom={0.4}
               variants={fadeUp}
+              className="animate-on-scroll"
             >
               <Link href="/proyectos/residencia-quintard" className="group block h-full rounded-3xl bg-page-text/5 border border-page-text/10 hover:bg-page-text/10 hover:shadow-md hover:shadow-page-text/5 transition-all duration-500 hover:-translate-y-1 xl:-translate-y-2 overflow-hidden">
                 <div className="relative aspect-[4/3] overflow-hidden">
@@ -264,6 +269,7 @@ export default function Home() {
             viewport={{ once: true, margin: "-100px" }}
             custom={0}
             variants={fadeUp}
+            className="animate-on-scroll"
           >
             <h2 className="text-3xl sm:text-5xl font-literata font-light italic mb-6">
               Construyamos juntos tu futuro
