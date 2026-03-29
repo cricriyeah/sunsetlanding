@@ -26,9 +26,9 @@ export default function NosotrosPage() {
       <section className="relative min-h-screen w-full overflow-hidden flex flex-col">
         <div className="absolute inset-0 bg-gradient-to-br from-brand-blue/80 via-brand-sand/30 to-brand-orange/20" />
         <div className="absolute inset-0 bg-gradient-to-t from-page-bg via-transparent to-transparent" />
-        
+
         {/* Noise Filter */}
-        <div 
+        <div
           className="absolute inset-0 z-0 opacity-[0.075] pointer-events-none mix-blend-overlay"
           style={{
             backgroundImage: `url("/noise-texture.png")`,
@@ -53,7 +53,7 @@ export default function NosotrosPage() {
             </motion.span>
 
             <CinematicHeading
-              text="El estándar americano, arraigado en el espíritu de Baja."
+              text="El estándar americano, arraigado en el espíritu de la Baja Sur"
               className="text-3xl sm:text-5xl lg:text-6xl font-literata font-light tracking-tight mb-6 text-page-text"
               type="word"
               delayChildren={0.4}
@@ -65,7 +65,7 @@ export default function NosotrosPage() {
               transition={{ duration: 0.8, delay: 0.8 }}
               className="text-lg sm:text-xl text-page-text font-montserrat font-light max-w-2xl leading-relaxed"
             >
-              Experiencia inmobiliaria de alta gama en La Paz. Fusionamos la innovación de las smart homes y la energía renovable con la esencia indomable del Mar de Cortés. No es un destino nuevo, es el estilo de vida que ya conoces, en el lugar que siempre soñaste.
+              Experiencia inmobiliaria de alta gama en La Paz y sus alrededores. Fusionamos la innovación de las smart homes y la energía renovable con la esencia indomable del Mar de Cortés. No es un destino nuevo, es el estilo de vida que ya conoces, en el lugar que siempre soñaste.
             </motion.p>
           </div>
         </div>
@@ -89,10 +89,10 @@ export default function NosotrosPage() {
                 <span className="font-montserrat font-medium text-sm text-page-text tracking-[0.2em] uppercase">Nuestra Misión</span>
               </div>
               <h2 className="text-3xl sm:text-4xl font-literata font-light text-page-text italic mb-8">
-                Transformar el paisaje inmobiliario de La Paz
+                Transformar el paisaje inmobiliario de la Baja Sur
               </h2>
               <p className="text-page-text font-montserrat font-light text-base sm:text-lg leading-relaxed">
-                Nuestra misión es transformar el paisaje inmobiliario de La Paz a través de desarrollos inteligentes y sostenibles que cumplen con los más altos estándares internacionales de confort. Buscamos ofrecer a nuestros clientes una transición sin fricciones entre la modernidad tecnológica y la autenticidad costera de Baja California Sur.
+                Nuestra misión es transformar el paisaje inmobiliario de La Paz y sus alrededores a través de desarrollos inteligentes y sostenibles que cumplen con los más altos estándares internacionales de confort. Buscamos ofrecer a nuestros clientes una transición sin fricciones entre la modernidad tecnológica y la autenticidad costera de Baja California Sur.
               </p>
             </motion.div>
 

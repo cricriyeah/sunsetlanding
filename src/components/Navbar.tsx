@@ -22,8 +22,13 @@ export function Navbar() {
   return (
     <>
       {/* ──── TOP HEADER (Always Fixed Top) ──── */}
-      <div className={`fixed top-0 left-0 w-full z-[110] py-6 px-6 lg:px-8 pointer-events-none transition-colors duration-500 ${isScrolled ? 'bg-gradient-to-b from-page-text/40 to-transparent' : 'bg-transparent'}`}>
-        <div className="mx-auto max-w-7xl flex items-center justify-between pointer-events-auto">
+      <div className="fixed top-0 left-0 w-full z-[110] py-6 px-6 lg:px-8 pointer-events-none">
+        {/* Optimized background transition (opacity is cheaper than gradient switching) */}
+        <div 
+          className={`absolute inset-0 bg-gradient-to-b from-page-text/40 to-transparent transition-opacity duration-700 pointer-events-none ${isScrolled ? 'opacity-100' : 'opacity-0'}`} 
+        />
+        
+        <div className="relative mx-auto max-w-7xl flex items-center justify-between pointer-events-auto">
           {/* Logo */}
           <Link href="/" className="flex items-center">
             <Image
@@ -43,9 +48,10 @@ export function Navbar() {
           </Button>
         </div>
       </div>
+      
       {/* ──── BOTTOM GRADIENT (Mobile Only on Scroll) ──── */}
       <div
-        className={`fixed bottom-0 left-0 w-full h-32 z-[90] pointer-events-none transition-opacity duration-500 sm:hidden ${isScrolled ? 'opacity-100 bg-gradient-to-t from-page-text/40 to-transparent' : 'opacity-0'}`}
+        className={`fixed bottom-0 left-0 w-full h-32 z-[90] pointer-events-none transition-opacity duration-700 sm:hidden bg-gradient-to-t from-page-text/40 to-transparent ${isScrolled ? 'opacity-100' : 'opacity-0'}`}
       />
 
       {/* ──── FLOATING PILL NAVBAR (Bottom Mobile / Top Desktop) ──── */}
@@ -61,9 +67,10 @@ export function Navbar() {
             borderColor: "rgba(0, 0, 0, 0.05)",
             y: 0,
             transition: {
-              height: { delay: 0.2, duration: 0.4, ease: "easeInOut" },
-              width: { delay: 0.6, duration: 0.4, ease: "easeInOut" },
-              borderRadius: { delay: 0.6, duration: 0.4, ease: "easeInOut" },
+              type: "spring",
+              stiffness: 300,
+              damping: 30,
+              mass: 1,
               backgroundColor: { delay: 0.2, duration: 0.4 },
               borderColor: { delay: 0.2, duration: 0.4 }
             }
@@ -76,14 +83,16 @@ export function Navbar() {
             borderColor: "rgba(255, 255, 255, 0.2)",
             y: 0,
             transition: {
-              width: { delay: 0, duration: 0.4, ease: "easeInOut" },
-              height: { delay: 0.4, duration: 0.5, ease: "easeInOut" },
-              borderRadius: { delay: 0.1, duration: 0.4, ease: "easeInOut" },
+              type: "spring",
+              stiffness: 260,
+              damping: 28,
+              mass: 1,
               backgroundColor: { duration: 0.4 },
               borderColor: { duration: 0.4 }
             }
           }
         }}
+        style={{ willChange: "transform, width, height, opacity" }} // Hardware Acceleration
         className={`fixed z-[150] left-1/2 -translate-x-1/2 backdrop-blur-3xl border flex flex-col shadow-2xl overflow-hidden max-w-[calc(100vw-48px)] bottom-6 sm:bottom-auto sm:top-[20px] origin-bottom sm:origin-top`}
       >
         {/* Navbar Links Row (Always visible) */}
@@ -136,7 +145,7 @@ export function Navbar() {
           {isExpanded && (
             <motion.div
               initial={{ opacity: 0, filter: "blur(10px)", y: 10 }}
-              animate={{ opacity: 1, filter: "blur(0px)", y: 0, transition: { delay: 0.7, duration: 0.5 } }}
+              animate={{ opacity: 1, filter: "blur(0px)", y: 0, transition: { delay: 0.25, duration: 0.4 } }}
               exit={{ opacity: 0, filter: "blur(5px)", y: 10, transition: { duration: 0.2 } }}
               className="flex-1 w-full p-4 sm:px-6 sm:py-8 overflow-y-auto subtle-scrollbar"
             >

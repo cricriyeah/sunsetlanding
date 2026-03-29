@@ -302,12 +302,6 @@ export default function SunsetCondominiosPage() {
               <span className="w-fit px-4 py-1.5 rounded-full bg-sc-contrast/80 text-white font-montserrat font-light text-[10px] sm:text-xs tracking-widest uppercase border border-white/10 backdrop-blur-md">
                 Preventa
               </span>
-              <div className="flex items-center gap-2">
-                <Home className="w-4 h-4 text-page-bg shrink-0" />
-                <span className="font-montserrat text-xs sm:text-sm text-page-bg tracking-wider uppercase font-medium drop-shadow-sm">
-                  La Paz · B.C.S · Proyecto residencial
-                </span>
-              </div>
             </motion.div>
 
             <div className="mb-8 flex items-center gap-4 sm:gap-6">
@@ -406,9 +400,9 @@ export default function SunsetCondominiosPage() {
             <h2 className="text-3xl sm:text-5xl font-literata font-light text-sc-text italic mb-5">
               Elige tu espacio
             </h2>
-            <p className="text-sc-text font-montserrat font-light text-sm tracking-wide">
+            <span className="w-fit px-4 py-1.5 rounded-full bg-sc-contrast/80 text-white font-montserrat font-light text-[10px] sm:text-xs tracking-widest uppercase border border-white/10 backdrop-blur-md">
               Precios de preventa disponibles hasta fin de obra
-            </p>
+            </span>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-4xl mx-auto">
@@ -500,7 +494,7 @@ export default function SunsetCondominiosPage() {
           >
             <span className="font-montserrat text-sm font-medium text-sc-contrast tracking-[0.2em] uppercase block mb-3">Ubicación</span>
             <h2 className="text-3xl sm:text-5xl font-literata font-light text-sc-text italic mb-8">
-              Estrategia y Conectividad
+              Ubicacion Ideal para vivir o invertir
             </h2>
             <p className="text-sc-text font-montserrat text-lg font-light leading-relaxed mb-10">
               Ubicados en una de las zonas de mayor desarrollo y plusvalía en La Paz, B.C.S., con acceso inmediato a servicios y vialidades clave de la región.

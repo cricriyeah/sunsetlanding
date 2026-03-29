@@ -71,7 +71,7 @@ const profiles = [
   {
     icon: Zap,
     title: "Quiero vivir ya",
-    desc: "De plano a llaves en 45 días. Sin esperas de obra negra.",
+    desc: "De plano a llaves en mínimo 30 días. Sin esperas de obra negra.",
   },
   {
     icon: TrendingUp,
@@ -88,9 +88,10 @@ const profiles = [
 const models = [
   {
     id: "basic",
-    name: "Basic Living",
+    name: "Esencial",
+    cardName: "Casa Esencial",
     price: "$280k – $420k MXN",
-    image: "/casasur/afuera.png",
+    images: ["/casasur/afuera.png", "/casasur/interior.png", "/casasur/bano.png"],
     ideal: "Primera vivienda o renta fija",
     profit: "Renta estimada: $8,000–$12,000/mes",
     includes: [
@@ -106,9 +107,10 @@ const models = [
   },
   {
     id: "smart",
-    name: "Smart Home",
+    name: "Smart",
+    cardName: "Casa Inteligente",
     price: "$480k – $720k MXN",
-    image: "/casasur/interior.png",
+    images: ["/casasur/interior.png", "/casasur/afuera.png", "/casasur/bano.png"],
     ideal: "Familia joven o Airbnb premium",
     profit: "Renta estimada: $18,000–$28,000/mes",
     includes: [
@@ -124,9 +126,10 @@ const models = [
   },
   {
     id: "luxury",
-    name: "Luxury Tulum",
+    name: "Lujo",
+    cardName: "Vivienda de Lujo",
     price: "$850k – $1.2M MXN",
-    image: "/casasur/bano.png",
+    images: ["/casasur/bano.png", "/casasur/afuera.png", "/casasur/interior.png"],
     ideal: "Airbnb de lujo o casa principal",
     profit: "Renta estimada: $45,000–$70,000/mes",
     includes: [
@@ -167,6 +170,16 @@ const processSteps = [
 
 export default function CasasSurPage() {
   const [activeModel, setActiveModel] = useState(0);
+  const [photoIndex, setPhotoIndex] = useState(0);
+
+  const handleModelChange = (i: number) => {
+    setActiveModel(i);
+    setPhotoIndex(0);
+  };
+
+  const currentImages = models[activeModel].images;
+  const prevPhoto = () => setPhotoIndex((p) => (p === 0 ? currentImages.length - 1 : p - 1));
+  const nextPhoto = () => setPhotoIndex((p) => (p === currentImages.length - 1 ? 0 : p + 1));
 
   const waLink = (model?: string) => {
     const msg = model
@@ -310,8 +323,8 @@ export default function CasasSurPage() {
                 variants={fadeUp}
                 className="group shadow-md p-8 rounded-3xl bg-page-text border border-white/5 transition-all duration-500 hover:-translate-y-1 hover:shadow-md hover:shadow-page-text/20"
               >
-                <div className="w-14 h-14 rounded-2xl bg-white/100 flex items-center justify-center mb-5 group-hover:bg-white/15 transition-all">
-                  <p.icon className="w-7 h-7 text-brand-orange/90 group-hover:scale-110 transition-transform" />
+                <div className="w-14 h-14 rounded-2xl bg-brand-orange/80 flex items-center justify-center mb-5 transition-all">
+                  <p.icon className="w-7 h-7 text-white/90 group-hover:scale-110 transition-transform" />
                 </div>
                 <h3 className="text-xl font-literata text-white mb-2">{p.title}</h3>
                 <p className="font-montserrat font-light text-sm leading-relaxed text-white/70">
@@ -322,118 +335,178 @@ export default function CasasSurPage() {
           </div>
         </div>
       </section>
-
-
       {/* ══════════════════════════════════════════════════════════════════
-          3. MODELOS
+          3. MODELOS — Fullscreen Carousel with Multi-Photo
           ══════════════════════════════════════════════════════════════ */}
-      <section id="modelos" className="relative py-24 sm:py-32 bg-page-text/[0.04] scroll-mt-20">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+      <section id="modelos" className="relative scroll-mt-20 overflow-hidden">
+        {/* Header */}
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 pt-24 sm:pt-32 pb-10 text-center">
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
             variants={fadeUp}
             custom={0}
-            className="text-center mb-12"
           >
             <span className="font-montserrat font-medium text-sm text-brand-orange/90 tracking-[0.2em] uppercase block mb-3">
               Catálogo
             </span>
-            <h2 className="text-3xl sm:text-5xl font-literata font-light text-page-text italic">
+            <h2 className="text-3xl sm:text-5xl font-literata font-light text-page-text italic mb-8">
               Elige tu modelo
             </h2>
+
+            {/* ── Pills de modelo ── */}
+            <div className="flex flex-wrap justify-center gap-2">
+              {models.map((m, i) => (
+                <button
+                  key={m.id}
+                  onClick={() => handleModelChange(i)}
+                  className={`px-5 py-2.5 rounded-full font-montserrat text-sm font-medium transition-all duration-300 ${activeModel === i
+                    ? "bg-page-text text-white shadow-lg shadow-page-text/20"
+                    : "bg-white/60 text-page-text border border-page-text/10 hover:bg-white hover:border-page-text/20"
+                    }`}
+                >
+                  {m.name}
+                </button>
+              ))}
+            </div>
           </motion.div>
+        </div>
 
-          {/* Tabs */}
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeUp}
-            custom={0.1}
-            className="flex flex-wrap justify-center gap-2 mb-12"
-          >
-            {models.map((m, i) => (
-              <button
-                key={m.id}
-                onClick={() => setActiveModel(i)}
-                className={`px-5 py-2.5 rounded-full font-montserrat text-sm font-medium transition-all duration-300 ${activeModel === i
-                  ? "bg-page-text text-white shadow-lg shadow-page-text/20"
-                  : "bg-white/60 text-page-text border border-page-text/10 hover:bg-white hover:border-page-text/20"
-                  }`}
-              >
-                {m.name}
-              </button>
-            ))}
-          </motion.div>
+        {/* ── Carrusel — contenido centrado en desktop, full-width en mobile ── */}
+        <div className="relative w-full">
+          <div className="mx-0 sm:mx-6 lg:mx-16 xl:mx-24">
+            <div className="relative w-full h-[55vh] sm:h-[60vh] lg:h-[65vh] overflow-hidden rounded-none">
 
-          {/* Model Card */}
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeModel}
-              initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
-              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-              exit={{ opacity: 0, y: -20, filter: "blur(8px)" }}
-              transition={{ duration: 0.5, ease: [0.2, 0.65, 0.3, 0.9] }}
-              className="max-w-4xl mx-auto bg-page-text border border-white/10 rounded-3xl overflow-hidden shadow-2xl shadow-page-text/30"
-            >
-              {/* Image inside card */}
-              <div className="relative aspect-[21/9] overflow-hidden">
-                <Image
-                  src={models[activeModel].image}
-                  alt={models[activeModel].name}
-                  fill
-                  className="object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-page-text to-transparent opacity-60" />
-                <div className="absolute top-4 left-4">
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-brand-orange/90 text-white font-montserrat text-xs font-bold tracking-wide shadow-lg">
-                    <Star className="w-3 h-3" />
-                    Ideal para: {models[activeModel].ideal}
-                  </span>
-                </div>
-              </div>
+              {/* Imagen */}
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={`${activeModel}-${photoIndex}`}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.6, ease: "easeInOut" }}
+                  className="absolute inset-0"
+                >
+                  <Image
+                    src={currentImages[photoIndex]}
+                    alt={`${models[activeModel].name} — foto ${photoIndex + 1}`}
+                    fill
+                    className="object-cover"
+                    priority
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/30" />
+                </motion.div>
+              </AnimatePresence>
 
-              {/* Details */}
-              <div className="p-8 sm:p-10">
-                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-8">
-                  <div>
-                    <h3 className="text-3xl sm:text-4xl font-literata font-light text-white mb-2">
-                      {models[activeModel].name}
-                    </h3>
-                    <p className="text-2xl sm:text-3xl font-literata text-brand-orange/90 font-light mb-2">
-                      {models[activeModel].price}
-                    </p>
-                    <p className="font-montserrat text-sm text-white/50 font-medium flex items-center gap-2">
-                      <TrendingUp className="w-4 h-4" />
-                      {models[activeModel].profit}
-                    </p>
-                  </div>
-                  <a
-                    href={waLink(models[activeModel].name)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group relative overflow-hidden rounded-full inline-flex items-center justify-center font-montserrat font-semibold transition-all h-11 px-6 text-sm bg-white text-page-text hover:bg-white/90 shrink-0"
-                  >
-                    <span className="relative z-10 flex items-center">
-                      <MessageCircle className="mr-2 h-4 w-4" />
-                      Cotizar este modelo
-                    </span>
-                  </a>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  {models[activeModel].includes.map((item) => (
-                    <div key={item} className="flex items-start gap-3">
-                      <Check className="w-4 h-4 text-brand-orange/90 shrink-0 mt-0.5" />
-                      <span className="font-montserrat font-light text-sm text-white/80">{item}</span>
-                    </div>
+              {/* Dots — top center */}
+              {currentImages.length > 1 && (
+                <div className="absolute top-4 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2">
+                  {currentImages.map((_, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setPhotoIndex(i)}
+                      className={`rounded-full transition-all duration-300 ${photoIndex === i
+                        ? "w-5 h-1.5 bg-white"
+                        : "w-1.5 h-1.5 bg-white/50 hover:bg-white/80"
+                        }`}
+                      aria-label={`Foto ${i + 1}`}
+                    />
                   ))}
                 </div>
-              </div>
-            </motion.div>
-          </AnimatePresence>
+              )}
+
+              {/* Flechas */}
+              <button
+                onClick={prevPhoto}
+                className="absolute left-3 sm:left-5 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-black/20 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:bg-black/40 transition-all hover:scale-105 active:scale-95"
+                aria-label="Foto anterior"
+              >
+                <ArrowRight className="w-4 h-4 rotate-180" />
+              </button>
+              <button
+                onClick={nextPhoto}
+                className="absolute right-3 sm:right-5 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-black/20 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:bg-black/40 transition-all hover:scale-105 active:scale-95"
+                aria-label="Foto siguiente"
+              >
+                <ArrowRight className="w-4 h-4" />
+              </button>
+
+            </div>{/* fin imagen */}
+
+            {/* ── Spec Card — FUERA del overflow, encimada con -mt ── */}
+            <div className="relative z-20 -mt-16 sm:-mt-20 px-3 sm:px-6 pb-8 sm:pb-12">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={`specs-${activeModel}`}
+                  initial={{ opacity: 0, y: 24, filter: "blur(8px)" }}
+                  animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                  exit={{ opacity: 0, y: 12, filter: "blur(4px)" }}
+                  transition={{ duration: 0.5, ease: [0.2, 0.65, 0.3, 0.9] }}
+                  className="max-w-5xl mx-auto bg-white/80 backdrop-blur-xl border border-white/60 rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-2xl shadow-black/10"
+                >
+                  {/* Card header */}
+                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-4">
+                    <div className="flex flex-col gap-0.5">
+                      <span className="w-fit inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-orange/90 text-white font-montserrat text-[10px] font-bold tracking-wide mb-1">
+                        <Star className="w-3 h-3" />
+                        Ideal para: {models[activeModel].ideal}
+                      </span>
+                      <h3 className="text-xl sm:text-2xl font-literata font-light text-page-text">
+                        {models[activeModel].cardName}
+                      </h3>
+                      <p className="text-lg sm:text-xl font-literata text-brand-orange/90 font-light">
+                        {models[activeModel].price}
+                      </p>
+                      <p className="font-montserrat text-xs text-page-text/70 font-medium flex items-center gap-1.5">
+                        <TrendingUp className="w-3 h-3 text-brand-orange/80" />
+                        {models[activeModel].profit}
+                      </p>
+                    </div>
+
+                    <a
+                      href={waLink(models[activeModel].name)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="shrink-0 self-start inline-flex items-center justify-center font-montserrat font-semibold transition-all h-9 px-5 text-xs rounded-full bg-page-text text-white hover:bg-page-text/90"
+                    >
+                      <MessageCircle className="mr-1.5 h-3.5 w-3.5" />
+                      Cotizar este modelo
+                    </a>
+                  </div>
+
+                  {/* Divider */}
+                  <div className="w-full h-px bg-page-text/10 mb-4" />
+
+                  {/* Includes desktop — 4 cols */}
+                  <div className="hidden sm:grid grid-cols-2 lg:grid-cols-4 gap-2.5">
+                    {models[activeModel].includes.map((item) => (
+                      <div key={item} className="flex items-start gap-2">
+                        <Check className="w-3.5 h-3.5 text-brand-orange/90 shrink-0 mt-0.5" />
+                        <span className="font-montserrat font-light text-xs text-page-text/80 leading-relaxed">
+                          {item}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Includes mobile — 4 primeros en 2 cols */}
+                  <div className="sm:hidden grid grid-cols-2 gap-2">
+                    {models[activeModel].includes.slice(0, 4).map((item) => (
+                      <div key={item} className="flex items-start gap-1.5">
+                        <Check className="w-3 h-3 text-brand-orange/90 shrink-0 mt-0.5" />
+                        <span className="font-montserrat font-light text-[11px] text-page-text/80 leading-relaxed">
+                          {item}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+
+                </motion.div>
+              </AnimatePresence>
+            </div>{/* fin spec card */}
+
+          </div>{/* fin mx wrapper */}
         </div>
       </section>
 
@@ -611,8 +684,8 @@ export default function CasasSurPage() {
                 variants={fadeUp}
                 className="group p-8 rounded-3xl bg-page-text border border-white/5 text-center hover:-translate-y-1 transition-all duration-500 shadow-xl shadow-page-text/20"
               >
-                <div className="w-12 h-12 rounded-2xl bg-white/100 flex items-center justify-center mb-4 mx-auto group-hover:bg-white/15 transition-all">
-                  <card.icon className="w-6 h-6 text-brand-orange/90" />
+                <div className="w-12 h-12 rounded-2xl bg-brand-orange/80 flex items-center justify-center mb-4 mx-auto transition-all">
+                  <card.icon className="w-6 h-6 text-white/100" />
                 </div>
                 <p className="text-3xl sm:text-4xl font-literata font-light text-white mb-2">
                   {card.metric}

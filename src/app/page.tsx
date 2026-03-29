@@ -30,7 +30,7 @@ export default function Home() {
         <div className="absolute inset-0 z-0">
           <ShadowOverlay
             color="rgba(253, 186, 116, 0.85)"
-            animation={{ scale: 15, speed: 45 }}
+            animation={{ scale: 15, speed: 2 }}
             noise={{ opacity: 0.1, scale: 1 }}
             sizing="fill"
             className="w-full h-full"
