@@ -5,7 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight, Sparkles, Home as HomeIcon, Bath, Utensils } from "lucide-react";
-import { ShadowOverlay } from "@/components/ui/ShadowOverlay";
 import { Navbar } from "@/components/Navbar";
 import { HeroContent } from "@/components/HeroContent";
 import { Footer } from "@/components/Footer";
@@ -26,16 +25,24 @@ export default function Home() {
     <div className="min-h-screen bg-page-bg text-page-text overflow-x-hidden">
 
       {/* ──── HERO ──── */}
-      <section className="relative min-h-screen w-full overflow-hidden bg-gradient-to-br from-brand-blue via-brand-sand to-brand-orange flex flex-col">
-        <div className="absolute inset-0 z-0">
-          <ShadowOverlay
-            color="rgba(253, 186, 116, 0.85)"
-            animation={{ scale: 15, speed: 2 }}
-            noise={{ opacity: 0.1, scale: 1 }}
-            sizing="fill"
-            className="w-full h-full"
+      <section className="relative min-h-screen w-full overflow-hidden flex flex-col">
+        {/* Background Video */}
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover z-0"
+        >
+          <source
+            src="https://res.cloudinary.com/dkofkzzc5/video/upload/v1774756252/12297868_3840_2160_30fps-00.00.00.000-00.00.17.018_iqn6f3.mp4"
+            type="video/mp4"
           />
-        </div>
+        </video>
+
+        {/* Overlay gradients for readability with brand brown */}
+        <div className="absolute inset-0 z-[1] bg-gradient-to-b from-brand-orange/40 via-transparent to-transparent" />
+        <div className="absolute inset-0 z-[1] bg-gradient-to-r from-brand-orange/20 via-transparent to-transparent" />
 
         <div className="relative z-30">
           <Navbar />

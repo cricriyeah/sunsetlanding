@@ -24,18 +24,26 @@ export default function NosotrosPage() {
     <div className="min-h-screen bg-page-bg text-page-text overflow-x-hidden">
       {/* ──── HERO ──── */}
       <section className="relative min-h-screen w-full overflow-hidden flex flex-col">
-        <div className="absolute inset-0 bg-gradient-to-br from-brand-blue/80 via-brand-sand/30 to-brand-orange/20" />
-        <div className="absolute inset-0 bg-gradient-to-t from-page-bg via-transparent to-transparent" />
+        {/* Background Video */}
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover z-0"
+        >
+          <source
+            src="https://res.cloudinary.com/dkofkzzc5/video/upload/v1774753742/12225256_3840_2160_30fps_1_thb81u.mp4"
+            type="video/mp4"
+          />
+        </video>
 
-        {/* Noise Filter */}
-        <div
-          className="absolute inset-0 z-0 opacity-[0.075] pointer-events-none mix-blend-overlay"
-          style={{
-            backgroundImage: `url("/noise-texture.png")`,
-            backgroundSize: "240px",
-            backgroundRepeat: "repeat",
-          }}
-        />
+        {/* Overlay gradients for text readability and smooth blending */}
+        {/* Top shadow for contrast with brand brown */}
+        <div className="absolute inset-0 z-[1] bg-gradient-to-b from-page-text/60 via-page-text/20 to-transparent" />
+
+        {/* Bottom: Smooth blending with page-bg */}
+        <div className="absolute inset-x-0 bottom-0 h-1/3 z-[1] bg-gradient-to-t from-page-bg via-page-bg/80 to-transparent" />
 
         <div className="relative z-30">
           <Navbar />
@@ -47,14 +55,14 @@ export default function NosotrosPage() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="font-montserrat font-medium text-sm text-page-text tracking-[0.2em] uppercase block mb-4"
+              className="font-montserrat font-medium text-sm text-white/80 tracking-[0.2em] uppercase block mb-4"
             >
               Quiénes somos
             </motion.span>
 
             <CinematicHeading
               text="El estándar americano, arraigado en el espíritu de la Baja Sur"
-              className="text-3xl sm:text-5xl lg:text-6xl font-literata font-light tracking-tight mb-6 text-page-text"
+              className="text-3xl sm:text-5xl lg:text-6xl font-literata font-light tracking-tight mb-6 text-white drop-shadow-md"
               type="word"
               delayChildren={0.4}
             />
@@ -63,7 +71,7 @@ export default function NosotrosPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.8 }}
-              className="text-lg sm:text-xl text-page-text font-montserrat font-light max-w-2xl leading-relaxed"
+              className="text-lg sm:text-xl text-white/90 font-montserrat font-light max-w-2xl leading-relaxed drop-shadow-sm"
             >
               Experiencia inmobiliaria de alta gama en La Paz y sus alrededores. Fusionamos la innovación de las smart homes y la energía renovable con la esencia indomable del Mar de Cortés. No es un destino nuevo, es el estilo de vida que ya conoces, en el lugar que siempre soñaste.
             </motion.p>

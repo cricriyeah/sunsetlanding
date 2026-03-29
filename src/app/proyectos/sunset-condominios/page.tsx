@@ -281,9 +281,10 @@ export default function SunsetCondominiosPage() {
         />
 
 
-        {/* Capas de gradiente para legibilidad y tono */}
-        <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-sc-bg via-sc-bg/80 to-transparent z-10" />
-        <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-sc-primary/20 via-sc-primary/40 to-transparent z-10" />
+        {/* Overlays for depth and readability */}
+        <div className="absolute inset-0 bg-page-text/40 z-[1]" />
+        <div className="absolute inset-0 bg-gradient-to-t from-sc-bg via-transparent to-transparent z-[2]" />
+        <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-sc-primary/30 via-sc-primary-dark/10 to-transparent z-[3]" />
 
         {/* Navbar */}
         <div className="relative z-30">
@@ -311,12 +312,11 @@ export default function SunsetCondominiosPage() {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
-                className="w-8 h-8 sm:w-[60px] sm:h-[60px] lg:w-24 lg:h-24 shrink-0 self-center"
-                style={{ filter: "brightness(0) saturate(100%) invert(12%) sepia(30%) saturate(600%) hue-rotate(340deg) brightness(90%)" }}
+                className="w-10 h-10 sm:w-[60px] sm:h-[60px] lg:w-24 lg:h-24 shrink-0 self-center brightness-0 invert"
               />
               <CinematicHeading
                 text="Sunset Condominios"
-                className="text-3xl sm:text-6xl lg:text-8xl font-literata font-light tracking-tight text-sc-text leading-tight"
+                className="text-3xl sm:text-6xl lg:text-8xl font-literata font-light tracking-tight text-white leading-tight drop-shadow-md"
                 type="word"
                 delayChildren={0.5}
               />
@@ -326,7 +326,7 @@ export default function SunsetCondominiosPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.9 }}
-              className="text-lg sm:text-xl text-sc-text font-montserrat font-light max-w-2xl leading-relaxed"
+              className="text-lg sm:text-xl text-white/90 font-montserrat font-light max-w-2xl leading-relaxed drop-shadow-sm"
             >
               Un refugio de diseño contemporáneo donde el confort del hogar se encuentra con la belleza indómita de la Baja.
             </motion.p>
@@ -401,7 +401,7 @@ export default function SunsetCondominiosPage() {
               Elige tu espacio
             </h2>
             <span className="w-fit px-4 py-1.5 rounded-full bg-sc-contrast/80 text-white font-montserrat font-light text-[10px] sm:text-xs tracking-widest uppercase border border-white/10 backdrop-blur-md">
-              Precios de preventa disponibles hasta fin de obra
+              Precios de preventa
             </span>
           </motion.div>
 
