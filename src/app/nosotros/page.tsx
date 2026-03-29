@@ -4,7 +4,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Target, Compass, ArrowRight } from "lucide-react";
+import { Target, ArrowRight, Zap, Leaf, ShieldCheck, Palmtree } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { CinematicHeading } from "@/components/ui/CinematicHeading";
@@ -111,56 +111,79 @@ export default function NosotrosPage() {
               viewport={{ once: true, margin: "-100px" }}
               custom={0.2}
               variants={fadeUp}
-              className="animate-on-scroll relative aspect-[4/3] rounded-2xl overflow-hidden bg-page-text/[0.03] border border-page-text/8"
+              className="animate-on-scroll relative aspect-[4/3] rounded-none overflow-hidden bg-page-text/[0.03] border border-page-text/8"
             >
-              <div className="absolute inset-0 bg-gradient-to-tr from-brand-orange/5 to-brand-blue/5" />
-              <div className="absolute inset-0 flex items-center justify-center">
-                <span className="font-montserrat tracking-[0.3em] text-page-text/15 text-xs uppercase">Imagen equipo</span>
-              </div>
+              <Image src="/lpz.jpg" alt="La Paz" fill className="object-cover" />
+              <div className="absolute inset-0 bg-gradient-to-tr from-brand-orange/5 to-brand-blue/5 mix-blend-overlay" />
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* ──── VISIÓN ──── */}
-      <section className="relative py-24 sm:py-32 bg-page-bg-alt">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-100px" }}
-              custom={0}
-              variants={fadeUp}
-              className="animate-on-scroll relative aspect-[4/3] rounded-2xl overflow-hidden bg-white/50 border border-page-text/5 order-2 lg:order-1"
-            >
-              <div className="absolute inset-0 bg-gradient-to-bl from-brand-blue/5 to-brand-orange/5" />
-              <div className="absolute inset-0 flex items-center justify-center">
-                <span className="font-montserrat tracking-[0.3em] text-page-text/15 text-xs uppercase">Imagen visión</span>
-              </div>
-            </motion.div>
+      {/* ──── VALORES ──── */}
+      <section className="relative py-24 sm:py-32 bg-page-bg-alt overflow-hidden">
+        {/* Subtle background glow */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-brand-blue/5 blur-[120px] rounded-full pointer-events-none -z-0" />
 
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-100px" }}
-              custom={0.2}
-              variants={fadeUp}
-              className="animate-on-scroll order-1 lg:order-2"
-            >
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 rounded-xl bg-page-text/5 border border-page-text/5 flex items-center justify-center">
-                  <Compass className="w-5 h-5 text-page-text" />
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            custom={0}
+            variants={fadeUp}
+            className="animate-on-scroll text-center mb-16 sm:mb-24"
+          >
+            <span className="font-montserrat font-medium text-sm text-brand-blue/60 tracking-[0.2em] uppercase block mb-3">Nuestros Pilares</span>
+            <h2 className="text-3xl sm:text-5xl font-literata font-light text-page-text italic leading-tight">Principios que guían <br className="hidden sm:block" /> nuestra excelencia</h2>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+            {[
+              {
+                title: "Innovación",
+                desc: "Integramos las últimas tecnologías en smart homes y eficiencia energética para crear hogares del futuro.",
+                icon: Zap
+              },
+              {
+                title: "Sostenibilidad",
+                desc: "Respeto profundo por el ecosistema de la Baja, minimizando nuestro impacto ambiental en cada obra.",
+                icon: Leaf
+              },
+              {
+                title: "Calidad",
+                desc: "Estándares americanos de construcción y acabados de lujo certificados en cada detalle arquitectónico.",
+                icon: ShieldCheck
+              },
+              {
+                title: "Herencia",
+                desc: "Celebramos y preservamos la identidad única de Baja California Sur a través de arquitectura sensible.",
+                icon: Palmtree
+              }
+            ].map((v, i) => (
+              <motion.div
+                key={v.title}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-60px" }}
+                custom={i * 0.15}
+                variants={fadeUp}
+                className="group relative animate-on-scroll"
+              >
+                <div className="h-full bg-white/40 backdrop-blur-md border border-page-text/5 p-8 lg:p-10 rounded-[2.5rem] transition-card duration-500 hover:bg-brand-blue/[0.03] hover:border-brand-blue/20 hover:shadow-2xl hover:shadow-brand-blue/5 overflow-hidden">
+                  {/* Decorative corner glow */}
+                  <div className="absolute -top-10 -right-10 w-24 h-24 bg-brand-blue/10 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  
+                  <div className="relative z-10">
+                    <div className="w-12 h-12 rounded-2xl bg-brand-blue/5 border border-brand-blue/10 flex items-center justify-center mb-6 group-hover:bg-brand-blue/10 group-hover:scale-110 transition-all duration-500">
+                      <v.icon className="w-6 h-6 text-brand-blue/60 group-hover:text-brand-blue transition-colors" />
+                    </div>
+                    <h3 className="text-xl sm:text-2xl font-literata text-page-text mb-4 font-light italic">{v.title}</h3>
+                    <p className="text-page-text/60 font-montserrat font-light text-sm leading-relaxed">{v.desc}</p>
+                  </div>
                 </div>
-                <span className="font-montserrat font-medium text-sm text-page-text tracking-[0.2em] uppercase">Nuestra Visión</span>
-              </div>
-              <h2 className="text-3xl sm:text-4xl font-literata font-light text-page-text italic mb-8">
-                Ser la desarrolladora líder del noroeste de México
-              </h2>
-              <p className="text-page-text font-montserrat font-light text-base sm:text-lg leading-relaxed">
-                Ser la desarrolladora líder en el noroeste de México, reconocida por traer la visión vanguardista del mercado estadounidense a entornos naturales privilegiados. Aspiramos a crear comunidades que definan el nuevo lujo: un equilibrio perfecto entre eficiencia energética, diseño cosmopolita y respeto absoluto por la identidad local.
-              </p>
-            </motion.div>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>

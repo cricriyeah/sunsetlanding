@@ -379,9 +379,9 @@ export default function CasasSurPage() {
         {/* ── Carrusel — contenido centrado en desktop, full-width en mobile ── */}
         <div className="relative w-full">
           <div className="mx-0 sm:mx-6 lg:mx-16 xl:mx-24">
-            <div className="relative w-full h-[55vh] sm:h-[60vh] lg:h-[65vh] overflow-hidden rounded-none">
+            <div className="relative w-full h-[55vh] sm:h-[60vh] lg:h-[85vh] overflow-hidden rounded-none">
 
-              {/* Imagen */}
+              {/* Imágenes */}
               <AnimatePresence mode="wait">
                 <motion.div
                   key={`${activeModel}-${photoIndex}`}
@@ -389,24 +389,37 @@ export default function CasasSurPage() {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.6, ease: "easeInOut" }}
-                  className="absolute inset-0 group cursor-pointer"
-                  onClick={() => openLightbox(currentImages.map(src => ({ src, alt: `${models[activeModel].name} — foto` })), photoIndex)}
+                  className="absolute inset-0 grid grid-cols-1 lg:grid-cols-3 gap-0 lg:gap-2"
                 >
-                  <Image
-                    src={currentImages[photoIndex]}
-                    alt={`${models[activeModel].name} — foto ${photoIndex + 1}`}
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
-                    priority
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/30" />
-                  
-                  {/* Lupa overlay */}
-                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20">
-                    <div className="p-4 rounded-full bg-white/10 backdrop-blur-md border border-white/20">
-                      <Search className="w-6 h-6 text-white" />
-                    </div>
-                  </div>
+                  {[0, 1, 2].map((offset) => {
+                    const idx = (photoIndex + offset) % currentImages.length;
+                    // On mobile, only show the first one (offset 0)
+                    const isVisibleMobile = offset === 0;
+                    
+                    return (
+                      <div 
+                        key={`${idx}`}
+                        className={`relative h-full w-full group cursor-pointer ${!isVisibleMobile ? "hidden lg:block" : "block"}`}
+                        onClick={() => openLightbox(currentImages.map(src => ({ src, alt: `${models[activeModel].name} — foto` })), idx)}
+                      >
+                        <Image
+                          src={currentImages[idx]}
+                          alt={`${models[activeModel].name} — foto ${idx + 1}`}
+                          fill
+                          className="object-cover transition-transform duration-700 group-hover:scale-105"
+                          priority={offset === 0}
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/30" />
+                        
+                        {/* Lupa overlay */}
+                        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20">
+                          <div className="p-4 rounded-full bg-white/10 backdrop-blur-md border border-white/20">
+                            <Search className="w-6 h-6 text-white" />
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
                 </motion.div>
               </AnimatePresence>
 

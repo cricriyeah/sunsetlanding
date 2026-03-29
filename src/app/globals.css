@@ -24,7 +24,7 @@
   --color-sc-primary: #e6846a;
   --color-sc-primary-dark: #B5432E;
   --color-sc-contrast: #53b076;
-  --color-sc-contrast-light: #85c99f;
+  --color-sc-contrast-light: #53b076;
   --color-sc-accent: #D4728C;
   --color-sc-accent-light: #EBB5C4;
 
@@ -109,7 +109,7 @@
    filter from CSS transitions to prevent double-animation. */
 .transition-card {
   transition-property: color, background-color, border-color,
-                       text-decoration-color, fill, stroke,
-                       box-shadow, backdrop-filter;
+    text-decoration-color, fill, stroke,
+    box-shadow, backdrop-filter;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }

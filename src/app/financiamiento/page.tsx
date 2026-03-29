@@ -1,9 +1,9 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, animate } from "framer-motion";
 import {
   HandCoins,
   CalendarDays,
@@ -32,54 +32,104 @@ const fadeUp = {
 };
 
 export default function FinanciamientoPage() {
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // Auto-scroll after typing animation completes (approx 6 seconds)
+    const timer = setTimeout(() => {
+      if (contentRef.current) {
+        const targetScroll = contentRef.current.offsetTop;
+        
+        animate(window.scrollY, targetScroll, {
+          duration: 2.5, // Much smoother/longer duration
+          ease: [0.32, 0, 0.1, 1], // Cinematic cubic-bezier easing
+          onUpdate: (latest) => window.scrollTo(0, latest)
+        });
+      }
+    }, 6000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <div className="min-h-screen bg-page-bg text-page-text overflow-x-hidden">
-      {/* ──── HERO ──── */}
-      <section className="relative min-h-[65vh] w-full overflow-hidden flex flex-col">
-        <div className="absolute inset-0 bg-gradient-to-br from-sc-contrast/80 via-sc-contrast/30 to-brand-sand/10" />
-        <div className="absolute inset-0 bg-gradient-to-t from-page-bg via-transparent to-transparent" />
+      {/* ──── VIDEO HERO (ATTENTION) ──── */}
+      <section className="relative min-h-screen w-full overflow-hidden flex flex-col">
+        {/* Background Video */}
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover z-0"
+        >
+          <source
+            src="https://res.cloudinary.com/dkofkzzc5/video/upload/v1774771720/5981451-uhd_4096_2160_25fps_wfuw6b.mp4"
+            type="video/mp4"
+          />
+        </video>
 
-        {/* Noise Filter */}
-        <div
-          className="absolute inset-0 z-0 opacity-[0.075] pointer-events-none mix-blend-overlay"
-          style={{
-            backgroundImage: `url("/noise-texture.png")`,
-            backgroundSize: "240px",
-            backgroundRepeat: "repeat",
-          }}
-        />
+        {/* Cinematic Overlays */}
+        <div className="absolute inset-0 z-[1] bg-gradient-to-b from-black/60 via-black/20 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-1/2 z-[1] bg-gradient-to-t from-page-bg via-transparent to-transparent" />
 
         <div className="relative z-30">
           <Navbar />
         </div>
 
-        <div className="relative z-20 flex flex-1 items-center justify-center pt-16 pb-8">
-          <div className="max-w-7xl w-full mx-auto px-6 lg:px-8 text-center flex flex-col items-center">
-            <motion.span
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="font-montserrat font-medium text-sm text-page-text tracking-[0.2em] uppercase block mb-4"
-            >
-              Programa Residencial
-            </motion.span>
-
+        <div className="relative z-20 flex flex-1 items-center justify-center">
+          <div className="max-w-7xl w-full mx-auto px-6 lg:px-8 text-center">
             <CinematicHeading
-              text="Financiamiento"
-              className="text-4xl sm:text-6xl lg:text-7xl font-literata font-light tracking-tight mb-6 text-page-text"
-              type="word"
+              text="¿Los bancos cobran demasiado interés?"
+              className="text-4xl sm:text-6xl lg:text-8xl font-literata font-light tracking-tight text-white drop-shadow-2xl"
+              type="char"
+              variant="typing"
+              staggerChildren={0.08}
               delayChildren={0.4}
             />
-
-            <motion.p
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.8 }}
-              className="text-lg sm:text-xl text-page-text font-montserrat font-light max-w-2xl leading-relaxed"
+              transition={{ duration: 1, delay: 1.2 }}
+              className="mt-12"
             >
-              Construye tu hogar ideal en La Baja con nuestro Programa 40/60. Tú pones el terreno, nosotros financiamos tu futuro.
-            </motion.p>
+              <div className="w-[3px] h-24 bg-gradient-to-b from-white to-transparent mx-auto opacity-70" />
+            </motion.div>
           </div>
+        </div>
+      </section>
+
+      {/* ──── PROGRAMA HERO (CONTENT) ──── */}
+      <section ref={contentRef} className="relative py-24 sm:py-32 flex flex-col">
+        <div className="max-w-7xl w-full mx-auto px-6 lg:px-8 text-center flex flex-col items-center">
+          <motion.span
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeUp}
+            custom={0.1}
+            className="animate-on-scroll font-montserrat font-medium text-sm text-page-text tracking-[0.2em] uppercase block mb-4"
+          >
+            Programa Residencial
+          </motion.span>
+
+          <CinematicHeading
+            text="Financiamiento"
+            className="text-4xl sm:text-6xl lg:text-7xl font-literata font-light tracking-tight mb-6 text-page-text"
+            type="word"
+            delayChildren={0.2}
+          />
+
+          <motion.p
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeUp}
+            custom={0.4}
+            className="animate-on-scroll text-lg sm:text-xl text-page-text/80 font-montserrat font-light max-w-2xl leading-relaxed"
+          >
+            Construye tu hogar ideal en La Baja con nuestro Programa 40/60. Tú pones el terreno, nosotros financiamos tu futuro.
+          </motion.p>
         </div>
       </section>
 

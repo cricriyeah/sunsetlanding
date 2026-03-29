@@ -156,6 +156,7 @@ function ModelCard({ model, index }: { model: (typeof models)[0]; index: number 
 }
 
 // ─── ConceptSection (solo texto, sin marca de agua) ───────────────────────
+// ─── ConceptSection (Rediseñado con Video Vertical) ✨ ───────────────────
 function ConceptSection() {
   const values = [
     {
@@ -164,70 +165,105 @@ function ConceptSection() {
     },
     {
       title: "Conectividad real",
-      description: "Acceso directo a las principales arterias viales y servicios esenciales de la ciudad.",
+      description: "Acceso directo a las principales arterias viales y servicios esenciales.",
     },
     {
       title: "Diseño con propósito",
-      description: "Espacios que respiran, que enmarcan el paisaje y que están pensados para el bienestar.",
+      description: "Arquitectura que respira, pensada para el bienestar y la funcionalidad.",
     },
     {
       title: "Inversión con futuro",
-      description: "Preventa en una zona de alta demanda, con planes de financiamiento accesibles.",
+      description: "Preventa estratégica con alta rentabilidad proyectada y plusvalía.",
     },
   ];
 
   return (
-    <section className="relative pt-20 sm:pt-28 pb-28 sm:pb-28 bg-sc-primary/20 overflow-hidden">
-      <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
+    <section className="relative pt-20 sm:pt-32 pb-24 sm:pb-32 bg-sc-bg overflow-hidden border-b border-sc-primary/10">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
 
-        <motion.span
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-80px" }}
-          custom={0}
-          variants={fadeUp}
-          className="animate-on-scroll font-montserrat font-medium text-sm text-sc-primary-dark tracking-[0.2em] uppercase block mb-10"
-        >
-          El Concepto
-        </motion.span>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20 items-start">
-
-          {/* Titular */}
+          {/* COLUMNA A: VIDEO VERTICAL CINEMÁTICO (Corners Rectos) */}
           <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-80px" }}
-            custom={0.1}
-            variants={fadeUp}
+            initial={{ opacity: 0, x: -30, filter: "blur(10px)" }}
+            whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 1.2, ease: [0.32, 0, 0.1, 1] }}
+            className="relative lg:order-1"
           >
-            <h2 className="font-literata font-light text-3xl sm:text-4xl lg:text-5xl text-sc-text leading-snug mb-6">
-              Donde la vida<br />
-              <span className="italic text-sc-text/70">encuentra su lugar.</span>
-            </h2>
-            <p className="font-montserrat text-sm text-sc-text font-light leading-relaxed">
-              Sunset Condominios nació de una pregunta simple: ¿cómo debería sentirse el hogar estratégico?
-              La respuesta es esta: espacios que respiran, que dejan entrar la luz,
-              que no compiten con el paisaje — lo enmarcan.
-            </p>
+            <div className="relative aspect-[9/16] w-full max-w-sm mx-auto overflow-hidden shadow-2xl scale-[1.02]">
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="absolute inset-0 w-full h-full object-cover"
+              >
+                <source
+                  src="https://res.cloudinary.com/dkofkzzc5/video/upload/v1774773809/videocondos1_mg04qs.mp4"
+                  type="video/mp4"
+                />
+              </video>
+              {/* Overlay suave para integrar el video */}
+              <div className="absolute inset-0 bg-gradient-to-t from-sc-text/40 to-transparent pointer-events-none" />
+            </div>
+
+            {/* Elemento decorativo flotante para profundidad */}
+            <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-sc-primary/10 rounded-full blur-3xl opacity-50" />
           </motion.div>
 
-          {/* Cards de valores */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {values.map((v, i) => (
-              <motion.div
-                key={v.title}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-60px" }}
-                custom={0.15 + i * 0.1}
-                variants={fadeUp}
-                className="animate-on-scroll p-5 rounded-2xl bg-sc-primary/5 border border-sc-primary/20 hover:bg-sc-primary/20 transition-card duration-500 hover:-translate-y-1"
-              >
-                <h3 className="font-literata text-base text-sc-text mb-1">{v.title}</h3>
-                <p className="font-montserrat text-xs text-sc-text font-light leading-relaxed">{v.description}</p>
-              </motion.div>
-            ))}
+          {/* COLUMNA B: TEXTO Y VALORES */}
+          <div className="flex flex-col lg:order-2">
+            <motion.span
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeUp}
+              custom={0}
+              className="animate-on-scroll font-montserrat font-medium text-[10px] sm:text-xs text-sc-primary tracking-[0.3em] uppercase block mb-6"
+            >
+              El Concepto
+            </motion.span>
+
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeUp}
+              custom={0.2}
+              className="animate-on-scroll"
+            >
+              <h2 className="font-literata font-light text-3xl sm:text-5xl lg:text-6xl text-sc-text leading-tight mb-8">
+                Donde la vida<br />
+                <span className="italic text-sc-text/70">encuentra su lugar.</span>
+              </h2>
+              <p className="font-montserrat text-base text-sc-text/80 font-light leading-relaxed mb-12 max-w-xl">
+                Sunset Condominios nace de la búsqueda por un equilibrio perfecto entre la ciudad y el refugio personal.
+                Espacios que no compiten con el entorno, sino que lo enmarcan para elevar tu día a día.
+              </p>
+            </motion.div>
+
+            {/* Grid de valores con Estética de Cards Estándar */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {values.map((v, i) => (
+                <motion.div
+                  key={v.title}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  variants={fadeUp}
+                  custom={0.3 + i * 0.1}
+                  className="animate-on-scroll group p-6 rounded-2xl bg-sc-primary/5 border border-sc-primary/20 hover:bg-sc-primary/15 transition-card duration-500 hover:-translate-y-1"
+                >
+                  <h3 className="font-literata text-base sm:text-lg text-sc-text mb-2 group-hover:text-sc-primary transition-colors duration-300">
+                    {v.title}
+                  </h3>
+                  <p className="font-montserrat text-xs text-sc-text/60 font-light leading-relaxed">
+                    {v.description}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
           </div>
 
         </div>
@@ -283,8 +319,7 @@ export default function SunsetCondominiosPage() {
 
         {/* Overlays for depth and readability */}
         <div className="absolute inset-0 bg-page-text/40 z-[1]" />
-        <div className="absolute inset-0 bg-gradient-to-t from-sc-bg via-transparent to-transparent z-[2]" />
-        <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-sc-primary/30 via-sc-primary-dark/10 to-transparent z-[3]" />
+        <div className="absolute inset-0  bg-gradient-to-t from-sc-bg via-transparent to-transparent z-[2]" />
 
         {/* Navbar */}
         <div className="relative z-30">
@@ -516,8 +551,8 @@ export default function SunsetCondominiosPage() {
 
         {/* Mapa Full Width */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: 40, filter: "blur(6px)" }}
+          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8, delay: 0.2 }}
           className="animate-on-scroll w-full relative aspect-[21/9] sm:aspect-[25/7] min-h-[450px] bg-sc-primary/5 border-y border-sc-primary/20 overflow-hidden"

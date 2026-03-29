@@ -8,6 +8,7 @@ interface CinematicHeadingProps {
   className?: string;
   as?: "h1" | "h2" | "h3" | "p" | "span";
   type?: "char" | "word";
+  variant?: "fadeUp" | "typing";
   delayChildren?: number;
   staggerChildren?: number;
   duration?: number;
@@ -25,14 +26,18 @@ const containerVariants: Variants = {
 };
 
 const itemVariants: Variants = {
-  hidden: { opacity: 0, filter: "blur(12px)", y: 15 },
-  visible: (i: { duration: number }) => ({
+  hidden: (i: { variant: string }) => ({
+    opacity: 0,
+    filter: i.variant === "typing" ? "blur(0px)" : "blur(12px)",
+    y: i.variant === "typing" ? 0 : 15,
+  }),
+  visible: (i: { duration: number; variant: string }) => ({
     opacity: 1,
     filter: "blur(0px)",
     y: 0,
     transition: {
-      duration: i.duration,
-      ease: [0.2, 0.65, 0.3, 0.9],
+      duration: i.variant === "typing" ? 0.05 : i.duration,
+      ease: i.variant === "typing" ? "linear" : [0.2, 0.65, 0.3, 0.9],
     },
   }),
 };
@@ -46,12 +51,16 @@ export function CinematicHeading({
   className = "",
   as: Component = "h1",
   type = "char",
+  variant = "fadeUp",
   delayChildren = 0.4,
   staggerChildren = 0.03,
   duration = 0.8,
 }: CinematicHeadingProps) {
-  // Use words for longer sentences (performance optimization)
-  const items = type === "word" ? text.split(" ") : text.split("");
+  // Always split into words first to handle proper text wrapping
+  const words = text.split(" ");
+  
+  // Calculate total characters for cursor delay
+  const totalChars = text.length;
 
   return (
     <motion.div
@@ -61,21 +70,54 @@ export function CinematicHeading({
       variants={containerVariants}
     >
       <Component className={className}>
-        {items.map((item, index) => (
-          <motion.span
-            key={`${item}-${index}`}
-            custom={{ duration }}
-            variants={itemVariants}
-            style={{ 
-              display: "inline-block", 
-              whiteSpace: "pre",
-              willChange: "opacity, filter, transform" // GPU Acceleration
-            }}
+        {words.map((word, wordIndex) => (
+          <span
+            key={`word-${wordIndex}`}
+            className="inline-block whitespace-nowrap"
           >
-            {/* If it's a word, add a space back in (except for the last word) */}
-            {type === "word" ? `${item}${index === items.length - 1 ? "" : " "}` : item}
-          </motion.span>
+            {(type === "char" ? word.split("") : [word]).map((char, charIndex) => {
+              // Calculate global index for accurate stagger/delay
+              // (Note: this simple approach assumes all items are characters/words)
+              return (
+                <motion.span
+                  key={`${char}-${charIndex}`}
+                  custom={{ duration, variant }}
+                  variants={itemVariants}
+                  style={{ 
+                    display: "inline-block", 
+                    whiteSpace: "pre",
+                    willChange: "opacity, filter, transform"
+                  }}
+                >
+                  {char}
+                </motion.span>
+              );
+            })}
+            {/* Add space after word if it's not the last one */}
+            {wordIndex < words.length - 1 && (
+              <motion.span
+                custom={{ duration, variant }}
+                variants={itemVariants}
+                style={{ display: "inline-block", whiteSpace: "pre" }}
+              >
+                {" "}
+              </motion.span>
+            )}
+          </span>
         ))}
+        {variant === "typing" && (
+          <motion.span
+            initial={{ opacity: 0 }}
+            animate={{ opacity: [0, 1, 0] }}
+            transition={{ 
+              duration: 0.8, 
+              repeat: Infinity, 
+              ease: "linear",
+              delay: delayChildren + (totalChars * staggerChildren)
+            }}
+            className="inline-block ml-1 border-r-4 border-white h-[0.8em] align-middle"
+          />
+        )}
       </Component>
     </motion.div>
   );
