@@ -27,6 +27,8 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/Button";
 import { CinematicHeading } from "@/components/ui/CinematicHeading";
+import { useLightbox } from "@/context/LightboxContext";
+import { Search } from "lucide-react";
 
 /* ────────────────────────────── animations ────────────────────────────── */
 const fadeUp = {
@@ -171,6 +173,7 @@ const processSteps = [
 export default function CasasSurPage() {
   const [activeModel, setActiveModel] = useState(0);
   const [photoIndex, setPhotoIndex] = useState(0);
+  const { openLightbox } = useLightbox();
 
   const handleModelChange = (i: number) => {
     setActiveModel(i);
@@ -386,16 +389,24 @@ export default function CasasSurPage() {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.6, ease: "easeInOut" }}
-                  className="absolute inset-0"
+                  className="absolute inset-0 group cursor-pointer"
+                  onClick={() => openLightbox(currentImages.map(src => ({ src, alt: `${models[activeModel].name} — foto` })), photoIndex)}
                 >
                   <Image
                     src={currentImages[photoIndex]}
                     alt={`${models[activeModel].name} — foto ${photoIndex + 1}`}
                     fill
-                    className="object-cover"
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
                     priority
                   />
                   <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/30" />
+                  
+                  {/* Lupa overlay */}
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20">
+                    <div className="p-4 rounded-full bg-white/10 backdrop-blur-md border border-white/20">
+                      <Search className="w-6 h-6 text-white" />
+                    </div>
+                  </div>
                 </motion.div>
               </AnimatePresence>
 

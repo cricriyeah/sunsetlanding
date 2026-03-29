@@ -3,6 +3,8 @@
 import React from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { useLightbox } from "@/context/LightboxContext";
+import { Search } from "lucide-react";
 
 // ─── Tipos ─────────────────────────────────────────────────────────────────
 export interface Photo {
@@ -50,6 +52,8 @@ export function PhotoCollage({
   accentColor = "text-sc-contrast", 
   textColor = "text-page-text" 
 }: PhotoCollageProps) {
+  const { openLightbox } = useLightbox();
+
   return (
     <section className={`relative py-24 sm:py-32 ${sectionBg}`}>
       {/* Header */}
@@ -86,7 +90,8 @@ export function PhotoCollage({
             whileInView="visible"
             viewport={{ once: true, margin: "-50px" }}
             variants={dreamyFade}
-            className="relative overflow-hidden group"
+            className="relative overflow-hidden group cursor-pointer"
+            onClick={() => openLightbox(photos.map(p => ({ src: p.src, alt: p.alt })), i)}
             style={{
               gridColumn: photo.col ?? "span 1",
               gridRow:    photo.row ?? "span 1",
@@ -100,11 +105,19 @@ export function PhotoCollage({
               className="object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
             />
 
-            {/* Overlay con nombre de foto */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 flex items-end p-6">
-              <span className="font-montserrat text-xs sm:text-sm text-white font-light tracking-wide">
-                {photo.alt}
-              </span>
+            {/* Overlay con nombre de foto y lupa */}
+            <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-700">
+               <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                  <div className="p-3 rounded-full bg-white/10 backdrop-blur-md border border-white/20">
+                    <Search className="w-5 h-5 text-white" />
+                  </div>
+               </div>
+               
+               <div className="absolute inset-x-0 bottom-0 p-6 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+                <span className="font-montserrat text-xs sm:text-sm text-white font-light tracking-wide">
+                  {photo.alt}
+                </span>
+              </div>
             </div>
           </motion.div>
         ))}

@@ -103,3 +103,17 @@
   transform: translateY(30px);
   will-change: transform, opacity, filter;
 }
+
+/* ── GPU layer fix for rounded cards with hover-translate ──
+   Forces permanent GPU compositing so border-radius doesn't
+   flicker when the browser promotes/demotes the layer on hover.
+   Targets any element with rounded corners that uses transition-all. */
+.rounded-2xl,
+.rounded-3xl,
+.rounded-\[2rem\],
+.rounded-\[2\.5rem\] {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}

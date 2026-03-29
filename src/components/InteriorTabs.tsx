@@ -1,8 +1,8 @@
-"use client";
-
 import React, { useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLightbox } from "@/context/LightboxContext";
+import { Search } from "lucide-react";
 
 export const interiorTabsData = [
   {
@@ -39,8 +39,10 @@ export const interiorTabsData = [
 
 export function InteriorTabs() {
   const [activeTab, setActiveTab] = useState(interiorTabsData[0].id);
+  const { openLightbox } = useLightbox();
 
   const activeContent = interiorTabsData.find(t => t.id === activeTab)!;
+  const activeIndex = interiorTabsData.findIndex(t => t.id === activeTab);
 
   return (
     <section className="relative py-24 sm:py-32 bg-page-bg">
@@ -63,7 +65,8 @@ export function InteriorTabs() {
               animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
               exit={{ opacity: 0, scale: 0.98, filter: "blur(10px)" }}
               transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-              className="relative aspect-[4/3] sm:aspect-[21/9] rounded-[1rem] sm:rounded-[2rem] overflow-hidden shadow-2xl shadow-page-text/10 border border-page-text/5 group"
+              className="relative aspect-[4/3] sm:aspect-[21/9] rounded-[1rem] sm:rounded-[2rem] overflow-hidden shadow-2xl shadow-page-text/10 border border-page-text/5 group cursor-pointer"
+              onClick={() => openLightbox(interiorTabsData.map(d => ({ src: d.image, alt: d.title })), activeIndex)}
             >
               {/* Image */}
               <Image
@@ -89,6 +92,13 @@ export function InteriorTabs() {
                     {activeContent.description}
                   </p>
                 </motion.div>
+              </div>
+              
+              {/* Lupa overlay */}
+              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20">
+                <div className="p-4 rounded-full bg-white/10 backdrop-blur-md border border-white/20">
+                  <Search className="w-6 h-6 text-white" />
+                </div>
               </div>
 
               {/* Noise/Texture Overlay */}
