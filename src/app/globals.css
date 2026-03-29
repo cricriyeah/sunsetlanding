@@ -96,24 +96,12 @@
 /* ── Anti-flicker for Framer Motion scroll animations ──
    Elements with this class start invisible via pure CSS,
    preventing the visible → hidden → animate FOUC on mobile.
-   Framer Motion overrides these styles once JS hydrates. */
+   Framer Motion overrides these styles once JS hydrates.
+   NOTE: We intentionally do NOT set transform here because
+   cards with transition-all would catch the transform change
+   from Framer Motion and create a double-animation (flicker). */
 .animate-on-scroll {
   opacity: 0;
   filter: blur(6px);
-  transform: translateY(30px);
   will-change: transform, opacity, filter;
-}
-
-/* ── GPU layer fix for rounded cards with hover-translate ──
-   Forces permanent GPU compositing so border-radius doesn't
-   flicker when the browser promotes/demotes the layer on hover.
-   Targets any element with rounded corners that uses transition-all. */
-.rounded-2xl,
-.rounded-3xl,
-.rounded-\[2rem\],
-.rounded-\[2\.5rem\] {
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  transform: translateZ(0);
-  -webkit-transform: translateZ(0);
 }
