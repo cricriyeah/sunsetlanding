@@ -241,7 +241,7 @@ export default function CasasSurPage() {
             <div className="mb-1 sm:mb-4">
               <CinematicHeading
                 text="Tu casa lista en 30 días."
-                className="text-4xl sm:text-6xl lg:text-8xl font-literata font-light tracking-tighter text-page-text"
+                className="text-4xl sm:text-6xl lg:text-8xl font-literata font-light tracking-tighter text-white"
                 type="word"
                 delayChildren={0.3}
               />
@@ -395,9 +395,9 @@ export default function CasasSurPage() {
                     const idx = (photoIndex + offset) % currentImages.length;
                     // On mobile, only show the first one (offset 0)
                     const isVisibleMobile = offset === 0;
-                    
+
                     return (
-                      <div 
+                      <div
                         key={`${idx}`}
                         className={`relative h-full w-full group cursor-pointer ${!isVisibleMobile ? "hidden lg:block" : "block"}`}
                         onClick={() => openLightbox(currentImages.map(src => ({ src, alt: `${models[activeModel].name} — foto` })), idx)}
@@ -410,7 +410,7 @@ export default function CasasSurPage() {
                           priority={offset === 0}
                         />
                         <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/30" />
-                        
+
                         {/* Lupa overlay */}
                         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20">
                           <div className="p-4 rounded-full bg-white/10 backdrop-blur-md border border-white/20">

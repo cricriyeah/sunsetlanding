@@ -4,7 +4,7 @@ import React from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useLightbox } from "@/context/LightboxContext";
-import { Search } from "lucide-react";
+import { Search, ArrowRight } from "lucide-react";
 
 // ─── Tipos ─────────────────────────────────────────────────────────────────
 export interface Photo {
@@ -73,54 +73,68 @@ export function PhotoCollage({
         </motion.div>
       </div>
 
-      {/* Grid full-bleed */}
-      <div
-        className="w-full"
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(4, 1fr)",
-          gridAutoRows: "clamp(200px, 25vw, 320px)",
-          gap: "4px",
-        }}
-      >
-        {photos.map((photo, i) => (
-          <motion.div
-            key={i}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-50px" }}
-            variants={dreamyFade}
-            className="relative overflow-hidden group cursor-pointer"
-            onClick={() => openLightbox(photos.map(p => ({ src: p.src, alt: p.alt })), i)}
+      {/* Grid full-bleed con scroll horizontal en móvil */}
+      <div className="relative group/scroll">
+        <div className="w-full overflow-x-auto hide-scrollbar cursor-grab active:cursor-grabbing pb-4 sm:pb-0">
+          <div
+            className="min-w-[1000px] sm:min-w-full"
             style={{
-              gridColumn: photo.col ?? "span 1",
-              gridRow:    photo.row ?? "span 1",
+              display: "grid",
+              gridTemplateColumns: "repeat(4, 1fr)",
+              gridAutoRows: "clamp(300px, 25vw, 400px)",
+              gap: "4px",
             }}
           >
-            <Image
-              src={photo.src}
-              alt={photo.alt}
-              fill
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-              className="object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
-            />
-
-            {/* Overlay con nombre de foto y lupa */}
-            <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-700">
-               <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                  <div className="p-3 rounded-full bg-white/10 backdrop-blur-md border border-white/20">
-                    <Search className="w-5 h-5 text-white" />
-                  </div>
-               </div>
-               
-               <div className="absolute inset-x-0 bottom-0 p-6 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700">
-                <span className="font-montserrat text-xs sm:text-sm text-white font-light tracking-wide">
-                  {photo.alt}
-                </span>
-              </div>
+            {/* Overlay de ayuda para scroll en móvil (flecha animada) */}
+            <div className="absolute right-0 top-0 bottom-4 w-32 bg-gradient-to-l from-page-text/40 to-transparent z-10 pointer-events-none flex items-center justify-end pr-6 sm:hidden">
+               <motion.div
+                 animate={{ x: [0, 8, 0] }}
+                 transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+               >
+                 <ArrowRight className="w-6 h-6 text-white/80" />
+               </motion.div>
             </div>
-          </motion.div>
-        ))}
+
+            {photos.map((photo, i) => (
+              <motion.div
+                key={i}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-50px" }}
+                variants={dreamyFade}
+                className="relative overflow-hidden group cursor-pointer"
+                onClick={() => openLightbox(photos.map(p => ({ src: p.src, alt: p.alt })), i)}
+                style={{
+                  gridColumn: photo.col ?? "span 1",
+                  gridRow:    photo.row ?? "span 1",
+                }}
+              >
+                <Image
+                  src={photo.src}
+                  alt={photo.alt}
+                  fill
+                  sizes="(max-width: 1000px) 50vw, 25vw"
+                  className="object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
+                />
+
+                {/* Overlay con nombre de foto y lupa */}
+                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-700">
+                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                      <div className="p-3 rounded-full bg-white/10 backdrop-blur-md border border-white/20">
+                        <Search className="w-5 h-5 text-white" />
+                      </div>
+                   </div>
+                   
+                   <div className="absolute inset-x-0 bottom-0 p-6 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+                    <span className="font-montserrat text-xs sm:text-sm text-white font-light tracking-wide">
+                      {photo.alt}
+                    </span>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );

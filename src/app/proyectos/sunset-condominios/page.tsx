@@ -327,7 +327,7 @@ export default function SunsetCondominiosPage() {
         </div>
 
         {/* Hero text */}
-        <div className="relative z-20 flex flex-1 items-end pb-32 sm:pb-48">
+        <div className="relative z-20 flex flex-1 items-end pb-44 sm:pb-64">
           <div className="max-w-7xl w-full mx-auto px-6 lg:px-8">
             <motion.div
               initial={{ opacity: 0, y: 15 }}
@@ -347,13 +347,13 @@ export default function SunsetCondominiosPage() {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
-                className="w-10 h-10 sm:w-[60px] sm:h-[60px] lg:w-24 lg:h-24 shrink-0 self-center brightness-0 invert"
+                className="w-10 h-10 sm:w-[40px] sm:h-[40px] lg:w-15 lg:h-15 shrink-0 self-center brightness-0 invert"
               />
               <CinematicHeading
                 text="Sunset Condominios"
-                className="text-3xl sm:text-6xl lg:text-8xl font-literata font-light tracking-tight text-white leading-tight drop-shadow-md"
+                className="text-3xl sm:text-5xl lg:text-6xl font-literata font-light tracking-tight mb-6 text-white drop-shadow-md"
                 type="word"
-                delayChildren={0.5}
+                delayChildren={0.4}
               />
             </div>
 
@@ -363,7 +363,7 @@ export default function SunsetCondominiosPage() {
               transition={{ duration: 0.8, delay: 0.9 }}
               className="text-lg sm:text-xl text-white/90 font-montserrat font-light max-w-2xl leading-relaxed drop-shadow-sm"
             >
-              Un refugio de diseño contemporáneo donde el confort del hogar se encuentra con la belleza indómita de la Baja.
+              Un refugio de diseño contemporáneo concebido para armonizar con el horizonte; un espacio donde la sofisticación del confort moderno se entrelaza íntimamente con la belleza indómita y el espíritu eterno de la Baja.
             </motion.p>
           </div>
         </div>
