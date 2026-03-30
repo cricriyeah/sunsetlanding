@@ -76,7 +76,7 @@ export function Navbar() {
                 alt="Sunset Logo"
                 width={24}
                 height={24}
-                className="brightness-0 invert object-contain sm:w-6 sm:h-6"
+                className="brightness-0 invert object-contain sm:w-9 sm:h-9 lg:w-10 lg:h-10"
               />
             </Link>
           </div>

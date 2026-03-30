@@ -32,6 +32,7 @@ export const metadata: Metadata = {
 
 import { LightboxProvider } from "@/context/LightboxContext";
 import { Lightbox } from "@/components/ui/Lightbox";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 
 export default function RootLayout({
   children,
@@ -45,14 +46,9 @@ export default function RootLayout({
           {children}
           <Lightbox />
         </LightboxProvider>
-        
+
         {/* Floating Language Toggler */}
-        <div className="fixed bottom-24 right-6 z-[120] sm:bottom-6">
-          <button className="flex items-center gap-2 rounded-full bg-black/10 backdrop-blur-md border border-black/5 px-4 py-2 text-sm font-medium text-page-text/90 shadow-lg transition-all hover:bg-black/20 hover:scale-105 font-montserrat">
-            <Globe className="h-4 w-4 opacity-70" />
-            <span>EN / ES</span>
-          </button>
-        </div>
+        <LanguageSwitcher />
 
       </body>
     </html>

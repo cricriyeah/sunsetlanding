@@ -35,18 +35,18 @@ export default function FinanciamientoPage() {
   const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Auto-scroll after typing animation completes (approx 6 seconds)
+    // Auto-scroll after typing animation completes (approx 3 seconds)
     const timer = setTimeout(() => {
       if (contentRef.current) {
         const targetScroll = contentRef.current.offsetTop;
-        
+
         animate(window.scrollY, targetScroll, {
-          duration: 2.5, // Much smoother/longer duration
+          duration: 1.5, // Snappier duration
           ease: [0.32, 0, 0.1, 1], // Cinematic cubic-bezier easing
           onUpdate: (latest) => window.scrollTo(0, latest)
         });
       }
-    }, 6000);
+    }, 4500);
 
     return () => clearTimeout(timer);
   }, []);
