@@ -188,6 +188,76 @@ export default function NosotrosPage() {
         </div>
       </section>
 
+      {/* ──── EQUIPO ──── */}
+      <section className="relative py-24 sm:py-32">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            custom={0}
+            variants={fadeUp}
+            className="animate-on-scroll text-center mb-16 sm:mb-24"
+          >
+            <span className="font-montserrat font-medium text-sm text-brand-blue/60 tracking-[0.2em] uppercase block mb-3">Conócenos</span>
+            <h2 className="text-3xl sm:text-5xl font-literata font-light text-page-text italic">El Equipo</h2>
+          </motion.div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 lg:gap-8">
+            {[
+              {
+                name: "Ing. Erick Salinas",
+                role: "CEO & Fundador",
+                image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=800",
+                desc: "Ingeniero Civil con formación en arquitectura y telecomunicaciones en Nueva York. Tras completar más de 500 proyectos residenciales, llega a La Paz con la visión de fusionar la innovación y el estándar de calidad estadounidense en cada desarrollo."
+              },
+              {
+                name: "M.C. Isaías Osuna",
+                role: "Líder Estratégico",
+                image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=800",
+                desc: "Maestro en Marketing y Ciencias Políticas. Guiado por principios estoicos, impulsa la transformación tecnológica y diseña procesos claros para la construcción de marcas sólidas y negocios altamente escalables."
+              },
+              {
+                name: "Lic. Isabel de la Rosa",
+                role: "Asesoría Legal y Estratégica",
+                image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=800",
+                desc: "Fundadora de Isa's Marketing. Integra el poder de la estrategia con la protección legal preventiva para dotar a la empresa de bases corporativas inquebrantables y blindar el patrimonio de cada proyecto."
+              },
+              {
+                name: "Ing. Cristofer Jimenez",
+                role: "Dirección Creativa",
+                image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=800",
+                desc: "Desarrollador de software especializado en diseño gráfico. Aporta una perspectiva de vanguardia, fusionando la sensibilidad estética con la destreza técnica para definir la identidad visual e innovación de la empresa."
+              },
+              {
+                name: "Ing. Sebastian Gorostieta",
+                role: "Dirección Técnica",
+                image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=800",
+                desc: "Ingeniero en Desarrollo de Software. Es el pilar procedimental de la empresa, encargado de dirigir técnicamente las operaciones y optimizar el flujo de trabajo para garantizar máxima eficiencia."
+              }
+            ].map((member, i) => (
+              <motion.div
+                key={member.name}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-60px" }}
+                custom={i * 0.15}
+                variants={fadeUp}
+                className="animate-on-scroll group flex flex-col"
+              >
+                <div className="relative aspect-[3/4] overflow-hidden rounded-none mb-6 bg-page-text/5 border border-page-text/10 shrink-0">
+                  <Image src={member.image} alt={member.name} fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </div>
+                <h3 className="text-xl font-literata font-medium text-page-text mb-1">{member.name}</h3>
+                <p className="font-montserrat font-medium text-[10px] text-brand-blue uppercase tracking-widest mb-3">{member.role}</p>
+                <p className="font-montserrat font-light text-xs text-page-text/80 leading-relaxed max-w-[95%]">{member.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ──── CTA ──── */}
       <section className="relative py-24 sm:py-32">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center">

@@ -25,7 +25,9 @@ import {
   Play,
   ChevronLeft,
   ChevronRight,
-  Sofa
+  Sofa,
+  ChevronDown,
+  Waves
 } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
@@ -113,15 +115,15 @@ const models = [
       "Sala–comedor abierto",
       "Aislamiento térmico completo",
       "Piso vinílico de alto tráfico",
-      "Instalación eléctrica e hidráulica",
-      "Puertas de vidrio templado",
+      "Instalación eléctrica",
+      "desde 1 ventana de vidrio templado",
     ],
   },
   {
-    id: "smart",
-    name: "Smart",
-    cardName: "Casa Inteligente (40 pies)",
-    price: "$560k – $720k MXN",
+    id: "balance",
+    name: "Balance",
+    cardName: "Modelo Balance (40 pies)",
+    price: "$600k – $720k MXN",
     images: [
       "/casasur/smart/Gemini_Generated_Image_jq8q2djq8q2djq8q.png",
       "/casasur/smart/Gemini_Generated_Image_7hhxey7hhxey7hhx.png",
@@ -132,10 +134,13 @@ const models = [
     ideal: "Familia joven o Airbnb premium",
     profit: "Renta estimada: $18,000–$28,000/mes",
     includes: [
-      "hasta 2 recámaras · 2 baños completos",
-      "Cocina integral con isla",
-      "Acabados premium",
-      "Iluminación LED inteligente",
+      "hasta 2 recámaras",
+      "2 baños completos",
+      "Cocina integral con acabados premium",
+      "Iluminación LED",
+      "desde 2 ventanas de vidrio templado",
+      "Piso vinílico de alto tráfico",
+      "Instalación eléctrica",
     ],
   },
   {
@@ -154,6 +159,7 @@ const models = [
     ideal: "Airbnb de lujo o casa principal",
     profit: "Renta estimada: $45,000–$70,000/mes",
     includes: [
+      "El cielo es el límite",
       "2 o mas contenedores de 40 pies",
       "desde 3 recámaras · 3 baños + medio baño",
       "Cocina gourmet",
@@ -170,8 +176,9 @@ const models = [
 const extraAmenities = [
   { icon: Sofa, title: "Muebles" },
   { icon: Truck, title: "Transporte a terreno" },
-  { icon: Droplet, title: "Drenaje" },
-  { icon: Palmtree, title: "Alberca Orgánica" },
+  { icon: Droplet, title: "Drenaje, plomería y agua" },
+  { icon: Ruler, title: "Base de asentamiento" },
+  { icon: Waves, title: "Alberca" },
   { icon: Sun, title: "Paneles Solares" },
   { icon: Lock, title: "Domótica y Cerraduras" },
 ];
@@ -199,13 +206,61 @@ const processSteps = [
   },
 ];
 
+const faqs = [
+  {
+    q: "¿Necesito tener terreno propio?",
+    a: "Sí, instalamos en tu terreno, ya sea ejidal o privado. Si no cuentas con uno, podemos asesorarte en la búsqueda de la mejor opción."
+  },
+  {
+    q: "¿Cuánto tiempo toma el proceso?",
+    a: "El diseño y cotización toma 5 días hábiles. Una vez aprobado, la fabricación e instalación se realiza en un mínimo de 30 días, dependiendo del modelo."
+  },
+  {
+    q: "¿Incluye trámite de permisos?",
+    a: "Nuestras casas modulares generalmente no requieren los mismos permisos que una obra tradicional, sin embargo, te asesoramos con la normativa local según la ubicación de tu terreno."
+  },
+  {
+    q: "¿Tienen opciones de financiamiento?",
+    a: "Contamos con esquemas de pago flexibles durante el proceso de construcción y aceptamos pagos con tarjeta de crédito. Pregunta por nuestras promociones vigentes."
+  }
+];
+
+function FAQItem({ q, a }: { q: string, a: string }) {
+  const [isOpen, setIsOpen] = useState(false);
+  return (
+    <div className="border-b border-page-text/10">
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="flex w-full items-center justify-between py-5 text-left transition-colors hover:text-brand-blue"
+      >
+        <span className="font-literata text-lg font-medium text-page-text">{q}</span>
+        <ChevronDown className={`w-5 h-5 text-page-text/60 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`} />
+      </button>
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            className="overflow-hidden"
+          >
+            <p className="pb-5 font-montserrat text-sm font-light text-page-text/70 leading-relaxed">
+              {a}
+            </p>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
 export default function CasasSurPage() {
-  const [activeModel, setActiveModel] = useState(0);
+  const [activeTab, setActiveTab] = useState<number | "extras">(0);
   const [activeMediaIndex, setActiveMediaIndex] = useState(0);
   const { openLightbox } = useLightbox();
 
-  const handleModelChange = (i: number) => {
-    setActiveModel(i);
+  const handleModelChange = (i: number | "extras") => {
+    setActiveTab(i);
     setActiveMediaIndex(0);
   };
 
@@ -216,13 +271,13 @@ export default function CasasSurPage() {
     return `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
   };
 
-  const activeData = models[activeModel];
+  const activeData = activeTab !== "extras" ? models[activeTab] : null;
 
   // Derive mediaItems for carousel
-  const mediaItems = [
+  const mediaItems = activeData ? [
     ...(activeData.video ? [{ type: "video" as const, src: activeData.video }] : []),
     ...activeData.images.map(src => ({ type: "image" as const, src }))
-  ];
+  ] : [];
 
   const handlePrevMedia = () => {
     setActiveMediaIndex((prev) => (prev === 0 ? mediaItems.length - 1 : prev - 1));
@@ -477,193 +532,238 @@ export default function CasasSurPage() {
               </h2>
 
               {/* Tabs */}
-              <div className="flex flex-wrap justify-center gap-2 sm:gap-4 p-1.5 rounded-full bg-page-text/5 inline-flex backdrop-blur-md">
-                {models.map((m, i) => (
-                  <button
-                    key={m.id}
-                    onClick={() => handleModelChange(i)}
-                    className={`px-6 py-3 rounded-full font-montserrat text-sm font-semibold transition-all duration-300 ${activeModel === i
-                      ? "bg-page-text text-white shadow-xl shadow-page-text/20 scale-105"
-                      : "text-page-text/70 hover:text-page-text hover:bg-page-text/5"
-                      }`}
-                  >
-                    {m.name}
-                  </button>
-                ))}
+              <div className="flex flex-col items-center gap-4">
+                <div className="flex flex-wrap justify-center gap-2 sm:gap-4 p-1.5 rounded-full bg-page-text/5 inline-flex backdrop-blur-md mb-2">
+                  {models.map((m, i) => (
+                    <button
+                      key={m.id}
+                      onClick={() => handleModelChange(i)}
+                      className={`px-6 py-3 rounded-full font-montserrat text-sm font-semibold transition-all duration-300 ${activeTab === i
+                        ? "bg-page-text text-white shadow-xl shadow-page-text/20 scale-105"
+                        : "text-page-text/70 hover:text-page-text hover:bg-page-text/5"
+                        }`}
+                    >
+                      {m.name}
+                    </button>
+                  ))}
+                </div>
+
+                <button
+                  onClick={() => handleModelChange("extras")}
+                  className={`px-5 py-2 rounded-full font-montserrat text-xs font-semibold uppercase tracking-wider transition-all duration-300 border ${activeTab === "extras"
+                    ? "bg-brand-blue border-brand-blue text-white shadow-md shadow-brand-blue/20 scale-105"
+                    : "bg-transparent border-page-text/20 text-page-text/70 hover:border-brand-blue/50 hover:text-brand-blue"
+                    }`}
+                >
+                  Ver Amenidades Extra
+                </button>
               </div>
             </motion.div>
           </div>
 
           {/* Área Principal: Layout Dividido */}
           <AnimatePresence mode="wait">
-            <motion.div
-              key={activeModel}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.5, ease: "easeInOut" }}
-              className="flex flex-col lg:flex-row gap-6 mb-12"
-            >
-              {/* Columna Izquierda: Media & Thumbnails */}
-              <div className="w-full lg:w-[60%] xl:w-[65%] flex flex-col gap-4">
-                {/* Media Principal (Carrusel) */}
-                <div className="w-full h-[50vh] sm:h-[55vh] lg:h-[50vh] xl:h-[55vh] relative overflow-hidden bg-black/5 shadow-2xl shadow-black/10 group">
-                  <AnimatePresence mode="wait">
-                    <motion.div
-                      key={activeMediaIndex}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.3 }}
-                      className="w-full h-full"
-                    >
-                      {mediaItems[activeMediaIndex].type === "video" ? (
-                        <video
-                          src={mediaItems[activeMediaIndex].src}
-                          autoPlay
-                          loop
-                          muted
-                          playsInline
-                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
-                        />
-                      ) : (
-                        <div
-                          className="w-full h-full relative cursor-pointer"
-                          onClick={() => openLightbox(activeData.images.map(src => ({ src, alt: activeData.name })), activeMediaIndex - (activeData.video ? 1 : 0))}
-                        >
-                          <Image
-                            src={mediaItems[activeMediaIndex].src}
-                            alt={activeData.name}
-                            fill
-                            className="object-cover transition-transform duration-700 group-hover:scale-[1.02]"
-                          />
-                          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 bg-black/20">
-                            <div className="p-4 rounded-full bg-white/20 backdrop-blur-md">
-                              <Search className="w-6 h-6 text-white" />
-                            </div>
-                          </div>
-                        </div>
-                      )}
-                    </motion.div>
-                  </AnimatePresence>
-
-                  {/* Flechas de Navegación */}
-                  {mediaItems.length > 1 && (
-                    <>
-                      <button
-                        onClick={(e) => { e.stopPropagation(); handlePrevMedia(); }}
-                        className="absolute left-4 top-1/2 -translate-y-1/2 z-20 p-2 sm:p-3 rounded-full bg-white/30 hover:bg-white/60 backdrop-blur-md transition-all opacity-100 md:opacity-0 md:group-hover:opacity-100 translate-x-0 md:-translate-x-4 md:group-hover:translate-x-0 cursor-pointer shadow-sm"
-                      >
-                        <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-page-text" />
-                      </button>
-                      <button
-                        onClick={(e) => { e.stopPropagation(); handleNextMedia(); }}
-                        className="absolute right-4 top-1/2 -translate-y-1/2 z-20 p-2 sm:p-3 rounded-full bg-white/30 hover:bg-white/60 backdrop-blur-md transition-all opacity-100 md:opacity-0 md:group-hover:opacity-100 translate-x-0 md:translate-x-4 md:group-hover:translate-x-0 cursor-pointer shadow-sm"
-                      >
-                        <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-page-text" />
-                      </button>
-                    </>
-                  )}
-
-                  {/* Etiqueta de modelo flotante */}
-                  <div className="absolute top-6 left-6 z-20 bg-white/90 backdrop-blur-md px-4 py-2 rounded-full shadow-lg flex items-center gap-2">
-                    {mediaItems[activeMediaIndex].type === "video" && <Play className="w-3.5 h-3.5 text-brand-blue/80 fill-brand-blue/80" />}
-                    <span className="font-montserrat font-bold text-xs uppercase tracking-wider text-page-text">
-                      {mediaItems[activeMediaIndex].type === "video" ? `Recorrido ${activeData.name}` : `Vista ${activeData.name}`}
-                    </span>
+            {activeTab === "extras" ? (
+              <motion.div
+                key="extras"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.5, ease: "easeInOut" }}
+                className="mb-12"
+              >
+                <div className="bg-white border border-page-text/10 rounded-3xl p-8 sm:p-12 shadow-xl max-w-4xl mx-auto flex flex-col gap-8">
+                  <div className="text-center">
+                    <h3 className="text-3xl sm:text-4xl font-literata font-light text-page-text mb-3">
+                      Amenidades y Extras Opcionales
+                    </h3>
+                    <p className="font-montserrat text-page-text/70 text-base max-w-xl mx-auto">
+                      Personaliza tu modelo Casas Sur con elementos adicionales diseñados para elevar tu comodidad y estilo de vida. <span className="italic font-medium text-page-text/90">Pregunte al momento de cotizar.</span>
+                    </p>
                   </div>
-                </div>
 
-                {/* Thumbnails Interactivos */}
-                {mediaItems.length > 1 && (
-                  <div className="flex gap-3 sm:gap-4 h-24 sm:h-28">
-                    {mediaItems.slice(0, 4).map((item, idx) => (
-                      <div
-                        key={idx}
-                        className={`flex-1 relative overflow-hidden cursor-pointer rounded-none transition-all duration-300 border-2 ${activeMediaIndex === idx ? "border-brand-green/80 shadow-md scale-[1.02] z-10" : "border-transparent opacity-70 hover:opacity-100"}`}
-                        onClick={() => setActiveMediaIndex(idx)}
-                      >
-                        {item.type === "video" ? (
-                          <>
-                            <video src={item.src} className="w-full h-full object-cover" muted playsInline />
-                            <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
-                              <Play className="w-6 h-6 text-white fill-white" />
-                            </div>
-                          </>
-                        ) : (
-                          <Image src={item.src} fill className="object-cover" alt="thumb" />
-                        )}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 mt-2">
+                    {[
+                      ...extraAmenities,
+                      { icon: Palmtree, title: "Paisajismo" },
+                      { icon: Hammer, title: "Bardas" },
+                      { icon: Sun, title: "Toldos de mallasombra" }
+                    ].map((amenity, idx) => (
+                      <div key={idx} className="flex items-center gap-4 p-4 rounded-xl bg-page-text/5 border border-page-text/10 hover:border-brand-blue/30 hover:bg-page-text/[0.08] transition-all text-left group">
+                        <div className="w-10 h-10 shrink-0 rounded-full bg-brand-blue/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+                          <amenity.icon className="w-5 h-5 text-brand-blue/80" />
+                        </div>
+                        <span className="font-montserrat font-medium text-page-text/90 text-sm leading-tight flex-1">
+                          {amenity.title}
+                        </span>
                       </div>
                     ))}
                   </div>
-                )}
-              </div>
 
-              {/* Columna Derecha: Specs */}
-              <div className="w-full lg:w-[40%] xl:w-[35%] flex flex-col gap-6">
-                <div className="bg-white border border-page-text/10 rounded-3xl p-6 sm:p-8 shadow-xl flex-1 flex flex-col justify-between">
-                  <div>
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-green/10 text-brand-green/80 font-montserrat text-[10px] font-bold tracking-wide mb-3">
-                      <Star className="w-3 h-3" />
-                      Ideal para: {activeData.ideal}
-                    </span>
-                    <h3 className="text-2xl sm:text-3xl font-literata font-light text-page-text mb-1">
-                      {activeData.cardName}
-                    </h3>
-                    <p className="text-xl font-literata text-brand-blue/80 font-medium mb-3">
-                      {activeData.price}
-                    </p>
-                    <p className="font-montserrat text-sm text-page-text/70 font-medium flex items-center gap-1.5 mb-6 bg-page-text/5 w-fit px-3 py-1.5 rounded-lg">
-                      <TrendingUp className="w-4 h-4 text-brand-green/80" />
-                      {activeData.profit}
-                    </p>
+                  <div className="flex justify-center mt-6">
+                    <a
+                      href={waLink("Extras Opcionales")}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group overflow-hidden rounded-full inline-flex items-center justify-center font-montserrat font-semibold transition-all h-12 px-8 bg-page-text text-white hover:bg-page-text/90 shadow-md"
+                    >
+                      <MessageCircle className="mr-2 h-4 w-4" />
+                      Consultar Extras
+                    </a>
+                  </div>
+                </div>
+              </motion.div>
+            ) : (activeData && (
+              <motion.div
+                key={activeTab}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.5, ease: "easeInOut" }}
+                className="flex flex-col lg:flex-row gap-6 mb-12"
+              >
+                {/* Columna Izquierda: Media & Thumbnails */}
+                <div className="w-full lg:w-[60%] xl:w-[65%] flex flex-col gap-4">
+                  {/* Media Principal (Carrusel) */}
+                  <div className="w-full h-[50vh] sm:h-[55vh] lg:h-[50vh] xl:h-[55vh] relative overflow-hidden bg-black/5 shadow-2xl shadow-black/10 group">
+                    <AnimatePresence mode="wait">
+                      <motion.div
+                        key={activeMediaIndex}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.3 }}
+                        className="w-full h-full"
+                      >
+                        {mediaItems[activeMediaIndex].type === "video" ? (
+                          <video
+                            src={mediaItems[activeMediaIndex].src}
+                            autoPlay
+                            loop
+                            muted
+                            playsInline
+                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
+                          />
+                        ) : (
+                          <div
+                            className="w-full h-full relative cursor-pointer"
+                            onClick={() => openLightbox(activeData.images.map(src => ({ src, alt: activeData.name })), activeMediaIndex - (activeData.video ? 1 : 0))}
+                          >
+                            <Image
+                              src={mediaItems[activeMediaIndex].src}
+                              alt={activeData.name}
+                              fill
+                              className="object-cover transition-transform duration-700 group-hover:scale-[1.02]"
+                            />
+                            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 bg-black/20">
+                              <div className="p-4 rounded-full bg-white/20 backdrop-blur-md">
+                                <Search className="w-6 h-6 text-white" />
+                              </div>
+                            </div>
+                          </div>
+                        )}
+                      </motion.div>
+                    </AnimatePresence>
 
-                    <div className="space-y-2 mb-8">
-                      {activeData.includes.map((item) => (
-                        <div key={item} className="flex items-start gap-2.5">
-                          <Check className="w-4 h-4 text-brand-green/70 shrink-0 mt-0.5" />
-                          <span className="font-montserrat font-light text-sm text-page-text/80 leading-snug">
-                            {item}
-                          </span>
-                        </div>
-                      ))}
+                    {/* Flechas de Navegación */}
+                    {mediaItems.length > 1 && (
+                      <>
+                        <button
+                          onClick={(e) => { e.stopPropagation(); handlePrevMedia(); }}
+                          className="absolute left-4 top-1/2 -translate-y-1/2 z-20 p-2 sm:p-3 rounded-full bg-white/30 hover:bg-white/60 backdrop-blur-md transition-all opacity-100 md:opacity-0 md:group-hover:opacity-100 translate-x-0 md:-translate-x-4 md:group-hover:translate-x-0 cursor-pointer shadow-sm"
+                        >
+                          <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-page-text" />
+                        </button>
+                        <button
+                          onClick={(e) => { e.stopPropagation(); handleNextMedia(); }}
+                          className="absolute right-4 top-1/2 -translate-y-1/2 z-20 p-2 sm:p-3 rounded-full bg-white/30 hover:bg-white/60 backdrop-blur-md transition-all opacity-100 md:opacity-0 md:group-hover:opacity-100 translate-x-0 md:translate-x-4 md:group-hover:translate-x-0 cursor-pointer shadow-sm"
+                        >
+                          <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-page-text" />
+                        </button>
+                      </>
+                    )}
+
+                    {/* Etiqueta de modelo flotante */}
+                    <div className="absolute top-6 left-6 z-20 bg-white/90 backdrop-blur-md px-4 py-2 rounded-full shadow-lg flex items-center gap-2">
+                      {mediaItems[activeMediaIndex].type === "video" && <Play className="w-3.5 h-3.5 text-brand-blue/80 fill-brand-blue/80" />}
+                      <span className="font-montserrat font-bold text-xs uppercase tracking-wider text-page-text">
+                        {mediaItems[activeMediaIndex].type === "video" ? `Recorrido ${activeData.name}` : `Vista ${activeData.name}`}
+                      </span>
                     </div>
                   </div>
 
-                  <a
-                    href={waLink(activeData.name)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full group overflow-hidden rounded-full inline-flex items-center justify-center font-montserrat font-semibold transition-all h-12 px-6 bg-page-text text-white hover:bg-page-text/90 shadow-md"
-                  >
-                    <MessageCircle className="mr-2 h-4 w-4" />
-                    Cotizar este modelo
-                  </a>
+                  {/* Thumbnails Interactivos */}
+                  {mediaItems.length > 1 && (
+                    <div className="flex gap-3 sm:gap-4 h-24 sm:h-28">
+                      {mediaItems.slice(0, 4).map((item, idx) => (
+                        <div
+                          key={idx}
+                          className={`flex-1 relative overflow-hidden cursor-pointer rounded-none transition-all duration-300 border-2 ${activeMediaIndex === idx ? "border-brand-green/80 shadow-md scale-[1.02] z-10" : "border-transparent opacity-70 hover:opacity-100"}`}
+                          onClick={() => setActiveMediaIndex(idx)}
+                        >
+                          {item.type === "video" ? (
+                            <>
+                              <video src={item.src} className="w-full h-full object-cover" muted playsInline />
+                              <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
+                                <Play className="w-6 h-6 text-white fill-white" />
+                              </div>
+                            </>
+                          ) : (
+                            <Image src={item.src} fill className="object-cover" alt="thumb" />
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
-              </div>
-            </motion.div>
+
+                {/* Columna Derecha: Specs */}
+                <div className="w-full lg:w-[40%] xl:w-[35%] flex flex-col gap-6">
+                  <div className="bg-white border border-page-text/10 rounded-3xl p-6 sm:p-8 shadow-xl flex-1 flex flex-col justify-between">
+                    <div>
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-green/10 text-brand-green/80 font-montserrat text-[10px] font-bold tracking-wide mb-3">
+                        <Star className="w-3 h-3" />
+                        Ideal para: {activeData.ideal}
+                      </span>
+                      <h3 className="text-2xl sm:text-3xl font-literata font-light text-page-text mb-1">
+                        {activeData.cardName}
+                      </h3>
+                      <p className="text-xl font-literata text-brand-blue/80 font-medium mb-3">
+                        Desde: {activeData.price}
+                      </p>
+                      <p className="font-montserrat text-sm text-page-text/70 font-medium flex items-center gap-1.5 mb-6 bg-page-text/5 w-fit px-3 py-1.5 rounded-lg">
+                        <TrendingUp className="w-4 h-4 text-brand-green/80" />
+                        {activeData.profit}
+                      </p>
+
+                      <div className="space-y-2 mb-8">
+                        {activeData.includes.map((item) => (
+                          <div key={item} className="flex items-start gap-2.5">
+                            <Check className="w-4 h-4 text-brand-green/70 shrink-0 mt-0.5" />
+                            <span className="font-montserrat font-light text-sm text-page-text/80 leading-snug">
+                              {item}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    <a
+                      href={waLink(activeData.name)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full group overflow-hidden rounded-full inline-flex items-center justify-center font-montserrat font-semibold transition-all h-12 px-6 bg-page-text text-white hover:bg-page-text/90 shadow-md"
+                    >
+                      <MessageCircle className="mr-2 h-4 w-4" />
+                      Cotizar este modelo
+                    </a>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
           </AnimatePresence>
 
-          {/* AMENIDADES EXTRA (Compacto estilo listón) */}
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-50px" }}
-            variants={fadeUp}
-            className="mt-8 pt-8 border-t border-page-text/10"
-          >
-            <div className="flex flex-col items-center gap-5 sm:gap-6 justify-center text-center">
-              <span className="font-literata italic text-page-text/70 text-base">Amenidades extra opcionales:</span>
-              <div className="flex flex-wrap items-center justify-center gap-4">
-                {extraAmenities.map((amenity, idx) => (
-                  <div key={idx} className="flex items-center gap-2.5 px-5 py-2.5 sm:px-6 sm:py-3 rounded-full bg-brand-sand/10 border border-brand-sand/20 group hover:border-brand-sand/50 hover:bg-brand-sand/30 transition-colors cursor-default">
-                    <amenity.icon className="w-5 h-5 text-brand-blue/80 group-hover:scale-110 transition-transform" />
-                    <span className="font-montserrat text-sm font-medium text-page-text/90 tracking-wide">{amenity.title}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </motion.div>
+
 
         </div>
       </section>
@@ -782,7 +882,40 @@ export default function CasasSurPage() {
       </section>
 
       {/* ══════════════════════════════════════════════════════════════════
-          6. CTA FINAL
+          6. FAQS
+          ══════════════════════════════════════════════════════════════ */}
+      <section className="relative py-16 sm:py-24 lg:py-20 bg-page-bg">
+        <div className="max-w-5xl mx-auto px-6 lg:px-8">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={fadeUp}
+            custom={0}
+            className="mb-8"
+          >
+            <h2 className="text-3xl sm:text-5xl font-literata font-light italic text-page-text">
+              ¿Tienes preguntas?
+            </h2>
+          </motion.div>
+
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeUp}
+            custom={0.2}
+            className="border-t border-page-text/10"
+          >
+            {faqs.map((faq, i) => (
+              <FAQItem key={i} q={faq.q} a={faq.a} />
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════════════════════
+          7. CTA FINAL
           ══════════════════════════════════════════════════════════════ */}
       <section className="relative py-16 sm:py-24 lg:py-16 text-center bg-page-bg-alt text-page-text overflow-hidden">
         <div className="max-w-3xl mx-auto px-6 relative z-10">
