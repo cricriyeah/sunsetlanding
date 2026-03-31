@@ -94,7 +94,7 @@ const models = [
     id: "basic",
     name: "Esencial",
     cardName: "Casa Esencial (20 pies)",
-    price: "$280k – $420k MXN",
+    price: "$300k – $420k MXN",
     images: [
       "/casasur/basico/Gemini_Generated_Image_cr9dwbcr9dwbcr9d.png",
       "/casasur/basico/Gemini_Generated_Image_s6wt45s6wt45s6wt.png",
@@ -445,8 +445,8 @@ export default function CasasSurPage() {
             className="animate-on-scroll flex justify-center"
           >
             <div className="inline-flex flex-col sm:flex-row items-center justify-center gap-2 px-6 py-3 sm:py-2.5 rounded-3xl sm:rounded-full bg-brand-sand text-page-text font-montserrat text-sm sm:text-base shadow-lg shadow-black/5 text-center sm:text-left">
-               <MapPin className="w-4 h-4 shrink-0" />
-               <span className="max-w-[260px] sm:max-w-none">Instalamos en terreno ejidal o privado en toda BCS.</span>
+              <MapPin className="w-4 h-4 shrink-0" />
+              <span className="max-w-[260px] sm:max-w-none">Instalamos en terreno ejidal o privado en toda BCS.</span>
             </div>
           </motion.div>
         </div>
@@ -617,7 +617,7 @@ export default function CasasSurPage() {
                     {mediaItems.slice(0, 4).map((item, idx) => (
                       <div
                         key={idx}
-                        className={`flex-1 relative overflow-hidden cursor-pointer rounded-xl transition-all duration-300 border-2 ${activeMediaIndex === idx ? "border-brand-green/80 shadow-md scale-[1.02]" : "border-transparent opacity-70 hover:opacity-100"}`}
+                        className={`flex-1 relative overflow-hidden cursor-pointer rounded-none transition-all duration-300 border-2 ${activeMediaIndex === idx ? "border-brand-green/80 shadow-md scale-[1.02]" : "border-transparent opacity-70 hover:opacity-100"}`}
                         onClick={() => setActiveMediaIndex(idx)}
                       >
                         {item.type === "video" ? (
