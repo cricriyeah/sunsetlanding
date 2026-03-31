@@ -46,16 +46,16 @@ export function Navbar() {
   return (
     <>
       {/* ──── TOP HEADER (Always Fixed Top) ──── */}
-      <div className="fixed top-0 left-0 w-full z-[110] py-4 sm:py-6 px-4 sm:px-6 lg:px-8 pointer-events-none">
+      <div className="fixed top-0 left-0 w-full z-[999] py-4 sm:py-6 px-4 sm:px-6 lg:px-8 pointer-events-none">
         {/* Background gradient on scroll */}
         <div 
           className={`absolute inset-0 bg-gradient-to-b from-page-text/50 to-transparent transition-opacity duration-700 pointer-events-none ${isScrolled ? 'opacity-100' : 'opacity-0'}`} 
         />
         
-        <div className="relative mx-auto max-w-7xl grid grid-cols-3 items-center pointer-events-auto sm:flex sm:justify-between">
+        <div className="relative mx-auto max-w-7xl flex items-center justify-between pointer-events-auto">
           
           {/* Mobile "Menu" Pill - Left Column */}
-          <div className="flex justify-start sm:hidden">
+          <div className="flex sm:hidden z-10">
             <button
               onClick={() => setIsMobileMenuOpen(true)}
               className="flex items-center gap-2 h-9 px-5 rounded-full font-montserrat text-sm font-medium tracking-wide text-white bg-white/10 backdrop-blur-md border border-white/20 shadow-xl"
@@ -69,8 +69,8 @@ export function Navbar() {
 
 
           {/* Logo - Center Column on mobile, Left on desktop */}
-          <div className="flex justify-center sm:justify-start sm:flex-1">
-            <Link href="/" className="flex items-center shrink-0">
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 sm:static sm:translate-x-0 sm:translate-y-0 flex justify-center sm:justify-start sm:flex-1 pointer-events-none">
+            <Link href="/" className="flex items-center shrink-0 pointer-events-auto">
               <Image
                 src="/logo-color.svg"
                 alt="Sunset Logo"
@@ -82,7 +82,7 @@ export function Navbar() {
           </div>
 
           {/* Action Button - Right Column */}
-          <div className="flex justify-end sm:flex-initial">
+          <div className="flex justify-end sm:flex-initial z-10">
             <Button href="/contacto" size="sm" className="font-montserrat shadow-2xl shadow-white/20 font-semibold h-9 sm:h-10 px-4 sm:px-6 shrink-0">
               <span className="hidden sm:inline">Agenda una visita</span>
               <span className="sm:hidden">Agendar</span>
@@ -101,7 +101,7 @@ export function Navbar() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[200] sm:hidden"
+            className="fixed inset-0 z-[9999] sm:hidden"
           >
             {/* Backdrop Dimming Effect */}
             <motion.div 
@@ -254,7 +254,7 @@ export function Navbar() {
             }
           }
         }}
-        className={`hidden sm:flex fixed z-[150] left-1/2 -translate-x-1/2 backdrop-blur-3xl border flex flex-col shadow-2xl overflow-hidden max-w-[calc(100vw-48px)] top-[20px] origin-top`}
+        className={`hidden sm:flex fixed z-[999] left-1/2 -translate-x-1/2 backdrop-blur-3xl border flex flex-col shadow-2xl overflow-hidden max-w-[calc(100vw-48px)] top-[20px] origin-top`}
       >
         {/* Navbar Links Row (Always visible) */}
         <div className="flex w-full items-center p-1 shrink-0 h-[44px] relative justify-center">

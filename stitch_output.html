@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-tertiary-fixed-variant": "#005046",
+              "surface-container-lowest": "#ffffff",
+              "on-secondary-container": "#7a4f44",
+              "on-secondary": "#ffffff",
+              "on-secondary-fixed": "#31130a",
+              "primary": "#974631",
+              "tertiary": "#006b5d",
+              "surface-variant": "#ffdbcb",
+              "inverse-surface": "#4b2714",
+              "background": "#fff8f6",
+              "tertiary-container": "#3ab09d",
+              "surface-container-high": "#ffe2d6",
+              "on-primary-container": "#621f0d",
+              "on-primary-fixed-variant": "#79301c",
+              "surface-container": "#ffeae1",
+              "on-primary-fixed": "#3c0800",
+              "on-secondary-fixed-variant": "#643d32",
+              "primary-container": "#e6846a",
+              "on-tertiary-fixed": "#00201b",
+              "on-surface-variant": "#55433e",
+              "tertiary-fixed-dim": "#69d9c5",
+              "outline": "#88726d",
+              "on-tertiary-container": "#003d35",
+              "surface-container-highest": "#ffdbcb",
+              "primary-fixed": "#ffdbd1",
+              "on-tertiary": "#ffffff",
+              "on-background": "#311303",
+              "tertiary-fixed": "#87f6e1",
+              "secondary-container": "#fec4b6",
+              "on-error": "#ffffff",
+              "error": "#ba1a1a",
+              "surface-bright": "#fff8f6",
+              "inverse-on-surface": "#ffede6",
+              "surface-dim": "#ffd0bb",
+              "inverse-primary": "#ffb4a1",
+              "on-error-container": "#93000a",
+              "surface-container-low": "#fff1eb",
+              "outline-variant": "#dbc1bb",
+              "on-primary": "#ffffff",
+              "surface": "#fff8f6",
+              "secondary": "#7f5448",
+              "on-surface": "#311303",
+              "surface-tint": "#974631",
+              "secondary-fixed": "#ffdbd1",
+              "error-container": "#ffdad6",
+              "secondary-fixed-dim": "#f2b9ab",
+              "primary-fixed-dim": "#ffb4a1"
+            },
+            fontFamily: {
+              "headline": ["Newsreader"],
+              "body": ["Manrope"],
+              "label": ["Manrope"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar -->
+<header class="bg-white/70 dark:bg-stone-950/70 backdrop-blur-xl fixed top-0 w-full z-50 flex justify-between items-center px-8 py-6 w-full">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-orange-900 dark:text-orange-200 cursor-pointer hover:scale-105 transition-transform duration-300">menu</span>
+<h1 class="font-serif italic text-2xl text-orange-950 dark:text-stone-100 tracking-tighter Newsreader">SUNSET CONDOMINIOS</h1>
+</div>
+<div class="flex items-center gap-6">
+<nav class="hidden md:flex gap-8">
+<a class="text-stone-500 dark:text-stone-400 font-sans text-xs tracking-widest uppercase hover:text-orange-500 transition-colors" href="#">Concepto</a>
+<a class="text-stone-500 dark:text-stone-400 font-sans text-xs tracking-widest uppercase hover:text-orange-500 transition-colors" href="#">Ubicación</a>
+<a class="text-orange-800 dark:text-orange-300 font-bold font-sans text-xs tracking-widest uppercase" href="#">Diseño</a>
+<a class="text-stone-500 dark:text-stone-400 font-sans text-xs tracking-widest uppercase hover:text-orange-500 transition-colors" href="#">Inversión</a>
+</nav>
+<span class="material-symbols-outlined text-orange-900 dark:text-orange-200 cursor-pointer hover:scale-105 transition-transform duration-300">search</span>
+</div>
+</header>
+<main class="pt-32 pb-40">
+<!-- Hero Section / Editorial Title -->
+<section class="max-w-7xl mx-auto px-8 mb-24 md:mb-32">
+<div class="flex flex-col md:flex-row items-end justify-between gap-8 border-l-2 border-primary/20 pl-8">
+<div class="max-w-2xl">
+<span class="font-label text-sm uppercase tracking-[0.2em] text-primary mb-4 block">Elevando el estándar</span>
+<h2 class="font-headline text-5xl md:text-7xl text-on-background leading-none">Amenidades Extra</h2>
+</div>
+<p class="font-body text-lg text-on-surface-variant max-w-sm italic">
+                    Una curaduría de servicios y tecnología diseñada para integrarse en la arquitectura de su vida.
+                </p>
+</div>
+</section>
+<!-- Asymmetrical Gallery Grid -->
+<section class="max-w-[1440px] mx-auto px-8 grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-20 items-start">
+<!-- Item 1: Solar Panels (Large Featured Image Left) -->
+<div class="md:col-span-7 group">
+<div class="relative overflow-hidden rounded-xl mb-8">
+<img class="w-full aspect-[16/10] object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Modern minimalist solar panels integrated into a sleek architectural roof design at sunset with warm orange reflections" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCSD3crcqPeSHdvaDmVUSPy9Foa46Q725qmd_wDPPp8FK_07BWvwpA6FyVHh5RYIxWz2Lc_X_uApkbpeB_e-YUAhfsmZgVEq4nhjz5ERibQmZPxuIK2xzRRoixT5G5eveb0bMO5ZljEZezK4thY2c3SDpLf-ca1nPUFddTOU3yPTTL8VNHyvjXoP_SXK7lPrXdaoHEj_WvLz1rBwtz00SvZxwFgekUrCJrzxgH5pFxUg89klGV9rlgvDbedKE9vpBth-bw0wNkvYaJE"/>
+<div class="absolute inset-0 bg-gradient-to-t from-on-background/40 to-transparent opacity-60"></div>
+</div>
+<div class="md:pl-12">
+<h3 class="font-headline text-3xl mb-4 text-on-surface">Instalación de paneles solares</h3>
+<p class="font-body text-on-surface-variant leading-relaxed max-w-lg">
+                        Energía limpia que respeta el entorno. Nuestro sistema fotovoltaico de alta eficiencia reduce el impacto ambiental mientras asegura la autonomía energética de su residencia.
+                    </p>
+</div>
+</div>
+<!-- Item 2: Cisterna (Right Column - Offset) -->
+<div class="md:col-span-5 md:mt-40">
+<div class="glass-card p-10 rounded-xl border border-outline-variant/10 shadow-sm mb-12 relative z-10">
+<span class="material-symbols-outlined text-4xl text-primary mb-6" style="font-variation-settings: 'FILL' 1;">water_drop</span>
+<h3 class="font-headline text-3xl mb-4">Cisterna</h3>
+<p class="font-body text-on-surface-variant mb-8">
+                        Infraestructura invisible para su tranquilidad. Sistemas de almacenamiento de agua con filtración avanzada que garantizan pureza y disponibilidad constante.
+                    </p>
+<div class="h-[2px] w-12 bg-primary-container"></div>
+</div>
+<div class="relative rounded-xl overflow-hidden -mt-20 ml-12 shadow-2xl">
+<img class="w-full aspect-square object-cover" data-alt="Abstract architectural shot of a minimalist water feature with smooth concrete walls and soft ripple patterns in the water" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBiru0IO57SMIHjreZbaNtjEHIkMadNORcW3sH9o7vOaU-l3lRjj2_UvKHE6_3sSDUdKyPkskptX_udG6GfKNrZNeGhvSE5e_lsk99akeOf7-eUxlRFDS_ZyRVsuLdytwvygej7hpHGzt5ZXpZ-oOmAvhiN4zcqtoipsnFTf-UgVrrygeJxD3ryMDuwhyk-qkTCgbe5hDCate47WwNuN7h8tQo34fvrHpcAvKE1C5MzTt0pQiCYS8PsaxHnOealx1Pib-R2yGveRO7M"/>
+</div>
+</div>
+<!-- Item 3: Domótica & Locks (Full Width Bento Break) -->
+<div class="md:col-span-12 grid grid-cols-1 md:grid-cols-2 gap-0 rounded-xl overflow-hidden bg-surface-container-low mt-12">
+<div class="relative h-96 md:h-auto">
+<img class="absolute inset-0 w-full h-full object-cover" data-alt="Interior of a luxury smart home with warm ambient lighting and a sleek digital interface panel on a wooden wall" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpNJr9op0i1VTqrz8pk-Ccbe-MRRAyds1Mhc5UXvfzp3tE0btgsb20FphTu_geUGN_aMvPtDt5epE1WFneNPazZ9DPJFKBwJW6-3rw3ZtH4zdUDjKTkAXzg32Z35Uf52IcyqaNazyFkYlu4c5x27Dl423Rx1NqcWIxsLUDNEO364f3hUDM3Ro3N0C5h_vfctjWT3dSsEMOMds93sM5da_rP1HRN-KnSLjjoICFWz2MBcNESr2pcTsD4F7Jsx6OZBbMcK7PdNBtkqA0"/>
+</div>
+<div class="p-12 md:p-24 flex flex-col justify-center bg-surface-container-low">
+<span class="font-label text-xs uppercase tracking-widest text-primary mb-6 block">Tecnología Inteligente</span>
+<h3 class="font-headline text-4xl mb-6">Domótica y cerraduras</h3>
+<p class="font-body text-on-surface-variant text-lg mb-10 leading-relaxed">
+                        El control total de su espacio en la palma de su mano. Desde accesos biométricos de última generación hasta la gestión de iluminación y clima por voz.
+                    </p>
+<button class="bg-gradient-to-br from-primary to-primary-container text-white rounded-full py-4 px-10 self-start font-label text-sm tracking-widest uppercase hover:scale-105 transition-transform duration-300 shadow-lg shadow-primary/20">
+                        Explorar Sistemas
+                    </button>
+</div>
+</div>
+<!-- Item 4: Alberca (Asymmetric Floating Layout) -->
+<div class="md:col-span-6 md:mt-24">
+<div class="relative">
+<img class="w-full rounded-xl shadow-2xl" data-alt="Close-up of a luxury infinity pool edge at dusk with golden hour sunlight reflecting on the crystal clear water surface" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBQP93AIqSiqOA9p7IT1GfZmFPjEz28RWrnTgJUxq8qQfUxnJPmbl2PGDISYQ5Mo_vjhhXqu8-DnRWShbVWKgC6T5SNj3IUerpk2udaPFHZ0kakAlqAIVxlVQ38vz_kXoFDjRYVjTJ7qcOj-Nlk02lAVFUplhzFMs019e218nZZxm-ufqFtM_RvWZIJYkb2FWmUaxhE3JqotEQwAVW56J7_ocvXdqdvNbcnskBxe4G43KjkYtep1AuQPS0TL9F0HhmCQ2XVvNt-pm1"/>
+<div class="absolute -bottom-12 -right-12 glass-card p-8 rounded-lg max-w-xs hidden md:block border border-white/20">
+<p class="font-headline text-2xl italic text-primary">"El agua como eje central de la calma."</p>
+</div>
+</div>
+<div class="mt-20">
+<h3 class="font-headline text-3xl mb-4">Alberca</h3>
+<p class="font-body text-on-surface-variant max-w-md">
+                        Espacios de nado diseñados con materiales pétreos que se funden con el paisaje, creando un oasis de frescura y exclusividad.
+                    </p>
+</div>
+</div>
+<!-- Item 5: Traslado al terreno (Text-Heavy Editorial Card) -->
+<div class="md:col-span-5 md:col-start-8 md:mt-48 flex flex-col items-start">
+<span class="material-symbols-outlined text-6xl text-primary-fixed-dim mb-8" data-weight="fill">explore</span>
+<h3 class="font-headline text-5xl mb-8 leading-tight">Traslado al terreno</h3>
+<p class="font-body text-xl text-on-surface-variant mb-12 leading-relaxed">
+                    Facilitamos su experiencia desde el primer momento. Ofrecemos traslados privados y asesoría personalizada directamente en el sitio para que sienta la tierra bajo sus pies.
+                </p>
+<div class="relative w-full aspect-[4/3] rounded-xl overflow-hidden mb-12">
+<img class="w-full h-full object-cover" data-alt="Aerial view of a luxury SUV driving through a golden-hued coastal landscape towards a secluded development area" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBET4F8ub3VVpgrzfkL8sp23Uz37Ndwz8Pzm2fnB_dGxQuQ0aMyTGXIB477J1H2iek_wZk6c0ajCEtSkUam3BDUyXUcbJ7YDPZedhrqgJvfU7nauOuDDIX0TA61__lHmEPLCFHqgwn15VfIrKIfNi7Z3w45TGVl93HGLULs33oaXrqKAj8ghQMcS2ybpoMzSI_e5XAiQzV2WAfxlUf9duGsG-BbHOYmeOR5lGsZhUmgWy1HpxFr-JOZDT8Q3ZQgH67OGwuVgy4kQeJ7"/>
+</div>
+<a class="font-label text-sm tracking-[0.2em] uppercase border-b border-primary text-primary pb-2 hover:text-primary-container hover:border-primary-container transition-colors" href="#">
+                    Agendar Visita
+                </a>
+</div>
+</section>
+<!-- Signature Call to Action -->
+<section class="max-w-4xl mx-auto px-8 mt-48 text-center">
+<h2 class="font-headline text-4xl md:text-5xl mb-12">¿Listo para habitar el atardecer?</h2>
+<div class="flex flex-col sm:flex-row gap-6 justify-center">
+<button class="bg-gradient-to-br from-primary to-primary-container text-white rounded-full py-5 px-12 font-label text-sm tracking-widest uppercase shadow-xl hover:scale-105 transition-transform duration-300">
+                    Descargar Brochure
+                </button>
+<button class="bg-transparent border border-outline text-primary rounded-full py-5 px-12 font-label text-sm tracking-widest uppercase hover:bg-surface-container-low transition-colors">
+                    Contactar Asesor
+                </button>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-stone-50 dark:bg-stone-950 w-full pt-24 pb-12">
+<div class="max-w-7xl mx-auto px-8 flex flex-col md:flex-row justify-between items-center gap-8">
+<div class="flex flex-col gap-2">
+<h2 class="font-serif text-xl Newsreader text-orange-950 dark:text-stone-200">SUNSET CONDOMINIOS</h2>
+<p class="font-sans text-xs tracking-widest Manrope text-stone-400">© 2024 SUNSET CONDOMINIOS. THE GOLDEN HOUR GALLERY.</p>
+</div>
+<div class="flex gap-8">
+<a class="font-sans text-xs tracking-widest Manrope text-stone-400 hover:text-orange-500 underline-offset-4 hover:underline transition-opacity" href="#">Privacy</a>
+<a class="font-sans text-xs tracking-widest Manrope text-stone-400 hover:text-orange-500 underline-offset-4 hover:underline transition-opacity" href="#">Terms</a>
+<a class="font-sans text-xs tracking-widest Manrope text-stone-400 hover:text-orange-500 underline-offset-4 hover:underline transition-opacity" href="#">Contact</a>
+<a class="font-sans text-xs tracking-widest Manrope text-stone-400 hover:text-orange-500 underline-offset-4 hover:underline transition-opacity" href="#">Press</a>
+</div>
+</div>
+</footer>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full flex justify-around items-center px-6 pb-8 pt-4 bg-white/80 dark:bg-stone-950/80 backdrop-blur-2xl rounded-t-[3rem] z-50 shadow-[0_-20px_60px_rgba(49,19,3,0.05)]">
+<div class="flex flex-col items-center justify-center text-stone-400 dark:text-stone-600 p-3 hover:text-orange-600 transition-colors">
+<span class="material-symbols-outlined">auto_awesome</span>
+<span class="font-sans text-[10px] uppercase tracking-[0.1em] Manrope mt-1">Concepto</span>
+</div>
+<div class="flex flex-col items-center justify-center text-stone-400 dark:text-stone-600 p-3 hover:text-orange-600 transition-colors">
+<span class="material-symbols-outlined">explore</span>
+<span class="font-sans text-[10px] uppercase tracking-[0.1em] Manrope mt-1">Ubicación</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-gradient-to-br from-orange-800 to-orange-400 text-white rounded-full p-3 scale-110">
+<span class="material-symbols-outlined">architecture</span>
+<span class="font-sans text-[10px] uppercase tracking-[0.1em] Manrope mt-1">Diseño</span>
+</div>
+<div class="flex flex-col items-center justify-center text-stone-400 dark:text-stone-600 p-3 hover:text-orange-600 transition-colors">
+<span class="material-symbols-outlined">trending_up</span>
+<span class="font-sans text-[10px] uppercase tracking-[0.1em] Manrope mt-1">Inversión</span>
+</div>
+</nav>
+</body></html>

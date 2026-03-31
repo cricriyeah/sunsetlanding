@@ -41,7 +41,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable} ${montserrat.variable} ${literata.variable}`}>
-      <body suppressHydrationWarning>
+      <body className="overflow-x-hidden" suppressHydrationWarning>
         <LightboxProvider>
           {children}
           <Lightbox />

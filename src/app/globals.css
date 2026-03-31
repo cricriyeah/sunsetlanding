@@ -7,6 +7,7 @@
 
   /* ── Brand Colors (Landing / Main) ── */
   --color-brand-blue: #1e3a8a;
+  --color-brand-green: #15803d; /* Tailwind green-700 equivalent */
   --color-brand-sand: #e3cba8;
   --color-brand-orange: #ea580c;
   --color-brand-purple: #2e1065;
