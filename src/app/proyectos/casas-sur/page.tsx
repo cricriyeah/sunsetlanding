@@ -24,7 +24,8 @@ import {
   Lock,
   Play,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  Sofa
 } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
@@ -167,10 +168,12 @@ const models = [
 ];
 
 const extraAmenities = [
+  { icon: Sofa, title: "Muebles" },
+  { icon: Truck, title: "Transporte a terreno" },
+  { icon: Droplet, title: "Drenaje" },
+  { icon: Palmtree, title: "Alberca Orgánica" },
   { icon: Sun, title: "Paneles Solares" },
   { icon: Lock, title: "Domótica y Cerraduras" },
-  { icon: Palmtree, title: "Alberca Orgánica" },
-  { icon: Truck, title: "Traslado Especial" },
 ];
 
 const processSteps = [
@@ -444,7 +447,7 @@ export default function CasasSurPage() {
             custom={0.3}
             className="animate-on-scroll flex justify-center"
           >
-            <div className="inline-flex flex-col sm:flex-row items-center justify-center gap-2 px-6 py-3 sm:py-2.5 rounded-3xl sm:rounded-full bg-brand-sand text-page-text font-montserrat text-sm sm:text-base shadow-lg shadow-black/5 text-center sm:text-left">
+            <div className="inline-flex flex-col sm:flex-row items-center justify-center gap-2 px-6 py-3 sm:py-2.5 rounded-3xl sm:rounded-full bg-page-bg-alt text-page-text font-montserrat text-sm sm:text-base shadow-lg shadow-black/5 text-center sm:text-left">
               <MapPin className="w-4 h-4 shrink-0" />
               <span className="max-w-[260px] sm:max-w-none">Instalamos en terreno ejidal o privado en toda BCS.</span>
             </div>
@@ -505,99 +508,99 @@ export default function CasasSurPage() {
               <div className="w-full lg:w-[60%] xl:w-[65%] flex flex-col gap-4">
                 {/* Media Principal (Carrusel) */}
                 <div className="w-full h-[50vh] sm:h-[55vh] lg:h-[50vh] xl:h-[55vh] relative overflow-hidden bg-black/5 shadow-2xl shadow-black/10 group">
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={activeMediaIndex}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="w-full h-full"
-                  >
-                    {mediaItems[activeMediaIndex].type === "video" ? (
-                      <video
-                        src={mediaItems[activeMediaIndex].src}
-                        autoPlay
-                        loop
-                        muted
-                        playsInline
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
-                      />
-                    ) : (
-                      <div
-                        className="w-full h-full relative cursor-pointer"
-                        onClick={() => openLightbox(activeData.images.map(src => ({ src, alt: activeData.name })), activeMediaIndex - (activeData.video ? 1 : 0))}
-                      >
-                        <Image
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={activeMediaIndex}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="w-full h-full"
+                    >
+                      {mediaItems[activeMediaIndex].type === "video" ? (
+                        <video
                           src={mediaItems[activeMediaIndex].src}
-                          alt={activeData.name}
-                          fill
-                          className="object-cover transition-transform duration-700 group-hover:scale-[1.02]"
+                          autoPlay
+                          loop
+                          muted
+                          playsInline
+                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
                         />
-                        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 bg-black/20">
-                          <div className="p-4 rounded-full bg-white/20 backdrop-blur-md">
-                            <Search className="w-6 h-6 text-white" />
+                      ) : (
+                        <div
+                          className="w-full h-full relative cursor-pointer"
+                          onClick={() => openLightbox(activeData.images.map(src => ({ src, alt: activeData.name })), activeMediaIndex - (activeData.video ? 1 : 0))}
+                        >
+                          <Image
+                            src={mediaItems[activeMediaIndex].src}
+                            alt={activeData.name}
+                            fill
+                            className="object-cover transition-transform duration-700 group-hover:scale-[1.02]"
+                          />
+                          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 bg-black/20">
+                            <div className="p-4 rounded-full bg-white/20 backdrop-blur-md">
+                              <Search className="w-6 h-6 text-white" />
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    )}
-                  </motion.div>
-                </AnimatePresence>
+                      )}
+                    </motion.div>
+                  </AnimatePresence>
 
-                {/* Flechas de Navegación */}
-                {mediaItems.length > 1 && (
-                  <>
-                    <button
-                      onClick={(e) => { e.stopPropagation(); handlePrevMedia(); }}
-                      className="absolute left-4 top-1/2 -translate-y-1/2 z-20 p-2 sm:p-3 rounded-full bg-white/30 hover:bg-white/60 backdrop-blur-md transition-all opacity-100 md:opacity-0 md:group-hover:opacity-100 translate-x-0 md:-translate-x-4 md:group-hover:translate-x-0 cursor-pointer shadow-sm"
-                    >
-                      <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-page-text" />
-                    </button>
-                    <button
-                      onClick={(e) => { e.stopPropagation(); handleNextMedia(); }}
-                      className="absolute right-4 top-1/2 -translate-y-1/2 z-20 p-2 sm:p-3 rounded-full bg-white/30 hover:bg-white/60 backdrop-blur-md transition-all opacity-100 md:opacity-0 md:group-hover:opacity-100 translate-x-0 md:translate-x-4 md:group-hover:translate-x-0 cursor-pointer shadow-sm"
-                    >
-                      <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-page-text" />
-                    </button>
-                  </>
-                )}
+                  {/* Flechas de Navegación */}
+                  {mediaItems.length > 1 && (
+                    <>
+                      <button
+                        onClick={(e) => { e.stopPropagation(); handlePrevMedia(); }}
+                        className="absolute left-4 top-1/2 -translate-y-1/2 z-20 p-2 sm:p-3 rounded-full bg-white/30 hover:bg-white/60 backdrop-blur-md transition-all opacity-100 md:opacity-0 md:group-hover:opacity-100 translate-x-0 md:-translate-x-4 md:group-hover:translate-x-0 cursor-pointer shadow-sm"
+                      >
+                        <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-page-text" />
+                      </button>
+                      <button
+                        onClick={(e) => { e.stopPropagation(); handleNextMedia(); }}
+                        className="absolute right-4 top-1/2 -translate-y-1/2 z-20 p-2 sm:p-3 rounded-full bg-white/30 hover:bg-white/60 backdrop-blur-md transition-all opacity-100 md:opacity-0 md:group-hover:opacity-100 translate-x-0 md:translate-x-4 md:group-hover:translate-x-0 cursor-pointer shadow-sm"
+                      >
+                        <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-page-text" />
+                      </button>
+                    </>
+                  )}
 
-                {/* Etiqueta de modelo flotante */}
-                <div className="absolute top-6 left-6 z-20 bg-white/90 backdrop-blur-md px-4 py-2 rounded-full shadow-lg flex items-center gap-2">
-                  {mediaItems[activeMediaIndex].type === "video" && <Play className="w-3.5 h-3.5 text-brand-blue/80 fill-brand-blue/80" />}
-                  <span className="font-montserrat font-bold text-xs uppercase tracking-wider text-page-text">
-                    {mediaItems[activeMediaIndex].type === "video" ? `Recorrido ${activeData.name}` : `Vista ${activeData.name}`}
-                  </span>
+                  {/* Etiqueta de modelo flotante */}
+                  <div className="absolute top-6 left-6 z-20 bg-white/90 backdrop-blur-md px-4 py-2 rounded-full shadow-lg flex items-center gap-2">
+                    {mediaItems[activeMediaIndex].type === "video" && <Play className="w-3.5 h-3.5 text-brand-blue/80 fill-brand-blue/80" />}
+                    <span className="font-montserrat font-bold text-xs uppercase tracking-wider text-page-text">
+                      {mediaItems[activeMediaIndex].type === "video" ? `Recorrido ${activeData.name}` : `Vista ${activeData.name}`}
+                    </span>
+                  </div>
                 </div>
+
+                {/* Thumbnails Interactivos */}
+                {mediaItems.length > 1 && (
+                  <div className="flex gap-3 sm:gap-4 h-24 sm:h-28">
+                    {mediaItems.slice(0, 4).map((item, idx) => (
+                      <div
+                        key={idx}
+                        className={`flex-1 relative overflow-hidden cursor-pointer rounded-none transition-all duration-300 border-2 ${activeMediaIndex === idx ? "border-brand-green/80 shadow-md scale-[1.02] z-10" : "border-transparent opacity-70 hover:opacity-100"}`}
+                        onClick={() => setActiveMediaIndex(idx)}
+                      >
+                        {item.type === "video" ? (
+                          <>
+                            <video src={item.src} className="w-full h-full object-cover" muted playsInline />
+                            <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
+                              <Play className="w-6 h-6 text-white fill-white" />
+                            </div>
+                          </>
+                        ) : (
+                          <Image src={item.src} fill className="object-cover" alt="thumb" />
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
 
-              {/* Thumbnails Interactivos */}
-              {mediaItems.length > 1 && (
-                <div className="flex gap-3 sm:gap-4 h-24 sm:h-28">
-                  {mediaItems.slice(0, 4).map((item, idx) => (
-                    <div
-                      key={idx}
-                      className={`flex-1 relative overflow-hidden cursor-pointer rounded-none transition-all duration-300 border-2 ${activeMediaIndex === idx ? "border-brand-green/80 shadow-md scale-[1.02] z-10" : "border-transparent opacity-70 hover:opacity-100"}`}
-                      onClick={() => setActiveMediaIndex(idx)}
-                    >
-                      {item.type === "video" ? (
-                        <>
-                          <video src={item.src} className="w-full h-full object-cover" muted playsInline />
-                          <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
-                            <Play className="w-6 h-6 text-white fill-white" />
-                          </div>
-                        </>
-                      ) : (
-                        <Image src={item.src} fill className="object-cover" alt="thumb" />
-                      )}
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            {/* Columna Derecha: Specs */}
-            <div className="w-full lg:w-[40%] xl:w-[35%] flex flex-col gap-6">
+              {/* Columna Derecha: Specs */}
+              <div className="w-full lg:w-[40%] xl:w-[35%] flex flex-col gap-6">
                 <div className="bg-white border border-page-text/10 rounded-3xl p-6 sm:p-8 shadow-xl flex-1 flex flex-col justify-between">
                   <div>
                     <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-green/10 text-brand-green/80 font-montserrat text-[10px] font-bold tracking-wide mb-3">
@@ -649,13 +652,13 @@ export default function CasasSurPage() {
             variants={fadeUp}
             className="mt-8 pt-8 border-t border-page-text/10"
           >
-            <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 justify-center">
-              <span className="font-literata italic text-page-text/70 text-sm whitespace-nowrap">Amenidades extra opcionales:</span>
-              <div className="flex flex-wrap items-center justify-center gap-3">
+            <div className="flex flex-col items-center gap-5 sm:gap-6 justify-center text-center">
+              <span className="font-literata italic text-page-text/70 text-base">Amenidades extra opcionales:</span>
+              <div className="flex flex-wrap items-center justify-center gap-4">
                 {extraAmenities.map((amenity, idx) => (
-                  <div key={idx} className="flex items-center gap-2 px-4 py-2 rounded-full bg-brand-sand/10 border border-brand-sand/20 group hover:border-brand-sand/50 hover:bg-brand-sand/30 transition-colors cursor-default">
-                    <amenity.icon className="w-4 h-4 text-brand-blue/80 group-hover:scale-110 transition-transform" />
-                    <span className="font-montserrat text-xs font-medium text-page-text/90 tracking-wide">{amenity.title}</span>
+                  <div key={idx} className="flex items-center gap-2.5 px-5 py-2.5 sm:px-6 sm:py-3 rounded-full bg-brand-sand/10 border border-brand-sand/20 group hover:border-brand-sand/50 hover:bg-brand-sand/30 transition-colors cursor-default">
+                    <amenity.icon className="w-5 h-5 text-brand-blue/80 group-hover:scale-110 transition-transform" />
+                    <span className="font-montserrat text-sm font-medium text-page-text/90 tracking-wide">{amenity.title}</span>
                   </div>
                 ))}
               </div>
@@ -752,7 +755,7 @@ export default function CasasSurPage() {
                       transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: i * 0.5 }}
                       className="relative z-10"
                     >
-                      <div className="w-16 h-16 rounded-2xl bg-brand-blue/5 border border-brand-blue/10 backdrop-blur-xl flex items-center justify-center mx-auto relative z-10 group transition-all duration-300 hover:border-brand-blue/30 hover:bg-brand-blue/10">
+                      <div className="w-16 h-16 rounded-2xl bg-page-bg border-2 border-brand-blue/10 flex items-center justify-center mx-auto relative z-10 group transition-all duration-300 hover:border-brand-blue/30 shadow-sm">
                         <step.icon className="w-7 h-7 text-brand-blue/80 group-hover:scale-110 transition-transform" />
                       </div>
                     </motion.div>
@@ -781,7 +784,7 @@ export default function CasasSurPage() {
       {/* ══════════════════════════════════════════════════════════════════
           6. CTA FINAL
           ══════════════════════════════════════════════════════════════ */}
-      <section className="relative py-16 sm:py-24 lg:py-16 text-center bg-brand-green/15 text-page-text overflow-hidden">
+      <section className="relative py-16 sm:py-24 lg:py-16 text-center bg-page-bg-alt text-page-text overflow-hidden">
         <div className="max-w-3xl mx-auto px-6 relative z-10">
           <motion.div
             initial="hidden"
