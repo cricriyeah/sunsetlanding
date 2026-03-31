@@ -280,7 +280,7 @@ export default function CasasSurPage() {
             <div className="mb-1 sm:mb-4">
               <CinematicHeading
                 text="Tu casa lista en 30 días."
-                className="text-4xl sm:text-6xl lg:text-6xl xl:text-7xl font-literata font-light tracking-tighter text-white"
+                className="text-4xl sm:text-6xl lg:text-6xl xl:text-7xl font-literata font-light tracking-tighter text-white drop-shadow-md"
                 type="word"
                 delayChildren={0.3}
               />
@@ -288,7 +288,7 @@ export default function CasasSurPage() {
             <div className="mb-4 sm:mb-8">
               <CinematicHeading
                 text="Empieza solo con $10k MXN."
-                className="text-3xl sm:text-5xl lg:text-5xl xl:text-6xl font-literata font-light tracking-tighter text-page-text italic"
+                className="text-3xl sm:text-5xl lg:text-5xl xl:text-6xl font-literata font-light tracking-tighter text-page-text italic drop-shadow-md"
                 type="word"
                 delayChildren={0.6}
               />
