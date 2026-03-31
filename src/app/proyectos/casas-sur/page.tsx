@@ -501,8 +501,10 @@ export default function CasasSurPage() {
               transition={{ duration: 0.5, ease: "easeInOut" }}
               className="flex flex-col lg:flex-row gap-6 mb-12"
             >
-              {/* Media Principal (Carrusel) */}
-              <div className="w-full lg:w-[60%] xl:w-[65%] h-[50vh] sm:h-[55vh] lg:h-[50vh] xl:h-[55vh] relative overflow-hidden bg-black/5 shadow-2xl shadow-black/10 group">
+              {/* Columna Izquierda: Media & Thumbnails */}
+              <div className="w-full lg:w-[60%] xl:w-[65%] flex flex-col gap-4">
+                {/* Media Principal (Carrusel) */}
+                <div className="w-full h-[50vh] sm:h-[55vh] lg:h-[50vh] xl:h-[55vh] relative overflow-hidden bg-black/5 shadow-2xl shadow-black/10 group">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={activeMediaIndex}
@@ -569,8 +571,33 @@ export default function CasasSurPage() {
                 </div>
               </div>
 
-              {/* Specs & Thumbnails */}
-              <div className="w-full lg:w-[40%] xl:w-[35%] flex flex-col gap-6">
+              {/* Thumbnails Interactivos */}
+              {mediaItems.length > 1 && (
+                <div className="flex gap-3 sm:gap-4 h-24 sm:h-28">
+                  {mediaItems.slice(0, 4).map((item, idx) => (
+                    <div
+                      key={idx}
+                      className={`flex-1 relative overflow-hidden cursor-pointer rounded-none transition-all duration-300 border-2 ${activeMediaIndex === idx ? "border-brand-green/80 shadow-md scale-[1.02] z-10" : "border-transparent opacity-70 hover:opacity-100"}`}
+                      onClick={() => setActiveMediaIndex(idx)}
+                    >
+                      {item.type === "video" ? (
+                        <>
+                          <video src={item.src} className="w-full h-full object-cover" muted playsInline />
+                          <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
+                            <Play className="w-6 h-6 text-white fill-white" />
+                          </div>
+                        </>
+                      ) : (
+                        <Image src={item.src} fill className="object-cover" alt="thumb" />
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Columna Derecha: Specs */}
+            <div className="w-full lg:w-[40%] xl:w-[35%] flex flex-col gap-6">
                 <div className="bg-white border border-page-text/10 rounded-3xl p-6 sm:p-8 shadow-xl flex-1 flex flex-col justify-between">
                   <div>
                     <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-green/10 text-brand-green/80 font-montserrat text-[10px] font-bold tracking-wide mb-3">
@@ -610,30 +637,6 @@ export default function CasasSurPage() {
                     Cotizar este modelo
                   </a>
                 </div>
-
-                {/* Thumbnails Interactivos */}
-                {mediaItems.length > 1 && (
-                  <div className="flex gap-4 h-24 sm:h-28">
-                    {mediaItems.slice(0, 4).map((item, idx) => (
-                      <div
-                        key={idx}
-                        className={`flex-1 relative overflow-hidden cursor-pointer rounded-none transition-all duration-300 border-2 ${activeMediaIndex === idx ? "border-brand-green/80 shadow-md scale-[1.02]" : "border-transparent opacity-70 hover:opacity-100"}`}
-                        onClick={() => setActiveMediaIndex(idx)}
-                      >
-                        {item.type === "video" ? (
-                          <>
-                            <video src={item.src} className="w-full h-full object-cover" muted playsInline />
-                            <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
-                              <Play className="w-6 h-6 text-white fill-white" />
-                            </div>
-                          </>
-                        ) : (
-                          <Image src={item.src} fill className="object-cover" alt="thumb" />
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                )}
               </div>
             </motion.div>
           </AnimatePresence>
@@ -713,7 +716,7 @@ export default function CasasSurPage() {
                   stroke="currentColor"
                   strokeWidth="2"
                   strokeDasharray="8,12"
-                  className="text-page-text/10"
+                  className="text-brand-blue/40"
                   initial={{ pathLength: 0, opacity: 0 }}
                   whileInView={{ pathLength: 1, opacity: 1 }}
                   viewport={{ once: true }}
@@ -722,13 +725,13 @@ export default function CasasSurPage() {
               </svg>
             </div>
 
-            <div className="lg:hidden absolute left-1/2 -translate-x-1/2 top-0 bottom-12 w-px bg-page-text/10 z-0">
+            <div className="lg:hidden absolute left-1/2 -translate-x-1/2 top-0 bottom-12 w-px bg-brand-blue/10 z-0">
               <motion.div
                 initial={{ height: 0 }}
                 whileInView={{ height: "100%" }}
                 viewport={{ once: true }}
                 transition={{ duration: 2, ease: "easeInOut" }}
-                className="w-full bg-gradient-to-b from-brand-blue/30 via-brand-blue/10 to-transparent"
+                className="w-full bg-gradient-to-b from-brand-blue via-brand-blue/50 to-transparent"
               />
             </div>
 
@@ -757,13 +760,13 @@ export default function CasasSurPage() {
 
                   <div className="relative group/card cursor-default">
                     <div className="relative p-6 px-7 rounded-[2rem] bg-page-bg-alt border border-page-text/5 transition-card duration-500 hover:-translate-y-1 hover:bg-page-bg-alt/80 hover:shadow-md">
-                      <span className="font-montserrat font-bold text-[10px] text-brand-sand tracking-[0.3em] uppercase block mb-4">
+                      <span className="font-montserrat font-bold text-[10px] text-page-text/80 tracking-[0.3em] uppercase block mb-4">
                         Paso {i + 1}
                       </span>
                       <h3 className="text-xl font-literata font-medium leading-tight mb-3 text-page-text">
                         {step.title}
                       </h3>
-                      <p className="font-montserrat font-light text-sm text-page-text/60 leading-relaxed max-w-[210px] mx-auto">
+                      <p className="font-montserrat font-light text-sm text-page-text/80 leading-relaxed max-w-[210px] mx-auto">
                         {step.desc}
                       </p>
                     </div>
