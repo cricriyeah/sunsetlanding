@@ -1,10 +1,11 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useLightbox } from "@/context/LightboxContext";
 import { Search, ArrowRight } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 // ─── Tipos ─────────────────────────────────────────────────────────────────
 export interface Photo {
@@ -55,6 +56,14 @@ export function PhotoCollage({
   gradientColor = "from-page-bg"
 }: PhotoCollageProps) {
   const { openLightbox } = useLightbox();
+  const { l } = useLanguage();
+  const [hasScrolled, setHasScrolled] = useState(false);
+
+  const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    if (e.currentTarget.scrollLeft > 15 && !hasScrolled) {
+      setHasScrolled(true);
+    }
+  };
 
   return (
     <section className={`relative py-24 sm:py-32 ${sectionBg}`}>
@@ -77,7 +86,32 @@ export function PhotoCollage({
 
       {/* Grid full-bleed con scroll horizontal en móvil */}
       <div className="relative group/scroll">
-        <div className="w-full overflow-x-auto hide-scrollbar cursor-grab active:cursor-grabbing pb-4 sm:pb-0">
+        <AnimatePresence>
+          {!hasScrolled && (
+            <motion.div
+              initial={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5 }}
+              className="absolute inset-0 bg-black/40 z-20 pointer-events-none flex flex-col items-center justify-center sm:hidden"
+            >
+               <motion.div
+                 animate={{ x: [0, 10, 0] }}
+                 transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+                 className="flex items-center gap-3 bg-black/30 px-6 py-3 rounded-full border border-white/20 shadow-2xl"
+               >
+                 <span className="font-montserrat text-xs font-bold uppercase tracking-[0.3em] text-white">
+                   {l("Desliza", "Swipe")}
+                 </span>
+                 <ArrowRight className="w-5 h-5 text-white" />
+               </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        <div 
+          className="w-full overflow-x-auto hide-scrollbar cursor-grab active:cursor-grabbing pb-4 sm:pb-0"
+          onScroll={handleScroll}
+        >
           <div
             className="min-w-[1000px] sm:min-w-full"
             style={{
@@ -87,15 +121,7 @@ export function PhotoCollage({
               gap: "4px",
             }}
           >
-            {/* Overlay de ayuda para scroll en móvil (flecha animada) */}
-            <div className={`absolute right-0 top-0 bottom-4 w-32 bg-gradient-to-l ${gradientColor} to-transparent z-10 pointer-events-none flex items-center justify-end pr-6 sm:hidden`}>
-               <motion.div
-                 animate={{ x: [0, 8, 0] }}
-                 transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
-               >
-                 <ArrowRight className={`w-6 h-6 ${accentColor.replace('text-', 'text-opacity-80 text-')}`} />
-               </motion.div>
-            </div>
+
 
             {photos.map((photo, i) => (
               <motion.div

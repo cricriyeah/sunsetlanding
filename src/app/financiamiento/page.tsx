@@ -135,7 +135,19 @@ export default function FinanciamientoPage() {
 
       {/* ──── PROGRAMA 40/60 ──── */}
       <section className="relative pt-12 sm:pt-20 pb-16 sm:pb-24">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative">
+          {/* Top Right Download Button (Desktop Only) */}
+          <div className="hidden sm:block absolute top-0 right-6 lg:right-8 z-10">
+            <a 
+              href="/docs/esp/programa-residencial.pdf" 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2.5 px-4 py-2 rounded-xl bg-page-text/5 text-page-text hover:text-sc-contrast hover:bg-sc-contrast/5 transition-all text-[11px] font-montserrat font-bold uppercase tracking-wider group shadow-sm backdrop-blur-sm"
+            >
+              <FileText className="w-4 h-4 text-sc-contrast/60 group-hover:text-sc-contrast" />
+              <span>{l("Descargar Esquema Completo", "Download Full Scheme")}</span>
+            </a>
+          </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <motion.div
               initial="hidden"
@@ -145,15 +157,21 @@ export default function FinanciamientoPage() {
               variants={fadeUp}
               className="animate-on-scroll"
             >
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 rounded-xl bg-page-text/5 border border-page-text/5 flex items-center justify-center">
-                  <HandCoins className="w-5 h-5 text-page-text" />
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-10 h-10 rounded-xl bg-page-text/5 border border-page-text/5 flex items-center justify-center">
+                    <HandCoins className="w-5 h-5 text-page-text" />
+                  </div>
+                  <span className="font-montserrat font-medium text-sm text-page-text tracking-[0.2em] uppercase">{l("El Modelo", "The Model")}</span>
                 </div>
-                <span className="font-montserrat font-medium text-sm text-page-text tracking-[0.2em] uppercase">{l("El Modelo", "The Model")}</span>
-              </div>
+              
               <h2 className="text-3xl sm:text-4xl font-literata font-light text-page-text/90 italic mb-8">{l("Esquema de Inversión 40/60", "40/60 Investment Scheme")}</h2>
               <div className="space-y-6">
-                <p className="text-page-text font-montserrat font-light text-base sm:text-lg leading-relaxed">{l("Ofrecemos nuestro Programa 40/60, en el cual el cliente aporta su terreno libre de gravamen y nosotros financiamos el 60% del costo de construcción.", "We offer our 40/60 Program, in which the client provides their lien-free land and we finance 60% of the construction cost.")}</p>
+                <p className="text-page-text font-montserrat font-light text-base sm:text-lg leading-relaxed">
+                  {l("Ofrecemos nuestro Programa 40/60, en el cual el cliente aporta su terreno libre de gravamen y nosotros financiamos el 60% del costo de construcción.", "We offer our 40/60 Program, in which the client provides their lien-free land and we finance 60% of the construction cost.")}
+                  <span className="block mt-3 font-semibold text-sc-contrast text-sm sm:text-base">
+                    {l("*Este programa es aplicable exclusivamente para proyectos con un valor de obra superior a los $2,000,000 MXN.", "*This program is exclusively applicable for projects with a construction value exceeding $2,000,000 MXN.")}
+                  </span>
+                </p>
                 <div className="bg-page-text/5 border border-page-text/5 rounded-2xl p-6 sm:p-8 space-y-4">
                   <div className="flex items-start gap-4">
                     <Percent className="w-5 h-5 text-sc-contrast mt-1 shrink-0" />
@@ -202,6 +220,19 @@ export default function FinanciamientoPage() {
                 </motion.div>
               </div>
             </motion.div>
+          </div>
+
+          {/* Bottom Centered Download Button (Mobile Only) */}
+          <div className="sm:hidden flex justify-center mt-12">
+            <a 
+              href="/docs/esp/programa-residencial.pdf" 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2.5 px-6 py-3 rounded-xl bg-page-text/5 text-page-text hover:text-sc-contrast hover:bg-sc-contrast/5 transition-all text-[11px] font-montserrat font-bold uppercase tracking-wider group shadow-sm"
+            >
+              <FileText className="w-4 h-4 text-sc-contrast/60 group-hover:text-sc-contrast" />
+              <span>{l("Descargar Esquema Completo", "Download Full Scheme")}</span>
+            </a>
           </div>
         </div>
       </section>

@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll } from "framer-motion";
 import {
   Clock,
   ArrowRight,
@@ -23,18 +23,21 @@ import {
   Droplet,
   Lock,
   Play,
+  Search,
   ChevronLeft,
   ChevronRight,
   Sofa,
+  Plus,
   ChevronDown,
-  Waves
+  Waves,
+  FileText
 } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { CinematicHeading } from "@/components/ui/CinematicHeading";
 import { useLightbox } from "@/context/LightboxContext";
 import { useLanguage } from "@/context/LanguageContext";
-import { Search } from "lucide-react";
+import { PhotoCollage } from "@/components/PhotoCollage";
 
 /* ────────────────────────────── animations ────────────────────────────── */
 const fadeUp = {
@@ -98,7 +101,7 @@ const getModels = (l: any) => [
     id: "basic",
     name: l("Esencial", "Essential"),
     cardName: l("Casa Esencial (20 pies)", "Essential House (20 feet)"),
-    price: "$300k – $420k MXN",
+    price: l("$300 mil – 420 mil MXN", "$300k – 420k MXN"),
     images: [
       "/casasur/basico/Gemini_Generated_Image_cr9dwbcr9dwbcr9d.webp",
       "/casasur/basico/Gemini_Generated_Image_s6wt45s6wt45s6wt.webp",
@@ -124,7 +127,7 @@ const getModels = (l: any) => [
     id: "balance",
     name: l("Balance", "Balance"),
     cardName: l("Modelo Balance (40 pies)", "Balance Model (40 feet)"),
-    price: "$600k – $720k MXN",
+    price: l("$600 mil – 720 mil MXN", "$600k – 720k MXN"),
     images: [
       "/casasur/smart/Gemini_Generated_Image_jq8q2djq8q2djq8q.webp",
       "/casasur/smart/Gemini_Generated_Image_7hhxey7hhxey7hhx.webp",
@@ -148,7 +151,7 @@ const getModels = (l: any) => [
     id: "luxury",
     name: l("Lujo", "Luxury"),
     cardName: l("Vivienda de Lujo (40 pies)", "Luxury House (40 feet)"),
-    price: "$800k – $1.2M MXN",
+    price: l("$800 mil – 1.2M MXN", "$800k – 1.2M MXN"),
     images: [
       "/casasur/lujo/Gemini_Generated_Image_mj0qffmj0qffmj0q.webp",
       "/casasur/lujo/Gemini_Generated_Image_5o0a645o0a645o0a.webp",
@@ -161,14 +164,11 @@ const getModels = (l: any) => [
     profit: l("Renta estimada: $45,000–$70,000/mes", "Estimated rent: $45,000–$70,000/month"),
     includes: [
       l("El cielo es el límite", "The sky is the limit"),
-      l("2 o mas contenedores de 40 pies", "2 or more 40-foot containers"),
-      l("desde 3 recámaras · 3 baños", "from 3 bedrooms · 3 baths"),
-      l("Cocina gourmet", "Gourmet kitchen"),
-      l("Rooftop o deck con vista panorámica", "Rooftop or deck with panoramic view"),
-      l("Sistema fotovoltaico (paneles solares)", "Photovoltaic system (solar panels)"),
-      l("Acabados de lujo", "Luxury finishes"),
-      l("Domótica y cerraduras inteligentes", "Home automation and smart locks"),
-      l("Jardín interior integrado", "Integrated indoor garden"),
+      l("2 o más contenedores de 40 pies", "2 or more 40-foot containers"),
+      l("Desde 3 recámaras · 3 baños", "From 3 bedrooms · 3 baths"),
+      l("Cocina gourmet y acabados premium", "Gourmet kitchen & premium finishes"),
+      l("Rooftop con vista panorámica", "Rooftop with panoramic view"),
+      l("Energía solar y domótica", "Solar energy & home automation"),
       l("Diseño paisajístico incluido", "Landscaping design included"),
     ],
   },
@@ -213,6 +213,30 @@ const getFaqs = (l: any) => [
     a: l("No, nosotros nos encargamos de todo. Te entregamos tu casa lista para habitar.", "No, we take care of everything. We deliver your home ready to live in.")
   },
   {
+    q: l("¿Es necesaria una cimentación para mi contenedor?", "Is a foundation necessary for my container?"),
+    a: l("No es estrictamente necesaria ya que existen varias opciones de soporte, sin embargo, la cimentación es la opción más recomendada para asegurar la durabilidad y estabilidad en proyectos de alta inversión. Te asesoramos para elegir la mejor base según tu terreno y modelo.", "It is not strictly necessary as there are several support options, however, a foundation is the most recommended option to ensure durability and stability in high-investment projects. We advise you to choose the best base according to your land and model."),
+    pdf: {
+      es: "/docs/esp/cimentación-contenedor-sunset-2026-esp.pdf",
+      en: "/docs/esp/cimentación-contenedor-sunset-2026-esp.pdf"
+    }
+  },
+  {
+    q: l("¿Cuál es el costo de transportar mi contenedor?", "What is the cost of transporting my container?"),
+    a: l("El costo varía según la distancia y la accesibilidad del terreno. Durante la fase de cotización, calculamos la logística exacta hacia tu ubicación en Baja California Sur.", "The cost varies depending on the distance and accessibility of the land. During the quote phase, we calculate the exact logistics to your location in Baja California Sur."),
+    pdf: {
+      es: "/docs/esp/transporte-contenedor-sunset-2026-esp.pdf",
+      en: "/docs/esp/transporte-contenedor-sunset-2026-esp.pdf"
+    }
+  },
+  {
+    q: l("¿Cómo funcionan los servicios de agua y drenaje en mi contenedor?", "How do water and drainage services work in my container?"),
+    a: l("Nuestros contenedores se entregan listos para conectarse a la red local o a sistemas independientes. Ofrecemos servicios adicionales para la instalación de plomería, drenaje y tanques de agua.", "Our containers are delivered ready to connect to the local grid or independent systems. We offer additional services for plumbing, drainage, and water tank installation."),
+    pdf: {
+      es: "/docs/esp/cisternayfosa-contenedor-sunset-2026-esp.pdf",
+      en: "/docs/esp/cisternayfosa-contenedor-sunset-2026-esp.pdf"
+    }
+  },
+  {
     q: l("¿Cuánto tiempo toma el proceso?", "How long does the process take?"),
     a: l("El diseño y cotización toma 5 días hábiles. Una vez aprobado, la fabricación e instalación se realiza en un mínimo de 30 días, dependiendo del modelo.", "Design and quote takes 5 business days. Once approved, manufacturing and installation is done in a minimum of 30 days, depending on the model.")
   },
@@ -226,8 +250,10 @@ const getFaqs = (l: any) => [
   }
 ];
 
-function FAQItem({ q, a }: { q: string, a: string }) {
+function FAQItem({ q, a, pdf }: { q: string, a: string, pdf?: { es: string, en: string } }) {
   const [isOpen, setIsOpen] = useState(false);
+  const { l } = useLanguage();
+  
   return (
     <div className="border-b border-page-text/10">
       <button
@@ -245,9 +271,25 @@ function FAQItem({ q, a }: { q: string, a: string }) {
             exit={{ height: 0, opacity: 0 }}
             className="overflow-hidden"
           >
-            <p className="pb-5 font-montserrat text-sm font-light text-page-text/70 leading-relaxed">
-              {a}
-            </p>
+            <div className="pb-5">
+              <p className="font-montserrat text-sm font-light text-page-text/70 leading-relaxed">
+                {a}
+              </p>
+              
+              {pdf && (
+                <div className="mt-4">
+                  <a 
+                    href={l(pdf.es, pdf.en)} 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2.5 px-4 py-2 rounded-xl bg-page-text/5 text-page-text hover:text-brand-blue hover:bg-brand-blue/5 transition-all text-[11px] font-montserrat font-bold uppercase tracking-wider group"
+                  >
+                    <FileText className="w-4 h-4 text-brand-blue/60 group-hover:text-brand-blue" />
+                    <span>{l("Descargar Ficha Técnica (PDF)", "Download Tech Sheet (PDF)")}</span>
+                  </a>
+                </div>
+              )}
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -266,6 +308,17 @@ export default function CasasSurPage() {
   const processSteps = getProcessSteps(l);
   const faqs = getFaqs(l);
   const carouselVideoRef = useRef<HTMLVideoElement>(null);
+  const ctaRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll();
+  const [showIndicator, setShowIndicator] = useState(true);
+
+  useEffect(() => {
+    return scrollYProgress.onChange((v) => {
+      // Hide near bottom
+      if (v > 0.85) setShowIndicator(false);
+      else setShowIndicator(true);
+    });
+  }, [scrollYProgress]);
 
   const handleModelChange = (i: number | "extras") => {
     setActiveTab(i);
@@ -291,7 +344,8 @@ export default function CasasSurPage() {
   useEffect(() => {
     if (activeMediaIndex !== null && mediaItems.length > 0 && mediaItems[activeMediaIndex]?.type === "video") {
       const playVideo = () => {
-        if (carouselVideoRef && carouselVideoRef.current) { carouselVideoRef.current.defaultMuted = true; carouselVideoRef.current.muted = true; carouselVideoRef.current.play().catch(() => {
+        if (carouselVideoRef && carouselVideoRef.current) {
+          carouselVideoRef.current.defaultMuted = true; carouselVideoRef.current.muted = true; carouselVideoRef.current.play().catch(() => {
             // Fallback if autoplay is blocked
           });
         }
@@ -345,7 +399,7 @@ export default function CasasSurPage() {
               {[
                 { icon: Clock, label: l("30 días", "30 days") },
                 { icon: KeyRound, label: l("Llave en mano en semanas", "Turnkey in weeks") },
-                { icon: DollarSign, label: l("Empieza con $10k", "Start with $10k") },
+                { icon: DollarSign, label: l("Empieza con $10 mil", "Start with $10k") },
               ].map((pill) => (
                 <span
                   key={pill.label}
@@ -367,7 +421,7 @@ export default function CasasSurPage() {
             </div>
             <div className="mb-4 sm:mb-8">
               <CinematicHeading
-                text={l("Empieza solo con $10k MXN.", "Start with only $10k MXN.")}
+                text={l("Empieza solo con $10 mil MXN.", "Start with only $10k MXN.")}
                 className="text-3xl sm:text-5xl lg:text-4xl xl:text-5xl font-literata font-light tracking-tighter text-page-text italic drop-shadow-md"
                 type="word"
                 delayChildren={0.6}
@@ -406,6 +460,28 @@ export default function CasasSurPage() {
           </div>
         </div>
       </section>
+
+      {/* Floating Scroll Indicator (Mobile only, persistent until near CTA) */}
+      <AnimatePresence>
+        {showIndicator && (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 10 }}
+            transition={{ duration: 0.4 }}
+            className="fixed bottom-10 left-1/2 -translate-x-1/2 z-[100] lg:hidden flex flex-col items-center gap-1.5 pointer-events-none"
+          >
+            <div className="w-9 h-9 rounded-full border border-page-text/10 flex items-center justify-center bg-white/30 backdrop-blur-xl shadow-lg">
+              <motion.div
+                animate={{ y: [0, 4, 0] }}
+                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+              >
+                <ChevronDown className="w-5 h-5 text-page-text/50" />
+              </motion.div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* ══════════════════════════════════════════════════════════════════
           2. PARA QUIÉN ES
@@ -742,42 +818,82 @@ export default function CasasSurPage() {
 
                 {/* Columna Derecha: Specs */}
                 <div className="w-full lg:w-[40%] xl:w-[35%] flex flex-col gap-6">
-                  <div className="bg-white border border-page-text/10 rounded-3xl p-6 sm:p-8 shadow-xl flex-1 flex flex-col justify-between">
-                    <div>
-                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-green/10 text-brand-green/80 font-montserrat text-[10px] font-bold tracking-wide mb-3">
-                        <Star className="w-3 h-3" />{l("Ideal para:", "Ideal for:")} {activeData.ideal}
+                  <div className="bg-white border border-page-text/8 rounded-3xl shadow-xl flex-1 flex flex-col overflow-hidden">
+
+                    {/* Header: Model name + badge */}
+                    <div className="px-6 sm:px-8 pt-6 sm:pt-8 pb-4">
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-green/10 text-brand-green/80 font-montserrat text-[10px] font-bold uppercase tracking-wider mb-4">
+                        <Star className="w-3 h-3" />{activeData.ideal}
                       </span>
-                      <h3 className="text-2xl sm:text-3xl font-literata font-light text-page-text mb-1">
+                      <h3 className="text-xl sm:text-2xl font-literata font-light text-page-text leading-tight">
                         {activeData.cardName}
                       </h3>
-                      <p className="text-xl font-literata text-brand-blue/80 font-medium mb-3">
-                        {l("Desde:", "From:")} {activeData.price}
-                      </p>
-                      <p className="font-montserrat text-sm text-page-text/70 font-medium flex items-center gap-1.5 mb-6 bg-page-text/5 w-fit px-3 py-1.5 rounded-lg">
-                        <TrendingUp className="w-4 h-4 text-brand-green/80" />
-                        {activeData.profit}
-                      </p>
+                    </div>
 
-                      <div className="space-y-2 mb-8">
+                    {/* Price block */}
+                    <div className="mx-6 sm:mx-8 px-5 py-4 rounded-2xl bg-gradient-to-br from-page-text/[0.03] to-brand-blue/[0.05] border border-page-text/5 mb-2">
+                      <span className="text-[10px] font-montserrat font-bold uppercase tracking-[0.25em] text-brand-blue/50 block mb-1">
+                        {l("Inversión", "Investment")}
+                      </span>
+                      <div className="flex items-baseline gap-1.5 whitespace-nowrap">
+                        <span className="text-2xl sm:text-[1.7rem] font-literata font-semibold text-page-text tracking-tight leading-tight">
+                          {activeData.price.replace(" MXN", "")}
+                        </span>
+                        <span className="text-xs sm:text-sm font-montserrat font-bold text-brand-blue/40 uppercase">
+                          MXN
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Rent estimate */}
+                    <div className="mx-6 sm:mx-8 py-3 flex items-center gap-2">
+                      <TrendingUp className="w-3.5 h-3.5 text-brand-green/70 shrink-0" />
+                      <span className="font-montserrat text-xs text-page-text/60 font-medium">
+                        {activeData.profit}
+                      </span>
+                    </div>
+
+                    {/* Divider */}
+                    <div className="mx-6 sm:mx-8 h-px bg-page-text/15" />
+
+                    {/* Features list */}
+                    <div className="px-6 sm:px-8 py-5 flex-1">
+                      <span className="text-[10px] font-montserrat font-bold uppercase tracking-[0.2em] text-page-text/40 block mb-3">
+                        {l("Incluye", "Includes")}
+                      </span>
+                      <div className="space-y-2.5">
                         {activeData.includes.map((item) => (
                           <div key={item} className="flex items-start gap-2.5">
-                            <Check className="w-4 h-4 text-brand-green/70 shrink-0 mt-0.5" />
-                            <span className="font-montserrat font-light text-sm text-page-text/80 leading-snug">
+                            <div className="w-4 h-4 shrink-0 mt-0.5 rounded-full bg-brand-green/10 flex items-center justify-center">
+                              <Check className="w-2.5 h-2.5 text-brand-green/80" />
+                            </div>
+                            <span className="font-montserrat text-[13px] text-page-text/75 leading-snug">
                               {item}
                             </span>
                           </div>
                         ))}
                       </div>
+
+                      <button
+                        onClick={(e) => { e.preventDefault(); handleModelChange("extras"); }}
+                        className="mt-5 flex items-center gap-1.5 text-[11px] font-montserrat font-bold uppercase tracking-wider text-page-text/50 hover:text-brand-blue transition-colors"
+                      >
+                        <Plus className="w-3.5 h-3.5" />
+                        {l("Ver amenidades extra", "View extra amenities")}
+                      </button>
                     </div>
 
-                    <a
-                      href={waLink(activeData.name)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-full group overflow-hidden rounded-full inline-flex items-center justify-center font-montserrat font-semibold transition-all h-12 px-6 bg-page-text text-white hover:bg-page-text/90 shadow-md"
-                    >
-                      <MessageCircle className="mr-2 h-4 w-4" />{l("Cotizar este modelo", "Quote this model")}
-                    </a>
+                    {/* CTA */}
+                    <div className="px-6 sm:px-8 pb-6 sm:pb-8 pt-2">
+                      <a
+                        href={waLink(activeData.name)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-full group overflow-hidden rounded-full inline-flex items-center justify-center font-montserrat font-semibold transition-all h-13 px-6 text-sm bg-page-text text-white hover:bg-page-text/90 shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98]"
+                      >
+                        <MessageCircle className="mr-2 h-4 w-4" />{l("Cotizar este modelo", "Quote this model")}
+                      </a>
+                    </div>
                   </div>
                 </div>
               </motion.div>
@@ -921,7 +1037,7 @@ export default function CasasSurPage() {
             className="border-t border-page-text/10"
           >
             {faqs.map((faq, i) => (
-              <FAQItem key={i} q={faq.q} a={faq.a} />
+              <FAQItem key={i} q={faq.q} a={faq.a} pdf={faq.pdf} />
             ))}
           </motion.div>
         </div>
@@ -940,8 +1056,11 @@ export default function CasasSurPage() {
             custom={0}
             className="animate-on-scroll"
           >
-            <h2 className="text-3xl sm:text-5xl lg:text-6xl font-literata font-light mb-6 leading-tight">{l("¿Hablamos?", "Shall we talk?")}</h2>
-            <p className="text-xl sm:text-2xl font-literata font-light text-page-text/80 italic mb-4">{l("Empieza con $10,000 MXN.", "Start with $10,000 MXN.")}</p>
+            <h2 className="text-3xl sm:text-5xl lg:text-6xl font-literata font-light mb-6 leading-tight">{l("¿Hablamos?", "Sounds good?")}</h2>
+            <p className="text-xl sm:text-2xl font-literata font-light text-page-text/80 italic mb-4">
+              {l("Empieza con $10,000", "Start with $10,000")}
+              <span className="text-sm ml-2 opacity-60 not-italic font-montserrat font-bold">MXN</span>
+            </p>
             <p className="text-page-text/60 font-montserrat font-light text-base max-w-md mx-auto mb-10">{l("Agenda tu sesión de descubrimiento y recibe tu cotización en menos de 5 días.", "Schedule your discovery session and receive your quote in less than 5 days.")}</p>
 
             <div className="flex flex-wrap justify-center gap-4">

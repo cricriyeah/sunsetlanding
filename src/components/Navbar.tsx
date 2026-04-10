@@ -28,9 +28,16 @@ export function Navbar() {
   useEffect(() => {
     if (isMobileMenuOpen) {
       document.body.style.overflow = "hidden";
+      document.documentElement.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = "unset";
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
     }
+
+    return () => {
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+    };
   }, [isMobileMenuOpen]);
 
   const projects = [
@@ -106,7 +113,7 @@ export function Navbar() {
   return (
     <>
       {/* ──── TOP HEADER (Always Fixed Top) ──── */}
-      <div className="fixed top-0 left-0 w-full z-[999] py-7 sm:py-6 lg:py-10 px-4 sm:px-6 lg:px-12 pointer-events-none">
+      <div className="fixed top-0 left-0 w-full z-[5000] py-5 sm:py-4 lg:py-5 px-4 sm:px-6 lg:px-12 pointer-events-none">
         {/* Background gradient on scroll */}
         <div
           className={`absolute inset-0 bg-gradient-to-b from-page-text/50 to-transparent transition-opacity duration-700 pointer-events-none ${isScrolled ? 'opacity-100' : 'opacity-0'}`}
@@ -134,9 +141,9 @@ export function Navbar() {
               <Image
                 src="/logo-color.svg"
                 alt="Sunset Logo"
-                width={24}
-                height={24}
-                className="brightness-0 invert object-contain sm:w-9 sm:h-9 lg:w-10 lg:h-10"
+                width={48}
+                height={48}
+                className="brightness-0 invert object-contain w-10 h-auto sm:w-8 sm:h-8 lg:w-12 lg:h-12"
               />
             </Link>
           </div>
@@ -161,7 +168,7 @@ export function Navbar() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[9999] sm:hidden"
+            className="fixed inset-0 z-[6000] sm:hidden"
           >
             {/* Backdrop Dimming Effect */}
             <motion.div
@@ -192,32 +199,36 @@ export function Navbar() {
                 <Link
                   href="/"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="font-literata text-2xl text-white font-light hover:text-brand-orange transition-colors"
+                  className="group flex items-center justify-between py-4 border-b border-white/5 transition-colors"
                 >
-                  {l("Inicio", "Home")}
+                  <span className="font-literata text-2xl text-white font-light group-hover:text-brand-orange transition-colors">
+                    {l("Inicio", "Home")}
+                  </span>
+                  <ArrowRight className="w-5 h-5 text-white/20 group-hover:text-brand-orange group-hover:translate-x-1 transition-all" />
                 </Link>
 
                 {/* Projects Expandable */}
-                <div className="flex flex-col gap-4">
+                <div className="flex flex-col">
                   <button
                     onClick={() => setIsProjectsOpen(!isProjectsOpen)}
-                    className="flex items-center justify-between w-full font-literata text-2xl text-white font-light hover:text-brand-orange transition-colors text-left"
+                    className="group flex items-center justify-between w-full py-4 border-b border-white/5 transition-colors text-left"
                   >
-                    <span>{l("Proyectos", "Projects")}</span>
-                    <ChevronDown className={`w-5 h-5 transition-transform duration-500 ${isProjectsOpen ? 'rotate-180' : ''}`} />
+                    <span className={`font-literata text-2xl font-light transition-colors ${isProjectsOpen ? 'text-brand-orange' : 'text-white group-hover:text-brand-orange'}`}>
+                      {l("Proyectos", "Projects")}
+                    </span>
+                    <ChevronDown className={`w-5 h-5 transition-transform duration-500 ${isProjectsOpen ? 'rotate-180 text-brand-orange' : 'text-white/20 group-hover:text-brand-orange'}`} />
                   </button>
 
                   <AnimatePresence>
                     {isProjectsOpen && (
                       <motion.div
-                        variants={containerVariants}
-                        initial="hidden"
-                        animate="show"
-                        exit="hidden"
-                        className="overflow-hidden flex flex-col gap-3 pl-0 mt-4 pb-4"
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        className="overflow-hidden flex flex-col gap-3 pt-4 pb-6"
                       >
                         {projects.map((project) => (
-                          <motion.div key={project.href} variants={itemVariants}>
+                          <div key={project.href}>
                             <ProjectCard
                               href={project.href}
                               img={project.img}
@@ -227,28 +238,35 @@ export function Navbar() {
                               priority={true}
                               onClose={() => setIsMobileMenuOpen(false)}
                             />
-                          </motion.div>
+                          </div>
                         ))}
                       </motion.div>
                     )}
                   </AnimatePresence>
-
                 </div>
 
-                {/* Other standard links */}
+                {/* Credit link */}
                 <Link
                   href="/financiamiento"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="font-literata text-2xl text-white font-light hover:text-brand-orange transition-colors"
+                  className="group flex items-center justify-between py-4 border-b border-white/5 transition-colors"
                 >
-                  {l("Crédito", "Financing")}
+                  <span className="font-literata text-2xl text-white font-light group-hover:text-brand-orange transition-colors">
+                    {l("Crédito", "Financing")}
+                  </span>
+                  <ArrowRight className="w-5 h-5 text-white/20 group-hover:text-brand-orange group-hover:translate-x-1 transition-all" />
                 </Link>
+
+                {/* About link */}
                 <Link
                   href="/nosotros"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="font-literata text-2xl text-white font-light hover:text-brand-orange transition-colors"
+                  className="group flex items-center justify-between py-4 border-b border-white/5 transition-colors"
                 >
-                  {l("Nosotros", "About Us")}
+                  <span className="font-literata text-2xl text-white font-light group-hover:text-brand-orange transition-colors">
+                    {l("Nosotros", "About Us")}
+                  </span>
+                  <ArrowRight className="w-5 h-5 text-white/20 group-hover:text-brand-orange group-hover:translate-x-1 transition-all" />
                 </Link>
               </nav>
 
@@ -296,7 +314,7 @@ export function Navbar() {
             }
           }
         }}
-        className={`hidden sm:flex fixed z-[999] left-1/2 -translate-x-1/2 backdrop-blur-xl border flex flex-col shadow-2xl overflow-hidden max-w-[calc(100vw-48px)] top-[20px] origin-top will-change-[width,height] transform-gpu`}
+        className={`hidden sm:flex fixed z-[5000] left-1/2 -translate-x-1/2 backdrop-blur-xl border flex flex-col shadow-2xl overflow-hidden max-w-[calc(100vw-48px)] top-[14px] lg:top-[24px] origin-top will-change-[width,height] transform-gpu`}
       >
         {/* Navbar Links Row (Always visible) */}
         <div className="flex w-full items-center p-1 shrink-0 h-[44px] relative justify-center">
