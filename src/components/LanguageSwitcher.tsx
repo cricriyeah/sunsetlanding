@@ -3,10 +3,11 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Globe, Check } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLanguage } from "@/context/LanguageContext";
 
 export function LanguageSwitcher() {
   const [isOpen, setIsOpen] = useState(false);
-  const [language, setLanguage] = useState<"ES" | "EN">("ES");
+  const { language, setLanguage } = useLanguage();
   const menuRef = useRef<HTMLDivElement>(null);
 
   // Close when clicking outside
@@ -20,10 +21,9 @@ export function LanguageSwitcher() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const changeLanguage = (lang: "ES" | "EN") => {
+  const changeLanguage = (lang: "es" | "en") => {
     setLanguage(lang);
     setIsOpen(false);
-    // TODO: Implement actual router/i18n logic here 
   };
 
   return (
@@ -38,19 +38,19 @@ export function LanguageSwitcher() {
             className="absolute bottom-full right-0 mb-3 w-36 rounded-2xl shadow-xl overflow-hidden flex flex-col font-montserrat bg-black/10 backdrop-blur-2xl border border-black/5"
           >
             <button 
-              onClick={() => changeLanguage("ES")}
-              className={`flex items-center justify-between w-full px-4 py-3 text-sm text-left transition-colors hover:bg-black/10 ${language === "ES" ? "text-page-text font-medium" : "text-page-text/70"}`}
+              onClick={() => changeLanguage("es")}
+              className={`flex items-center justify-between w-full px-4 py-3 text-sm text-left transition-colors hover:bg-black/10 ${language === "es" ? "text-page-text font-medium" : "text-page-text/70"}`}
             >
               Español
-              {language === "ES" && <Check className="w-4 h-4 ml-2" />}
+              {language === "es" && <Check className="w-4 h-4 ml-2" />}
             </button>
             <div className="h-px w-full bg-black/5" />
             <button 
-              onClick={() => changeLanguage("EN")}
-              className={`flex items-center justify-between w-full px-4 py-3 text-sm text-left transition-colors hover:bg-black/10 ${language === "EN" ? "text-page-text font-medium" : "text-page-text/70"}`}
+              onClick={() => changeLanguage("en")}
+              className={`flex items-center justify-between w-full px-4 py-3 text-sm text-left transition-colors hover:bg-black/10 ${language === "en" ? "text-page-text font-medium" : "text-page-text/70"}`}
             >
               English
-              {language === "EN" && <Check className="w-4 h-4 ml-2" />}
+              {language === "en" && <Check className="w-4 h-4 ml-2" />}
             </button>
           </motion.div>
         )}
@@ -61,7 +61,7 @@ export function LanguageSwitcher() {
         className="flex w-full items-center justify-center gap-2 rounded-full bg-black/10 backdrop-blur-md border border-black/5 px-4 py-2 text-sm font-medium text-page-text/90 shadow-lg transition-all hover:bg-black/20 hover:scale-105 font-montserrat"
       >
         <Globe className="h-4 w-4 opacity-70" />
-        <span className="w-5 text-center">{language}</span>
+        <span className="w-5 text-center uppercase">{language}</span>
       </button>
     </div>
   );

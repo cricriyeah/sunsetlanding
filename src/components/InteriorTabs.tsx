@@ -9,31 +9,31 @@ export const interiorTabsData = [
     id: "sala",
     title: "Sala Principal",
     description: "Un espacio de concepto abierto diseñado para la convivencia, con ventanales que integran el exterior y acabados que exudan un lujo sereno.",
-    image: "/herocondo3.png",
+    image: "/herocondo3.webp",
   },
   {
     id: "comedor",
     title: "Comedor",
     description: "El escenario perfecto para cenas inolvidables, ubicado estratégicamente para disfrutar de las vistas mientras compartes momentos con familia y amigos.",
-    image: "/comedor.jpeg",
+    image: "/comedor.webp",
   },
   {
     id: "recamara",
     title: "Recámara Principal",
     description: "Un refugio íntimo con ventanales de piso a techo. Despierta con vistas panorámicas y disfruta de un vestidor amplio diseñado para tu máximo confort.",
-    image: "/dormitorio.jpeg",
+    image: "/dormitorio.webp",
   },
   {
     id: "cocina",
     title: "Cocina Gourmet",
     description: "Equipada con tecnología moderna y superficies de piedra natural. Una isla central perfecta tanto para el día a día como para recibir a tus invitados.",
-    image: "/herocondo.png",
+    image: "/herocondo.webp",
   },
   {
     id: "banos",
     title: "Baños de Lujo",
     description: "Diseño minimalista con detalles en grifería de alta gama y cancelería fina. Un santuario privado tipo spa en tu propio hogar.",
-    image: "/bano.jpeg",
+    image: "/bano.webp",
   },
 ];
 
@@ -66,7 +66,7 @@ export function InteriorTabs() {
               exit={{ opacity: 0, scale: 0.98, filter: "blur(10px)" }}
               transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
               className="relative aspect-[4/3] sm:aspect-[21/9] rounded-[1rem] sm:rounded-[2rem] overflow-hidden shadow-2xl shadow-page-text/10 border border-page-text/5 group cursor-pointer"
-              onClick={() => openLightbox(interiorTabsData.map(d => ({ src: d.image, alt: d.title })), activeIndex)}
+              onClick={() => openLightbox(interiorTabsData.map(d => ({ src: d.image, alt: d.title, type: 'image' as const })), activeIndex)}
             >
               {/* Image */}
               <Image

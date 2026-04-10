@@ -36,6 +36,9 @@
   --color-armok-primary: #1e3a8a;
   --color-armok-secondary: rgba(44, 26, 14, 0.05);
   --color-armok-accent: #1e40af;
+
+  /* ── Custom Breakpoints ── */
+  --breakpoint-3xl: 120rem; /* 1920px */
 }
 
 @layer base {
@@ -47,6 +50,32 @@
   html {
     height: 100%;
     color-scheme: dark;
+    scroll-behavior: smooth;
+    font-size: 100%; /* 16px default */
+  }
+
+  @media (min-width: 1024px) {
+    html {
+      font-size: 93.75%; /* 15px - Subtly smaller everything */
+    }
+  }
+
+  @media (min-width: 1280px) {
+    html {
+      font-size: 90.625%; /* 14.5px - More 'air' relative to viewport */
+    }
+  }
+
+  @media (min-width: 1536px) {
+    html {
+      font-size: 87.5%; /* 14px - Premium editorial scale for large laptops */
+    }
+  }
+
+  @media (min-width: 1920px) {
+    html {
+      font-size: 100%; /* 16px - Reset for standard Desktop monitors */
+    }
   }
 
   html,
@@ -97,11 +126,15 @@
 /* ── Anti-flicker for Framer Motion scroll animations ──
    Elements with this class start invisible via pure CSS,
    preventing the visible → hidden → animate FOUC on mobile.
-   Framer Motion overrides these styles once JS hydrates. */
+   Framer Motion overrides these styles once JS hydrates.
+   Added a fallback animation so elements don't stay hidden forever if JS fails. */
+@keyframes fallback-reveal {
+  to { opacity: 1; }
+}
 .animate-on-scroll {
   opacity: 0;
-  filter: blur(6px);
-  will-change: transform, opacity, filter;
+  will-change: transform, opacity;
+  animation: fallback-reveal 0.1s 3s forwards;
 }
 
 /* ── Card transition utility ──
@@ -111,7 +144,7 @@
 .transition-card {
   transition-property: color, background-color, border-color,
     text-decoration-color, fill, stroke,
-    box-shadow, backdrop-filter;
+    box-shadow, backdrop-filter, transform;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 

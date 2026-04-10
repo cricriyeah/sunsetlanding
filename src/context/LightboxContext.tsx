@@ -2,19 +2,20 @@
 
 import React, { createContext, useContext, useState, useCallback } from "react";
 
-interface LightboxImage {
+interface LightboxItem {
   src: string;
   alt: string;
+  type: 'image' | 'video';
 }
 
 interface LightboxContextType {
   isOpen: boolean;
   currentIndex: number;
-  images: LightboxImage[];
-  openLightbox: (images: LightboxImage[], index?: number) => void;
+  items: LightboxItem[];
+  openLightbox: (items: LightboxItem[], index?: number) => void;
   closeLightbox: () => void;
-  nextImage: () => void;
-  prevImage: () => void;
+  nextItem: () => void;
+  prevItem: () => void;
 }
 
 const LightboxContext = createContext<LightboxContextType | undefined>(undefined);
@@ -22,10 +23,10 @@ const LightboxContext = createContext<LightboxContextType | undefined>(undefined
 export function LightboxProvider({ children }: { children: React.ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [images, setImages] = useState<LightboxImage[]>([]);
+  const [items, setItems] = useState<LightboxItem[]>([]);
 
-  const openLightbox = useCallback((images: LightboxImage[], index = 0) => {
-    setImages(images);
+  const openLightbox = useCallback((items: LightboxItem[], index = 0) => {
+    setItems(items);
     setCurrentIndex(index);
     setIsOpen(true);
     // Prevent scroll on body
@@ -38,24 +39,24 @@ export function LightboxProvider({ children }: { children: React.ReactNode }) {
     document.body.style.overflow = "unset";
   }, []);
 
-  const nextImage = useCallback(() => {
-    setCurrentIndex((prev) => (prev + 1) % images.length);
-  }, [images.length]);
+  const nextItem = useCallback(() => {
+    setCurrentIndex((prev) => (prev + 1) % items.length);
+  }, [items.length]);
 
-  const prevImage = useCallback(() => {
-    setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
-  }, [images.length]);
+  const prevItem = useCallback(() => {
+    setCurrentIndex((prev) => (prev - 1 + items.length) % items.length);
+  }, [items.length]);
 
   return (
     <LightboxContext.Provider
       value={{
         isOpen,
         currentIndex,
-        images,
+        items,
         openLightbox,
         closeLightbox,
-        nextImage,
-        prevImage,
+        nextItem,
+        prevItem,
       }}
     >
       {children}

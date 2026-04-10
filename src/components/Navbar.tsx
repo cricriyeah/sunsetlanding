@@ -6,8 +6,10 @@ import Link from "next/link";
 import { ArrowRight, X, ChevronDown, Menu } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLanguage } from "@/context/LanguageContext";
 
 export function Navbar() {
+  const { l } = useLanguage();
   const [isExpanded, setIsExpanded] = useState(false); // For Desktop Pill
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // For Mobile Overlay
   const [isProjectsOpen, setIsProjectsOpen] = useState(false); // For Mobile Projects Submenu
@@ -15,9 +17,10 @@ export function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      const scrolled = window.scrollY > 20;
+      setIsScrolled((prev) => (prev !== scrolled ? scrolled : prev));
     };
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -31,37 +34,94 @@ export function Navbar() {
   }, [isMobileMenuOpen]);
 
   const projects = [
-    { name: "Sunset Condominios", href: "/proyectos/sunset-condominios" },
-    { name: "Casas Sur", href: "/proyectos/casas-sur" },
-    { name: "Residencia Armok", href: "/proyectos/residencia-armok" },
-    { name: "Residencia Quintard", href: "/proyectos/residencia-quintard" },
+    {
+      name: "Sunset Condominios",
+      href: "/proyectos/sunset-condominios",
+      img: "/herocondo3.webp",
+      tag: l("Preventa", "Presale"),
+      desc: l(
+        "La cúspide del confort junto al mar. Espacios pensados para fluir con la brisa.",
+        "The pinnacle of seaside comfort. Spaces designed to flow with the breeze."
+      )
+    },
+    {
+      name: "Casas Sur",
+      href: "/proyectos/casas-sur",
+      img: "/casasur/hero.webp",
+      tag: l("Empieza con $10,000 MXN", "Starts at $10,000 MXN"),
+      desc: l(
+        "Vivienda modular lista en 30 días. Tu hogar, rápido y accesible.",
+        "Modular housing ready in 30 days. Your home, fast and accessible."
+      )
+    },
+    {
+      name: "Residencia Armok",
+      href: "/proyectos/residencia-armok",
+      img: "/amrok/hero1.webp",
+      tag: l("Obra Entregada", "Delivered Project"),
+      desc: l(
+        "Brutalismo y descanso en el desierto. Una pieza única de arquitectura de autor.",
+        "Brutalism and rest in the desert. A unique piece of signature architecture."
+      )
+    },
+    {
+      name: "Residencia Quintard",
+      href: "/proximamente",
+      img: "/quintard.webp",
+      tag: l("Obra Entregada", "Delivered Project"),
+      desc: l(
+        "Diálogo entre la piedra y el horizonte de La Baja. Un refugio contemporáneo en El Centenario.",
+        "A dialogue between stone and the Baja horizon. A contemporary refuge in El Centenario."
+      )
+    },
   ];
 
   const mainLinks = [
-    { name: "Inicio", href: "/" },
-    { name: "Crédito", href: "/financiamiento" },
-    { name: "Nosotros", href: "/nosotros" },
+    { name: l("Inicio", "Home"), href: "/" },
+    { name: l("Crédito", "Financing"), href: "/financiamiento" },
+    { name: l("Nosotros", "About Us"), href: "/nosotros" },
   ];
+
+  // Animation variants for staggered list
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+        delayChildren: 0.42
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 15 },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: [0.23, 1, 0.32, 1] as [number, number, number, number] }
+    }
+  };
 
   return (
     <>
       {/* ──── TOP HEADER (Always Fixed Top) ──── */}
-      <div className="fixed top-0 left-0 w-full z-[999] py-4 sm:py-6 px-4 sm:px-6 lg:px-8 pointer-events-none">
+      <div className="fixed top-0 left-0 w-full z-[999] py-7 sm:py-6 lg:py-10 px-4 sm:px-6 lg:px-12 pointer-events-none">
         {/* Background gradient on scroll */}
-        <div 
-          className={`absolute inset-0 bg-gradient-to-b from-page-text/50 to-transparent transition-opacity duration-700 pointer-events-none ${isScrolled ? 'opacity-100' : 'opacity-0'}`} 
+        <div
+          className={`absolute inset-0 bg-gradient-to-b from-page-text/50 to-transparent transition-opacity duration-700 pointer-events-none ${isScrolled ? 'opacity-100' : 'opacity-0'}`}
         />
-        
+
         <div className="relative mx-auto max-w-7xl flex items-center justify-between pointer-events-auto">
-          
+
           {/* Mobile "Menu" Pill - Left Column */}
           <div className="flex sm:hidden z-10">
             <button
               onClick={() => setIsMobileMenuOpen(true)}
-              className="flex items-center gap-2 h-9 px-5 rounded-full font-montserrat text-sm font-medium tracking-wide text-white bg-white/10 backdrop-blur-md border border-white/20 shadow-xl"
+              className="flex items-center gap-2 h-9 px-5 rounded-full font-montserrat text-sm font-light text-white bg-white/10 backdrop-blur-md border border-white/20 shadow-xl"
             >
               <Menu className="w-3.5 h-3.5 opacity-80" />
-              <span>Menu</span>
+              <span>{l("Menu", "Menu")}</span>
             </button>
           </div>
 
@@ -84,8 +144,8 @@ export function Navbar() {
           {/* Action Button - Right Column */}
           <div className="flex justify-end sm:flex-initial z-10">
             <Button href="/contacto" size="sm" className="font-montserrat shadow-2xl shadow-white/20 font-semibold h-9 sm:h-10 px-4 sm:px-6 shrink-0">
-              <span className="hidden sm:inline">Agenda una visita</span>
-              <span className="sm:hidden">Agendar</span>
+              <span className="hidden sm:inline">{l("Agenda una visita", "Schedule a visit")}</span>
+              <span className="sm:hidden">{l("Agendar", "Schedule")}</span>
               <ArrowRight className="ml-2 h-3.5 w-3.5 sm:h-4 sm:w-4" />
             </Button>
           </div>
@@ -104,23 +164,23 @@ export function Navbar() {
             className="fixed inset-0 z-[9999] sm:hidden"
           >
             {/* Backdrop Dimming Effect */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsMobileMenuOpen(false)}
-              className="absolute inset-0 bg-black/80 backdrop-blur-sm" 
+              className="absolute inset-0 bg-black/80 backdrop-blur-sm"
             />
 
             {/* Content Container */}
             <motion.div
-              initial={{ x: "100%", opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              exit={{ x: "100%", opacity: 0 }}
-              transition={{ type: "spring", damping: 30, stiffness: 300 }}
-              className="absolute inset-y-0 right-0 w-full bg-page-bg/10 backdrop-blur-3xl border-l border-white/10 flex flex-col p-8 pt-24 overflow-y-auto subtle-scrollbar"
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "tween", duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
+              className="absolute inset-y-0 right-0 w-full bg-page-bg/10 backdrop-blur-xl border-l border-white/10 flex flex-col p-8 pt-24 overflow-y-auto subtle-scrollbar will-change-transform"
             >
-              <button 
+              <button
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="absolute top-6 right-6 p-2 rounded-full bg-white/10 text-white"
               >
@@ -129,64 +189,46 @@ export function Navbar() {
 
               <nav className="flex flex-col gap-8">
                 {/* Home Link */}
-                <Link 
-                  href="/" 
+                <Link
+                  href="/"
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="font-literata text-2xl text-white font-light hover:text-brand-orange transition-colors"
                 >
-                  Inicio
+                  {l("Inicio", "Home")}
                 </Link>
 
                 {/* Projects Expandable */}
                 <div className="flex flex-col gap-4">
-                  <button 
+                  <button
                     onClick={() => setIsProjectsOpen(!isProjectsOpen)}
                     className="flex items-center justify-between w-full font-literata text-2xl text-white font-light hover:text-brand-orange transition-colors text-left"
                   >
-                    <span>Proyectos</span>
+                    <span>{l("Proyectos", "Projects")}</span>
                     <ChevronDown className={`w-5 h-5 transition-transform duration-500 ${isProjectsOpen ? 'rotate-180' : ''}`} />
                   </button>
-                  
+
                   <AnimatePresence>
                     {isProjectsOpen && (
                       <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        className="overflow-hidden flex flex-col gap-4 pl-0 mt-4 pb-4"
+                        variants={containerVariants}
+                        initial="hidden"
+                        animate="show"
+                        exit="hidden"
+                        className="overflow-hidden flex flex-col gap-3 pl-0 mt-4 pb-4"
                       >
-                        <ProjectCard 
-                          href="/proyectos/sunset-condominios" 
-                          img="/herocondo3.png" 
-                          title="Sunset Condominios" 
-                          tag="Preventa" 
-                          desc="La cúspide del confort junto al mar. Espacios pensados para fluir con la brisa."
-                          onClose={() => setIsMobileMenuOpen(false)}
-                        />
-                        <ProjectCard 
-                          href="/proyectos/casas-sur" 
-                          img="/casasur/hero.png" 
-                          title="Casas Sur" 
-                          tag="Empieza con $10,000 MXN" 
-                          desc="Vivienda modular de diseño industrial lista en 30 días. Tu hogar, rápido y accesible."
-                          onClose={() => setIsMobileMenuOpen(false)}
-                        />
-                        <ProjectCard 
-                          href="/proyectos/residencia-armok" 
-                          img="/amrok/hero1.png" 
-                          title="Residencia Armok" 
-                          tag="Obra Entregada" 
-                          desc="Brutalismo y descanso en el desierto. Una pieza única de arquitectura de autor."
-                          onClose={() => setIsMobileMenuOpen(false)}
-                        />
-                        <ProjectCard 
-                          href="/proyectos/residencia-quintard" 
-                          img="/quintard.png" 
-                          title="Residencia Quintard" 
-                          tag="Obra Entregada" 
-                          desc="Diálogo entre la piedra y el horizonte de La Baja. Un refugio contemporáneo en El Centenario."
-                          onClose={() => setIsMobileMenuOpen(false)}
-                        />
+                        {projects.map((project) => (
+                          <motion.div key={project.href} variants={itemVariants}>
+                            <ProjectCard
+                              href={project.href}
+                              img={project.img}
+                              title={project.name}
+                              tag={project.tag}
+                              desc={project.desc}
+                              priority={true}
+                              onClose={() => setIsMobileMenuOpen(false)}
+                            />
+                          </motion.div>
+                        ))}
                       </motion.div>
                     )}
                   </AnimatePresence>
@@ -194,25 +236,25 @@ export function Navbar() {
                 </div>
 
                 {/* Other standard links */}
-                <Link 
-                  href="/financiamiento" 
+                <Link
+                  href="/financiamiento"
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="font-literata text-2xl text-white font-light hover:text-brand-orange transition-colors"
                 >
-                  Crédito
+                  {l("Crédito", "Financing")}
                 </Link>
-                <Link 
-                  href="/nosotros" 
+                <Link
+                  href="/nosotros"
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="font-literata text-2xl text-white font-light hover:text-brand-orange transition-colors"
                 >
-                  Nosotros
+                  {l("Nosotros", "About Us")}
                 </Link>
               </nav>
 
               <div className="mt-auto pt-10 border-t border-white/10">
                 <Button href="/contacto" className="w-full justify-between h-14 text-base font-medium">
-                  Agenda una visita
+                  {l("Agenda una visita", "Schedule a visit")}
                   <ArrowRight className="w-5 h-5" />
                 </Button>
               </div>
@@ -221,7 +263,7 @@ export function Navbar() {
           </motion.div>
         )}
       </AnimatePresence>
-      
+
       {/* ──── FLOATING PILL NAVBAR (Desktop Only) ──── */}
       <motion.nav
         initial={false}
@@ -235,42 +277,42 @@ export function Navbar() {
             borderColor: "rgba(0, 0, 0, 0.05)",
             y: 0,
             transition: {
-              type: "spring", stiffness: 300, damping: 30, mass: 1,
-              backgroundColor: { delay: 0.2, duration: 0.4 },
-              borderColor: { delay: 0.2, duration: 0.4 }
+              duration: 0.4,
+              ease: [0.23, 1, 0.32, 1],
+              backgroundColor: { delay: 0.1 },
+              borderColor: { delay: 0.1 }
             }
           },
           expanded: {
             width: "800px",
-            height: "60vh",
+            height: "85vh",
             borderRadius: "24px",
             backgroundColor: "rgba(44, 26, 14, 0.45)",
             borderColor: "rgba(255, 255, 255, 0.2)",
             y: 0,
             transition: {
-              type: "spring", stiffness: 260, damping: 28, mass: 1,
-              backgroundColor: { duration: 0.4 },
-              borderColor: { duration: 0.4 }
+              duration: 0.4,
+              ease: [0.23, 1, 0.32, 1]
             }
           }
         }}
-        className={`hidden sm:flex fixed z-[999] left-1/2 -translate-x-1/2 backdrop-blur-3xl border flex flex-col shadow-2xl overflow-hidden max-w-[calc(100vw-48px)] top-[20px] origin-top`}
+        className={`hidden sm:flex fixed z-[999] left-1/2 -translate-x-1/2 backdrop-blur-xl border flex flex-col shadow-2xl overflow-hidden max-w-[calc(100vw-48px)] top-[20px] origin-top will-change-[width,height] transform-gpu`}
       >
         {/* Navbar Links Row (Always visible) */}
         <div className="flex w-full items-center p-1 shrink-0 h-[44px] relative justify-center">
           <div className="flex items-center space-x-1">
             <button
-              className={`flex items-center gap-1.5 font-montserrat rounded-full px-3 py-1.5 text-sm font-medium transition-all cursor-pointer ${isExpanded ? 'bg-white/10 text-white shadow-inner' : 'text-white hover:bg-white/10'}`}
+              className={`flex items-center gap-1.5 font-montserrat rounded-full px-3 py-1.5 text-sm font-medium transition-all duration-500 cursor-pointer ${isExpanded ? 'bg-white/10 text-white shadow-inner' : 'text-white hover:bg-white/10'}`}
               onClick={() => setIsExpanded(!isExpanded)}
             >
-              <span>Proyectos</span>
-              <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`} />
+              <span>{l("Proyectos", "Projects")}</span>
+              <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-500 ${isExpanded ? 'rotate-180' : ''}`} />
             </button>
             {mainLinks.map(link => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="font-montserrat rounded-full px-3 py-1.5 text-sm font-medium text-white hover:bg-white/10 cursor-pointer"
+                className="font-montserrat rounded-full px-3 py-1.5 text-sm font-medium text-white transition-all duration-500 hover:bg-white/10 cursor-pointer"
               >
                 {link.name}
               </Link>
@@ -290,48 +332,29 @@ export function Navbar() {
         <AnimatePresence>
           {isExpanded && (
             <motion.div
-              initial={{ opacity: 0, filter: "blur(10px)", y: 10 }}
-              animate={{ opacity: 1, filter: "blur(0px)", y: 0, transition: { delay: 0.25, duration: 0.4 } }}
-              exit={{ opacity: 0, filter: "blur(5px)", y: 10, transition: { duration: 0.2 } }}
+              variants={containerVariants}
+              initial="hidden"
+              animate="show"
+              exit="hidden"
               className="flex-1 w-full p-4 px-6 py-8 overflow-y-auto subtle-scrollbar"
             >
               <h2 className="text-1xl font-literata text-white italic font-light tracking-wide mb-8 text-left">
                 Nuestros Proyectos
               </h2>
-              <div className="flex flex-col gap-6 pb-8">
-                {/* List of projects cards (existing logic but slightly cleaner) */}
-                <ProjectCard 
-                  href="/proyectos/sunset-condominios" 
-                  img="/herocondo3.png" 
-                  title="Sunset Condominios" 
-                  tag="Preventa" 
-                  desc="La cúspide del confort junto al mar. Espacios pensados para fluir con la brisa."
-                  onClose={() => setIsExpanded(false)}
-                />
-                <ProjectCard 
-                  href="/proyectos/casas-sur" 
-                  img="/casasur/hero.png" 
-                  title="Casas Sur" 
-                  tag="Empieza con $10,000 MXN" 
-                  desc="Vivienda modular de diseño industrial lista en 30 días. Tu hogar, rápido y accesible."
-                  onClose={() => setIsExpanded(false)}
-                />
-                <ProjectCard 
-                  href="/proyectos/residencia-armok" 
-                  img="/amrok/hero1.png" 
-                  title="Residencia Armok" 
-                  tag="Obra Entregada" 
-                  desc="Brutalismo y descanso en el desierto. Una pieza única de arquitectura de autor."
-                  onClose={() => setIsExpanded(false)}
-                />
-                <ProjectCard 
-                  href="/proyectos/residencia-quintard" 
-                  img="/quintard.png" 
-                  title="Residencia Quintard" 
-                  tag="Obra Entregada" 
-                  desc="Diálogo entre la piedra y el horizonte de La Baja. Un refugio contemporáneo en El Centenario."
-                  onClose={() => setIsExpanded(false)}
-                />
+              <div className="flex flex-col gap-3 pb-8">
+                {projects.map((project) => (
+                  <motion.div key={project.href} variants={itemVariants}>
+                    <ProjectCard
+                      href={project.href}
+                      img={project.img}
+                      title={project.name}
+                      tag={project.tag}
+                      desc={project.desc}
+                      priority={true}
+                      onClose={() => setIsExpanded(false)}
+                    />
+                  </motion.div>
+                ))}
               </div>
             </motion.div>
           )}
@@ -342,11 +365,11 @@ export function Navbar() {
 }
 
 // Helper component for cleaner code
-function ProjectCard({ href, img, title, tag, desc, onClose }: { href: string; img: string; title: string; tag: string; desc: string; onClose: () => void }) {
+function ProjectCard({ href, img, title, tag, desc, onClose, priority = false }: { href: string; img: string; title: string; tag: string; desc: string; onClose: () => void; priority?: boolean }) {
   return (
-    <Link href={href} onClick={onClose} className="group flex flex-col sm:flex-row items-stretch bg-white/5 hover:bg-white/10 transition-card duration-300 hover:-translate-y-1 rounded-2xl border border-white/10 overflow-hidden min-h-[140px]">
+    <Link href={href} onClick={onClose} className="group flex flex-col sm:flex-row items-stretch bg-white/5 hover:bg-white/10 transition-all duration-500 rounded-2xl border border-white/10 overflow-hidden min-h-[140px]">
       <div className="w-full sm:w-[180px] h-40 sm:h-auto shrink-0 bg-black/20 overflow-hidden relative">
-        <Image src={img} alt={title} fill className="object-cover" />
+        <Image src={img} alt={title} fill className="object-cover" priority={priority} />
         <div className="absolute inset-0 bg-gradient-to-tr from-sc-contrast/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
       </div>
       <div className="flex-1 flex flex-col justify-center text-left py-4 px-6">

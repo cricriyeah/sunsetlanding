@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -33,15 +33,16 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { CinematicHeading } from "@/components/ui/CinematicHeading";
 import { useLightbox } from "@/context/LightboxContext";
+import { useLanguage } from "@/context/LanguageContext";
 import { Search } from "lucide-react";
 
 /* ────────────────────────────── animations ────────────────────────────── */
 const fadeUp = {
-  hidden: { opacity: 0, y: 30, filter: "blur(6px)" },
+  hidden: { opacity: 0, y: 20, filter: "none" },
   visible: (delay: number) => ({
     opacity: 1,
     y: 0,
-    filter: "blur(0px)",
+    filter: "none",
     transition: {
       duration: 0.8,
       delay,
@@ -67,161 +68,161 @@ function RevealLine({ children, delay = 0 }: { children: React.ReactNode; delay?
 }
 
 /* ────────────────────────────── data ────────────────────────────── */
-const WA_NUMBER = "5216121234567"; // ← reemplazar con número real
+const WA_NUMBER = "5216122134747"; // ← reemplazar con número real
 
-const profiles = [
+const getProfiles = (l: any) => [
   {
     icon: MapPin,
-    title: "Tengo terreno ejidal",
-    desc: "Instalamos en terreno ejidal o privado, sin trámites extra.",
+    title: l("Tengo terreno ejidal", "I have ejidal land"),
+    desc: l("Instalamos en terreno ejidal o privado, sin trámites extra.", "We install on ejidal or private land, without extra paperwork."),
   },
   {
     icon: Zap,
-    title: "Quiero vivir ya",
-    desc: "De plano a llaves en mínimo 30 días. Sin esperas de obra negra.",
+    title: l("Quiero vivir ya", "I want to live now"),
+    desc: l("De plano a llaves en mínimo 30 días. Sin esperas de obra negra.", "From blueprint to keys in a minimum of 30 days. No waiting for gray work."),
   },
   {
     icon: TrendingUp,
-    title: "Quiero rentar",
-    desc: "Genera ingresos mensuales desde el primer mes de entrega.",
+    title: l("Quiero rentar", "I want to rent"),
+    desc: l("Genera ingresos mensuales desde el primer mes de entrega.", "Generate monthly income from the first month of delivery."),
   },
   {
     icon: Palmtree,
-    title: "Inversión Airbnb",
-    desc: "Recupera tu inversión en 12–24 meses con renta vacacional.",
+    title: l("Inversión Airbnb", "Airbnb Investment"),
+    desc: l("Recupera tu inversión en 12–24 meses con renta vacacional.", "Recover your investment in 12-24 months with vacation rental."),
   },
 ];
 
-const models = [
+const getModels = (l: any) => [
   {
     id: "basic",
-    name: "Esencial",
-    cardName: "Casa Esencial (20 pies)",
+    name: l("Esencial", "Essential"),
+    cardName: l("Casa Esencial (20 pies)", "Essential House (20 feet)"),
     price: "$300k – $420k MXN",
     images: [
-      "/casasur/basico/Gemini_Generated_Image_cr9dwbcr9dwbcr9d.png",
-      "/casasur/basico/Gemini_Generated_Image_s6wt45s6wt45s6wt.png",
-      "/casasur/basico/Gemini_Generated_Image_xwtt18xwtt18xwtt.png",
-      "/casasur/basico/Gemini_Generated_Image_7tm1wf7tm1wf7tm1.png",
-      "/casasur/basico/bano.png",
-      "/casasur/basico/interior.png",
+      "/casasur/basico/Gemini_Generated_Image_cr9dwbcr9dwbcr9d.webp",
+      "/casasur/basico/Gemini_Generated_Image_s6wt45s6wt45s6wt.webp",
+      "/casasur/basico/Gemini_Generated_Image_xwtt18xwtt18xwtt.webp",
+      "/casasur/basico/Gemini_Generated_Image_7tm1wf7tm1wf7tm1.webp",
+      "/casasur/basico/bano.webp",
+      "/casasur/basico/interior.webp",
     ],
     video: "https://ik.imagekit.io/ymn210s8o/videobasico.mp4",
-    ideal: "Primera vivienda o renta fija",
-    profit: "Renta estimada: $8,000–$12,000/mes",
+    ideal: l("Primera vivienda o renta fija", "First home or fixed rent"),
+    profit: l("Renta estimada: $8,000–$12,000/mes", "Estimated rent: $8,000–$12,000/month"),
     includes: [
-      "1 recámara · 1 baño completo",
-      "Cocina integral",
-      "Sala–comedor abierto",
-      "Aislamiento térmico completo",
-      "Piso vinílico de alto tráfico",
-      "Instalación eléctrica",
-      "desde 1 ventana de vidrio templado",
+      l("1 recámara · 1 baño completo", "1 bedroom · 1 full bath"),
+      l("Cocina integral", "Full kitchen"),
+      l("Sala–comedor abierto", "Open living-dining room"),
+      l("Aislamiento térmico completo", "Complete thermal insulation"),
+      l("Piso vinílico de alto tráfico", "High traffic vinyl flooring"),
+      l("Instalación eléctrica", "Electrical installation"),
+      l("Ventana de fachada principal", "Main facade window"),
     ],
   },
   {
     id: "balance",
-    name: "Balance",
-    cardName: "Modelo Balance (40 pies)",
+    name: l("Balance", "Balance"),
+    cardName: l("Modelo Balance (40 pies)", "Balance Model (40 feet)"),
     price: "$600k – $720k MXN",
     images: [
-      "/casasur/smart/Gemini_Generated_Image_jq8q2djq8q2djq8q.png",
-      "/casasur/smart/Gemini_Generated_Image_7hhxey7hhxey7hhx.png",
-      "/casasur/smart/Gemini_Generated_Image_ifuvehifuvehifuv.png",
-      "/casasur/smart/Gemini_Generated_Image_db3vr2db3vr2db3v.png",
+      "/casasur/smart/Gemini_Generated_Image_jq8q2djq8q2djq8q.webp",
+      "/casasur/smart/Gemini_Generated_Image_7hhxey7hhxey7hhx.webp",
+      "/casasur/smart/Gemini_Generated_Image_ifuvehifuvehifuv.webp",
+      "/casasur/smart/Gemini_Generated_Image_db3vr2db3vr2db3v.webp",
     ],
-    video: "/casasur/smart/videocontendoressmart.mp4",
-    ideal: "Familia joven o Airbnb premium",
-    profit: "Renta estimada: $18,000–$28,000/mes",
+    video: "https://ik.imagekit.io/ymn210s8o/videocontendoressmart.mp4",
+    ideal: l("Familia joven o Airbnb premium", "Young family or premium Airbnb"),
+    profit: l("Renta estimada: $18,000–$28,000/mes", "Estimated rent: $18,000–$28,000/month"),
     includes: [
-      "hasta 2 recámaras",
-      "2 baños completos",
-      "Cocina integral con acabados premium",
-      "Iluminación LED",
-      "desde 2 ventanas de vidrio templado",
-      "Piso vinílico de alto tráfico",
-      "Instalación eléctrica",
+      l("hasta 2 recámaras", "up to 2 bedrooms"),
+      l("2 baños completos", "2 full baths"),
+      l("Cocina integral con acabados premium", "Full kitchen with premium finishes"),
+      l("Iluminación LED", "LED Lighting"),
+      l("Desde 2 ventanas de fachada principal", "From 2 main facade windows"),
+      l("Piso vinílico de alto tráfico", "High traffic vinyl flooring"),
+      l("Instalación eléctrica", "Electrical installation"),
     ],
   },
   {
     id: "luxury",
-    name: "Lujo",
-    cardName: "Vivienda de Lujo (40 pies)",
-    price: "$850k – $1.2M MXN",
+    name: l("Lujo", "Luxury"),
+    cardName: l("Vivienda de Lujo (40 pies)", "Luxury House (40 feet)"),
+    price: "$800k – $1.2M MXN",
     images: [
-      "/casasur/lujo/Gemini_Generated_Image_mj0qffmj0qffmj0q.png",
-      "/casasur/lujo/Gemini_Generated_Image_5o0a645o0a645o0a.png",
-      "/casasur/lujo/Gemini_Generated_Image_uhw3ziuhw3ziuhw3 - copia.png",
-      "/casasur/lujo/Gemini_Generated_Image_sm1e3dsm1e3dsm1e.png",
-      "/casasur/lujo/Gemini_Generated_Image_inu65rinu65rinu6.png",
+      "/casasur/lujo/Gemini_Generated_Image_mj0qffmj0qffmj0q.webp",
+      "/casasur/lujo/Gemini_Generated_Image_5o0a645o0a645o0a.webp",
+      "/casasur/lujo/Gemini_Generated_Image_uhw3ziuhw3ziuhw3 - copia.webp",
+      "/casasur/lujo/Gemini_Generated_Image_sm1e3dsm1e3dsm1e.webp",
+      "/casasur/lujo/Gemini_Generated_Image_inu65rinu65rinu6.webp",
     ],
     video: "https://ik.imagekit.io/ymn210s8o/videolujocontenedores.mp4",
-    ideal: "Airbnb de lujo o casa principal",
-    profit: "Renta estimada: $45,000–$70,000/mes",
+    ideal: l("Airbnb de lujo o casa principal", "Luxury Airbnb or main house"),
+    profit: l("Renta estimada: $45,000–$70,000/mes", "Estimated rent: $45,000–$70,000/month"),
     includes: [
-      "El cielo es el límite",
-      "2 o mas contenedores de 40 pies",
-      "desde 3 recámaras · 3 baños + medio baño",
-      "Cocina gourmet",
-      "Rooftop o deck con vista panorámica",
-      "Sistema fotovoltaico (paneles solares)",
-      "Acabados de lujo",
-      "Domótica y cerraduras inteligentes",
-      "Jardín interior integrado",
-      "Diseño paisajístico incluido",
+      l("El cielo es el límite", "The sky is the limit"),
+      l("2 o mas contenedores de 40 pies", "2 or more 40-foot containers"),
+      l("desde 3 recámaras · 3 baños", "from 3 bedrooms · 3 baths"),
+      l("Cocina gourmet", "Gourmet kitchen"),
+      l("Rooftop o deck con vista panorámica", "Rooftop or deck with panoramic view"),
+      l("Sistema fotovoltaico (paneles solares)", "Photovoltaic system (solar panels)"),
+      l("Acabados de lujo", "Luxury finishes"),
+      l("Domótica y cerraduras inteligentes", "Home automation and smart locks"),
+      l("Jardín interior integrado", "Integrated indoor garden"),
+      l("Diseño paisajístico incluido", "Landscaping design included"),
     ],
   },
 ];
 
-const extraAmenities = [
-  { icon: Sofa, title: "Muebles" },
-  { icon: Truck, title: "Transporte a terreno" },
-  { icon: Droplet, title: "Drenaje, plomería y agua" },
-  { icon: Ruler, title: "Base de asentamiento" },
-  { icon: Waves, title: "Alberca" },
-  { icon: Sun, title: "Paneles Solares" },
-  { icon: Lock, title: "Domótica y Cerraduras" },
+const getExtraAmenities = (l: any) => [
+  { icon: Sofa, title: l("Muebles", "Furniture") },
+  { icon: Truck, title: l("Transporte a terreno", "Transport to land") },
+  { icon: Droplet, title: l("Drenaje, plomería y agua", "Drainage, plumbing and water") },
+  { icon: Ruler, title: l("Base de asentamiento", "Settlement base") },
+  { icon: Waves, title: l("Alberca", "Pool") },
+  { icon: Sun, title: l("Paneles Solares", "Solar Panels") },
+  { icon: Lock, title: l("Domótica y Cerraduras", "Home automation & Locks") },
 ];
 
-const processSteps = [
+const getProcessSteps = (l: any) => [
   {
     icon: Compass,
-    title: "Sesión de Descubrimiento",
-    desc: "Definimos tu visión, presupuesto y alcance en una reunión de 45 min.",
+    title: l("Sesión de Descubrimiento", "Discovery Session"),
+    desc: l("Definimos tu visión, presupuesto y alcance en una reunión de 45 min.", "We define your vision, budget and scope in a 45 min meeting."),
   },
   {
     icon: Ruler,
-    title: "Diseño y Cotización",
-    desc: "Recibes planos, renders 3D y cotización detallada en 5 días hábiles.",
+    title: l("Diseño y Cotización", "Design and Quote"),
+    desc: l("Recibes planos, renders 3D y cotización detallada en 5 días hábiles.", "You receive plans, 3D renders and detailed quote in 5 business days."),
   },
   {
     icon: Hammer,
-    title: "Construcción en Taller",
-    desc: "Tu casa se fabrica en nuestro taller bajo control de calidad estricto.",
+    title: l("Construcción en Taller", "Workshop Construction"),
+    desc: l("Tu casa se fabrica en nuestro taller bajo control de calidad estricto.", "Your house is manufactured in our workshop under strict quality control."),
   },
   {
     icon: Truck,
-    title: "Entrega e Instalación",
-    desc: "Transportamos, instalamos y entregas llaves. Listo para habitar.",
+    title: l("Entrega e Instalación", "Delivery and Installation"),
+    desc: l("Transportamos, instalamos y entregas llaves. Listo para habitar.", "We transport, install and deliver keys. Ready to live."),
   },
 ];
 
-const faqs = [
+const getFaqs = (l: any) => [
   {
-    q: "¿Necesito tener terreno propio?",
-    a: "Sí, instalamos en tu terreno, ya sea ejidal o privado. Si no cuentas con uno, podemos asesorarte en la búsqueda de la mejor opción."
+    q: l("¿Necesito tener terreno propio?", "Do I need to own land?"),
+    a: l("No, nosotros nos encargamos de todo. Te entregamos tu casa lista para habitar.", "No, we take care of everything. We deliver your home ready to live in.")
   },
   {
-    q: "¿Cuánto tiempo toma el proceso?",
-    a: "El diseño y cotización toma 5 días hábiles. Una vez aprobado, la fabricación e instalación se realiza en un mínimo de 30 días, dependiendo del modelo."
+    q: l("¿Cuánto tiempo toma el proceso?", "How long does the process take?"),
+    a: l("El diseño y cotización toma 5 días hábiles. Una vez aprobado, la fabricación e instalación se realiza en un mínimo de 30 días, dependiendo del modelo.", "Design and quote takes 5 business days. Once approved, manufacturing and installation is done in a minimum of 30 days, depending on the model.")
   },
   {
-    q: "¿Incluye trámite de permisos?",
-    a: "Nuestras casas modulares generalmente no requieren los mismos permisos que una obra tradicional, sin embargo, te asesoramos con la normativa local según la ubicación de tu terreno."
+    q: l("¿Incluye trámite de permisos?", "Does it include permit processing?"),
+    a: l("Nuestras casas modulares generalmente no requieren los mismos permisos que una obra tradicional, sin embargo, te asesoramos con la normativa local según la ubicación de tu terreno.", "Our modular houses generally do not require the same permits as traditional construction, however, we advise you on local regulations depending on your land location.")
   },
   {
-    q: "¿Tienen opciones de financiamiento?",
-    a: "Contamos con esquemas de pago flexibles durante el proceso de construcción y aceptamos pagos con tarjeta de crédito. Pregunta por nuestras promociones vigentes."
+    q: l("¿Tienen opciones de financiamiento?", "Do you have financing options?"),
+    a: l("Contamos con esquemas de pago flexibles durante el proceso de construcción. Pregunta por nuestras opciones vigentes.", "We have flexible payment schemes during the construction process. Ask about our current options.")
   }
 ];
 
@@ -255,9 +256,16 @@ function FAQItem({ q, a }: { q: string, a: string }) {
 }
 
 export default function CasasSurPage() {
+  const { l } = useLanguage();
   const [activeTab, setActiveTab] = useState<number | "extras">(0);
   const [activeMediaIndex, setActiveMediaIndex] = useState(0);
   const { openLightbox } = useLightbox();
+  const profiles = getProfiles(l);
+  const models = getModels(l);
+  const extraAmenities = getExtraAmenities(l);
+  const processSteps = getProcessSteps(l);
+  const faqs = getFaqs(l);
+  const carouselVideoRef = useRef<HTMLVideoElement>(null);
 
   const handleModelChange = (i: number | "extras") => {
     setActiveTab(i);
@@ -279,6 +287,22 @@ export default function CasasSurPage() {
     ...activeData.images.map(src => ({ type: "image" as const, src }))
   ] : [];
 
+  // Autoplay carousel video on mobile when tab changes or index changes
+  useEffect(() => {
+    if (activeMediaIndex !== null && mediaItems.length > 0 && mediaItems[activeMediaIndex]?.type === "video") {
+      const playVideo = () => {
+        if (carouselVideoRef && carouselVideoRef.current) { carouselVideoRef.current.defaultMuted = true; carouselVideoRef.current.muted = true; carouselVideoRef.current.play().catch(() => {
+            // Fallback if autoplay is blocked
+          });
+        }
+      };
+
+      // Small timeout to ensure element is in DOM
+      const timer = setTimeout(playVideo, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [activeMediaIndex, mediaItems]);
+
   const handlePrevMedia = () => {
     setActiveMediaIndex((prev) => (prev === 0 ? mediaItems.length - 1 : prev - 1));
   };
@@ -295,9 +319,10 @@ export default function CasasSurPage() {
       <section className="relative min-h-screen w-full overflow-hidden flex flex-col">
         <div className="absolute inset-0 z-0">
           <Image
-            src="/casasur/hero.png"
+            src="/casasur/hero.webp"
             alt="Casa Sur — vivienda moderna lista en 45 días"
             fill
+            sizes="100vw"
             className="object-cover"
             priority
           />
@@ -309,8 +334,8 @@ export default function CasasSurPage() {
           <Navbar />
         </div>
 
-        <div className="relative z-20 flex flex-1 items-end pb-24 sm:pb-32 lg:pb-16 text-page-text">
-          <div className="max-w-7xl w-full mx-auto px-6 lg:px-8">
+        <div className="relative z-20 flex flex-1 items-center pb-20 pt-24 sm:pb-24 sm:pt-32 lg:pb-40 lg:pt-52 3xl:pb-32 3xl:pt-48 text-page-text">
+          <div className="max-w-7xl w-full mx-auto px-6 lg:px-20 xl:px-28 3xl:px-24">
             <motion.div
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
@@ -318,9 +343,9 @@ export default function CasasSurPage() {
               className="flex flex-wrap gap-3 mb-8"
             >
               {[
-                { icon: Clock, label: "30 días" },
-                { icon: KeyRound, label: "Llave en mano en semanas" },
-                { icon: DollarSign, label: "Empieza con $10k" },
+                { icon: Clock, label: l("30 días", "30 days") },
+                { icon: KeyRound, label: l("Llave en mano en semanas", "Turnkey in weeks") },
+                { icon: DollarSign, label: l("Empieza con $10k", "Start with $10k") },
               ].map((pill) => (
                 <span
                   key={pill.label}
@@ -334,23 +359,23 @@ export default function CasasSurPage() {
 
             <div className="mb-1 sm:mb-4">
               <CinematicHeading
-                text="Tu casa lista en 30 días."
-                className="text-4xl sm:text-6xl lg:text-6xl xl:text-7xl font-literata font-light tracking-tighter text-white drop-shadow-md"
+                text={l("Tu casa lista en 30 días.", "Your house ready in 30 days.")}
+                className="text-4xl sm:text-6xl lg:text-5xl xl:text-6xl font-literata font-light tracking-tighter text-white drop-shadow-md"
                 type="word"
                 delayChildren={0.3}
               />
             </div>
             <div className="mb-4 sm:mb-8">
               <CinematicHeading
-                text="Empieza solo con $10k MXN."
-                className="text-3xl sm:text-5xl lg:text-5xl xl:text-6xl font-literata font-light tracking-tighter text-page-text italic drop-shadow-md"
+                text={l("Empieza solo con $10k MXN.", "Start with only $10k MXN.")}
+                className="text-3xl sm:text-5xl lg:text-4xl xl:text-5xl font-literata font-light tracking-tighter text-page-text italic drop-shadow-md"
                 type="word"
                 delayChildren={0.6}
               />
             </div>
 
             <div className="text-base sm:text-xl font-montserrat font-light max-w-2xl leading-relaxed text-page-text mb-8 sm:mb-10">
-              <RevealLine delay={0.9}>Hecha a tu medida, en tu propio terreno, con llave en mano en semanas.</RevealLine>
+              <RevealLine delay={0.9}>{l("Hecha a tu medida, en tu propio terreno, con llave en mano en semanas.", "Custom made, on your own land, turnkey in final weeks.")}</RevealLine>
             </div>
 
             <motion.div
@@ -363,8 +388,7 @@ export default function CasasSurPage() {
                 href="#modelos"
                 className="group relative overflow-hidden rounded-full inline-flex items-center justify-center font-montserrat font-semibold transition-all h-11 px-6 text-sm bg-page-text text-white hover:bg-page-text/90"
               >
-                <span className="relative z-10 flex items-center">
-                  Ver modelos
+                <span className="relative z-10 flex items-center">{l("Ver modelos", "View models")}
                   <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                 </span>
               </a>
@@ -375,8 +399,7 @@ export default function CasasSurPage() {
                 className="group relative overflow-hidden rounded-full inline-flex items-center justify-center font-montserrat font-semibold transition-all h-11 px-6 text-sm bg-brand-blue/10 text-brand-blue/90 border border-brand-blue/20 hover:bg-brand-blue/20"
               >
                 <span className="relative z-10 flex items-center">
-                  <MessageCircle className="mr-2 h-4 w-4" />
-                  Cotizar ahora
+                  <MessageCircle className="mr-2 h-4 w-4" />{l("Cotizar ahora", "Quote now")}
                 </span>
               </a>
             </motion.div>
@@ -387,22 +410,18 @@ export default function CasasSurPage() {
       {/* ══════════════════════════════════════════════════════════════════
           2. PARA QUIÉN ES
           ══════════════════════════════════════════════════════════════ */}
-      <section className="relative py-16 sm:py-24 lg:py-16">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+      <section className="relative py-24 sm:py-32 lg:py-52 xl:py-64 3xl:py-56">
+        <div className="max-w-7xl mx-auto px-6 lg:px-20 xl:px-28 3xl:px-24">
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
+            viewport={{ once: true, amount: 0.1 }}
             variants={fadeUp}
             custom={0}
             className="animate-on-scroll text-center mb-16"
           >
-            <span className="font-montserrat font-medium text-sm text-brand-blue/80 tracking-[0.2em] uppercase block mb-3">
-              PERFILES
-            </span>
-            <h2 className="text-3xl sm:text-5xl font-literata font-light text-page-text italic">
-              ¿Por qué elegir Casas Sur?
-            </h2>
+            <span className="font-montserrat font-medium text-sm text-brand-blue/80 tracking-[0.2em] uppercase block mb-3">{l("PERFILES", "PROFILES")}</span>
+            <h2 className="text-3xl sm:text-5xl lg:text-4xl xl:text-5xl font-literata font-light text-page-text italic">{l("¿Por qué elegir Casas Sur?", "Why choose Casas Sur?")}</h2>
           </motion.div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
@@ -413,10 +432,11 @@ export default function CasasSurPage() {
                 whileInView="visible"
                 viewport={{ once: true, margin: "-60px" }}
                 custom={i * 0.1}
+                whileHover={{ y: -8, transition: { duration: 0.3 } }}
                 variants={fadeUp}
-                className="animate-on-scroll group shadow-sm p-8 rounded-3xl bg-page-bg-alt border border-page-text/5 transition-card duration-500 hover:-translate-y-1 hover:shadow-md hover:shadow-page-text/10"
+                className="animate-on-scroll group shadow-sm p-8 rounded-3xl bg-page-bg-alt border border-page-text/5 hover:shadow-md hover:shadow-page-text/10 will-change-transform"
               >
-                <div className="w-14 h-14 rounded-2xl bg-brand-blue/10 flex items-center justify-center mb-5 transition-all border border-brand-blue/20">
+                <div className="w-14 h-14 rounded-2xl bg-brand-blue/10 flex items-center justify-center mb-5 transition-transform duration-500 border border-brand-blue/20 group-hover:translate-x-1">
                   <p.icon className="w-7 h-7 text-brand-blue/80 group-hover:scale-110 transition-transform" />
                 </div>
                 <h3 className="text-xl font-literata text-page-text mb-2">{p.title}</h3>
@@ -432,40 +452,36 @@ export default function CasasSurPage() {
       {/* ══════════════════════════════════════════════════════════════════
           3. ROI STRIP (Beneficios mudados aquí)
           ══════════════════════════════════════════════════════════════ */}
-      <section className="relative py-16 sm:py-24 lg:py-16 bg-page-bg">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+      <section className="relative py-24 sm:py-32 lg:py-52 xl:py-64 3xl:py-56 bg-page-bg">
+        <div className="max-w-7xl mx-auto px-6 lg:px-20 xl:px-28 3xl:px-24">
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
+            viewport={{ once: true, amount: 0.1 }}
             variants={fadeUp}
             custom={0}
             className="animate-on-scroll text-center mb-16"
           >
-            <span className="font-montserrat font-medium text-xs text-brand-blue/80 tracking-[0.2em] uppercase block mb-3">
-              BENEFICIOS
-            </span>
-            <h2 className="text-2xl sm:text-4xl font-literata font-light text-page-text italic">
-              Rentabilidad y Eficiencia
-            </h2>
+            <span className="font-montserrat font-medium text-xs text-brand-blue/80 tracking-[0.2em] uppercase block mb-3">{l("BENEFICIOS", "BENEFITS")}</span>
+            <h2 className="text-2xl sm:text-4xl font-literata font-light text-page-text italic">{l("Rentabilidad y Eficiencia", "Profitability and Efficiency")}</h2>
           </motion.div>
 
           <div className="flex flex-col md:flex-row items-center justify-between gap-12 md:gap-6 mb-16 max-w-5xl mx-auto">
             {[
               {
                 icon: TrendingUp,
-                metric: "12–24 meses",
-                label: "Recuperas inversión con Airbnb",
+                metric: l("12–24 meses", "12-24 months"),
+                label: l("Recuperas inversión con Airbnb", "Recover investment with Airbnb"),
               },
               {
                 icon: DollarSign,
-                metric: "Más barato",
-                label: "Que obra negra tradicional",
+                metric: l("Más barato", "Cheaper"),
+                label: l("Que obra negra tradicional", "Than traditional gray work"),
               },
               {
                 icon: Clock,
-                metric: "30 días",
-                label: "Para tener las llaves en mano",
+                metric: l("30 días", "30 days"),
+                label: l("Para tener las llaves en mano", "To have keys in hand"),
               },
             ].map((item, i) => (
               <React.Fragment key={item.label}>
@@ -474,10 +490,11 @@ export default function CasasSurPage() {
                   whileInView="visible"
                   viewport={{ once: true, margin: "-60px" }}
                   custom={i * 0.15}
+                  whileHover={{ y: -8, transition: { duration: 0.3 } }}
                   variants={fadeUp}
                   className="animate-on-scroll flex-1 text-center group"
                 >
-                  <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-brand-green/10 text-brand-green/80 mb-6 group-hover:scale-110 transition-transform border border-brand-green/20">
+                  <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-brand-green/10 text-brand-green/80 mb-6 group-hover:scale-110 transition-transform duration-500 border border-brand-green/20">
                     <item.icon className="w-5 h-5" />
                   </div>
                   <h3 className="text-3xl lg:text-4xl font-literata font-light text-page-text mb-3 tracking-tight group-hover:text-brand-green/90 transition-colors">
@@ -504,7 +521,7 @@ export default function CasasSurPage() {
           >
             <div className="inline-flex flex-col sm:flex-row items-center justify-center gap-2 px-6 py-3 sm:py-2.5 rounded-3xl sm:rounded-full bg-page-bg-alt text-page-text font-montserrat text-sm sm:text-base shadow-lg shadow-black/5 text-center sm:text-left">
               <MapPin className="w-4 h-4 shrink-0" />
-              <span className="max-w-[260px] sm:max-w-none">Instalamos en terreno ejidal o privado en toda BCS.</span>
+              <span className="max-w-[260px] sm:max-w-none">{l("Instalamos en terreno ejidal o privado en toda BCS.", "We install on ejidal or private land anywhere in BCS.")}</span>
             </div>
           </motion.div>
         </div>
@@ -513,23 +530,19 @@ export default function CasasSurPage() {
       {/* ══════════════════════════════════════════════════════════════════
           4. MODELOS & VIDEOS (Nueva Interfaz) + Amenidades Compactas
           ══════════════════════════════════════════════════════════════ */}
-      <section id="modelos" className="relative scroll-mt-20 py-16 sm:py-24 lg:py-20 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+      <section id="modelos" className="relative scroll-mt-20 py-24 sm:py-32 lg:py-52 xl:py-64 3xl:py-56 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 lg:px-20 xl:px-28 3xl:px-24">
           {/* Header */}
           <div className="text-center mb-12 mt-4">
             <motion.div
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, margin: "-100px" }}
+              viewport={{ once: true, amount: 0.1 }}
               variants={fadeUp}
               custom={0}
             >
-              <span className="font-montserrat font-medium text-sm text-brand-blue/80 tracking-[0.2em] uppercase block mb-3">
-                Catálogo Interactivo
-              </span>
-              <h2 className="text-3xl sm:text-5xl font-literata font-light text-page-text italic mb-8">
-                Un modelo para cada visión
-              </h2>
+              <span className="font-montserrat font-medium text-sm text-brand-blue/80 tracking-[0.2em] uppercase block mb-3">{l("Catálogo Interactivo", "Interactive Catalog")}</span>
+              <h2 className="text-3xl sm:text-5xl lg:text-4xl xl:text-5xl font-literata font-light text-page-text italic mb-8">{l("Un modelo para cada visión", "A model for every vision")}</h2>
 
               {/* Tabs */}
               <div className="flex flex-col items-center gap-4">
@@ -538,7 +551,7 @@ export default function CasasSurPage() {
                     <button
                       key={m.id}
                       onClick={() => handleModelChange(i)}
-                      className={`px-6 py-3 rounded-full font-montserrat text-sm font-semibold transition-all duration-300 ${activeTab === i
+                      className={`px-4 sm:px-6 py-2 sm:py-3 whitespace-nowrap rounded-full font-montserrat text-xs sm:text-sm font-semibold transition-all duration-300 ${activeTab === i
                         ? "bg-page-text text-white shadow-xl shadow-page-text/20 scale-105"
                         : "text-page-text/70 hover:text-page-text hover:bg-page-text/5"
                         }`}
@@ -554,9 +567,7 @@ export default function CasasSurPage() {
                     ? "bg-brand-blue border-brand-blue text-white shadow-md shadow-brand-blue/20 scale-105"
                     : "bg-transparent border-page-text/20 text-page-text/70 hover:border-brand-blue/50 hover:text-brand-blue"
                     }`}
-                >
-                  Ver Amenidades Extra
-                </button>
+                >{l("Ver Amenidades Extra", "View Extra Amenities")}</button>
               </div>
             </motion.div>
           </div>
@@ -574,29 +585,30 @@ export default function CasasSurPage() {
               >
                 <div className="bg-white border border-page-text/10 rounded-3xl p-8 sm:p-12 shadow-xl max-w-4xl mx-auto flex flex-col gap-8">
                   <div className="text-center">
-                    <h3 className="text-3xl sm:text-4xl font-literata font-light text-page-text mb-3">
-                      Amenidades y Extras Opcionales
-                    </h3>
-                    <p className="font-montserrat text-page-text/70 text-base max-w-xl mx-auto">
-                      Personaliza tu modelo Casas Sur con elementos adicionales diseñados para elevar tu comodidad y estilo de vida. <span className="italic font-medium text-page-text/90">Pregunte al momento de cotizar.</span>
+                    <h3 className="text-3xl sm:text-4xl font-literata font-light text-page-text mb-3">{l("Amenidades y Extras Opcionales", "Optional Amenities and Extras")}</h3>
+                    <p className="font-montserrat text-page-text/70 text-base max-w-xl mx-auto">{l("Personaliza tu modelo Casas Sur con elementos adicionales diseñados para elevar tu comodidad y estilo de vida.", "Customize your Casas Sur model with additional elements designed to elevate your comfort and lifestyle.")} <span className="italic font-medium text-page-text/90">{l("Pregunte al momento de cotizar.", "Ask when quoting.")}</span>
                     </p>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 mt-2">
                     {[
                       ...extraAmenities,
-                      { icon: Palmtree, title: "Paisajismo" },
-                      { icon: Hammer, title: "Bardas" },
-                      { icon: Sun, title: "Toldos de mallasombra" }
+                      { icon: Palmtree, title: l("Paisajismo", "Landscaping") },
+                      { icon: Hammer, title: l("Bardas", "Fences") },
+                      { icon: Sun, title: l("Toldos de mallasombra", "Shade sail awnings") }
                     ].map((amenity, idx) => (
-                      <div key={idx} className="flex items-center gap-4 p-4 rounded-xl bg-page-text/5 border border-page-text/10 hover:border-brand-blue/30 hover:bg-page-text/[0.08] transition-all text-left group">
+                      <motion.div
+                        key={idx}
+                        whileHover={{ y: -5, transition: { duration: 0.3 } }}
+                        className="flex items-center gap-4 p-4 rounded-xl bg-page-text/5 border border-page-text/10 hover:border-brand-blue/30 hover:bg-page-text/[0.08] transition-all duration-500 text-left group"
+                      >
                         <div className="w-10 h-10 shrink-0 rounded-full bg-brand-blue/10 flex items-center justify-center group-hover:scale-110 transition-transform">
                           <amenity.icon className="w-5 h-5 text-brand-blue/80" />
                         </div>
                         <span className="font-montserrat font-medium text-page-text/90 text-sm leading-tight flex-1">
                           {amenity.title}
                         </span>
-                      </div>
+                      </motion.div>
                     ))}
                   </div>
 
@@ -607,8 +619,7 @@ export default function CasasSurPage() {
                       rel="noopener noreferrer"
                       className="group overflow-hidden rounded-full inline-flex items-center justify-center font-montserrat font-semibold transition-all h-12 px-8 bg-page-text text-white hover:bg-page-text/90 shadow-md"
                     >
-                      <MessageCircle className="mr-2 h-4 w-4" />
-                      Consultar Extras
+                      <MessageCircle className="mr-2 h-4 w-4" />{l("Consultar Extras", "Consult Extras")}
                     </a>
                   </div>
                 </div>
@@ -636,18 +647,30 @@ export default function CasasSurPage() {
                         className="w-full h-full"
                       >
                         {mediaItems[activeMediaIndex].type === "video" ? (
-                          <video
-                            src={mediaItems[activeMediaIndex].src}
-                            autoPlay
-                            loop
-                            muted
-                            playsInline
-                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
-                          />
+                          <div
+                            className="w-full h-full relative cursor-pointer"
+                            onClick={() => openLightbox(mediaItems.map(item => ({ src: item.src, alt: activeData.name, type: item.type })), activeMediaIndex)}
+                          >
+                            <video
+                              ref={carouselVideoRef}
+                              src={mediaItems[activeMediaIndex].src}
+                              autoPlay
+                              loop
+                              muted
+                              playsInline
+                              preload="auto"
+                              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
+                            />
+                            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 bg-black/20">
+                              <div className="p-4 rounded-full bg-white/20 backdrop-blur-md">
+                                <Search className="w-6 h-6 text-white" />
+                              </div>
+                            </div>
+                          </div>
                         ) : (
                           <div
                             className="w-full h-full relative cursor-pointer"
-                            onClick={() => openLightbox(activeData.images.map(src => ({ src, alt: activeData.name })), activeMediaIndex - (activeData.video ? 1 : 0))}
+                            onClick={() => openLightbox(mediaItems.map(item => ({ src: item.src, alt: activeData.name, type: item.type })), activeMediaIndex)}
                           >
                             <Image
                               src={mediaItems[activeMediaIndex].src}
@@ -687,7 +710,7 @@ export default function CasasSurPage() {
                     <div className="absolute top-6 left-6 z-20 bg-white/90 backdrop-blur-md px-4 py-2 rounded-full shadow-lg flex items-center gap-2">
                       {mediaItems[activeMediaIndex].type === "video" && <Play className="w-3.5 h-3.5 text-brand-blue/80 fill-brand-blue/80" />}
                       <span className="font-montserrat font-bold text-xs uppercase tracking-wider text-page-text">
-                        {mediaItems[activeMediaIndex].type === "video" ? `Recorrido ${activeData.name}` : `Vista ${activeData.name}`}
+                        {mediaItems[activeMediaIndex].type === "video" ? l(`Recorrido ${activeData.name}`, `Tour ${activeData.name}`) : l(`Vista ${activeData.name}`, `View ${activeData.name}`)}
                       </span>
                     </div>
                   </div>
@@ -722,14 +745,13 @@ export default function CasasSurPage() {
                   <div className="bg-white border border-page-text/10 rounded-3xl p-6 sm:p-8 shadow-xl flex-1 flex flex-col justify-between">
                     <div>
                       <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-green/10 text-brand-green/80 font-montserrat text-[10px] font-bold tracking-wide mb-3">
-                        <Star className="w-3 h-3" />
-                        Ideal para: {activeData.ideal}
+                        <Star className="w-3 h-3" />{l("Ideal para:", "Ideal for:")} {activeData.ideal}
                       </span>
                       <h3 className="text-2xl sm:text-3xl font-literata font-light text-page-text mb-1">
                         {activeData.cardName}
                       </h3>
                       <p className="text-xl font-literata text-brand-blue/80 font-medium mb-3">
-                        Desde: {activeData.price}
+                        {l("Desde:", "From:")} {activeData.price}
                       </p>
                       <p className="font-montserrat text-sm text-page-text/70 font-medium flex items-center gap-1.5 mb-6 bg-page-text/5 w-fit px-3 py-1.5 rounded-lg">
                         <TrendingUp className="w-4 h-4 text-brand-green/80" />
@@ -754,8 +776,7 @@ export default function CasasSurPage() {
                       rel="noopener noreferrer"
                       className="w-full group overflow-hidden rounded-full inline-flex items-center justify-center font-montserrat font-semibold transition-all h-12 px-6 bg-page-text text-white hover:bg-page-text/90 shadow-md"
                     >
-                      <MessageCircle className="mr-2 h-4 w-4" />
-                      Cotizar este modelo
+                      <MessageCircle className="mr-2 h-4 w-4" />{l("Cotizar este modelo", "Quote this model")}
                     </a>
                   </div>
                 </div>
@@ -771,22 +792,18 @@ export default function CasasSurPage() {
       {/* ══════════════════════════════════════════════════════════════════
           5. PROCESO
           ══════════════════════════════════════════════════════════════ */}
-      <section className="relative py-16 sm:py-24 lg:py-16 overflow-hidden bg-page-bg text-page-text">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+      <section className="relative py-24 sm:py-32 lg:py-52 xl:py-64 3xl:py-56 overflow-hidden bg-page-bg text-page-text">
+        <div className="max-w-7xl mx-auto px-6 lg:px-20 xl:px-28 3xl:px-24 relative z-10">
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
+            viewport={{ once: true, amount: 0.1 }}
             variants={fadeUp}
             custom={0}
             className="animate-on-scroll text-center mb-16"
           >
-            <span className="font-montserrat font-medium text-sm text-brand-blue/80 tracking-[0.2em] uppercase block mb-3">
-              Tu Camino
-            </span>
-            <h2 className="text-3xl sm:text-5xl font-literata font-light italic text-page-text">
-              De la idea a las llaves
-            </h2>
+            <span className="font-montserrat font-medium text-sm text-brand-blue/80 tracking-[0.2em] uppercase block mb-3">{l("Tu Camino", "Your Path")}</span>
+            <h2 className="text-3xl sm:text-5xl lg:text-4xl xl:text-5xl font-literata font-light italic text-page-text">{l("De la idea a las llaves", "From idea to keys")}</h2>
           </motion.div>
 
           {/* Deposit Badge */}
@@ -800,9 +817,7 @@ export default function CasasSurPage() {
           >
             <div className="inline-flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 px-6 py-4 sm:py-3 rounded-3xl sm:rounded-full bg-page-bg-alt border border-page-text/10 text-center sm:text-left shadow-sm">
               <DollarSign className="w-5 h-5 text-brand-green/80 shrink-0" />
-              <span className="font-montserrat text-xs sm:text-sm font-semibold leading-tight max-w-[240px] sm:max-w-none text-page-text">
-                Con $10,000 MXN de depósito iniciamos tu diseño.
-              </span>
+              <span className="font-montserrat text-xs sm:text-sm font-semibold leading-tight max-w-[240px] sm:max-w-none text-page-text">{l("Con $10,000 MXN de depósito iniciamos tu diseño.", "With a $10,000 MXN deposit we start your design.")}</span>
             </div>
           </motion.div>
 
@@ -864,7 +879,7 @@ export default function CasasSurPage() {
                   <div className="relative group/card cursor-default">
                     <div className="relative p-6 px-7 rounded-[2rem] bg-page-bg-alt border border-page-text/5 transition-card duration-500 hover:-translate-y-1 hover:bg-page-bg-alt/80 hover:shadow-md">
                       <span className="font-montserrat font-bold text-[10px] text-page-text/80 tracking-[0.3em] uppercase block mb-4">
-                        Paso {i + 1}
+                        {l("Paso", "Step")} {i + 1}
                       </span>
                       <h3 className="text-xl font-literata font-medium leading-tight mb-3 text-page-text">
                         {step.title}
@@ -889,14 +904,12 @@ export default function CasasSurPage() {
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
+            viewport={{ once: true, amount: 0.1 }}
             variants={fadeUp}
             custom={0}
             className="mb-8"
           >
-            <h2 className="text-3xl sm:text-5xl font-literata font-light italic text-page-text">
-              ¿Tienes preguntas?
-            </h2>
+            <h2 className="text-3xl sm:text-5xl font-literata font-light italic text-page-text">{l("¿Tienes preguntas?", "Do you have questions?")}</h2>
           </motion.div>
 
           <motion.div
@@ -922,20 +935,14 @@ export default function CasasSurPage() {
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
+            viewport={{ once: true, amount: 0.1 }}
             variants={fadeUp}
             custom={0}
             className="animate-on-scroll"
           >
-            <h2 className="text-3xl sm:text-5xl lg:text-6xl font-literata font-light mb-6 leading-tight">
-              ¿Hablamos?
-            </h2>
-            <p className="text-xl sm:text-2xl font-literata font-light text-page-text/80 italic mb-4">
-              Empieza con $10,000 MXN.
-            </p>
-            <p className="text-page-text/60 font-montserrat font-light text-base max-w-md mx-auto mb-10">
-              Agenda tu sesión de descubrimiento y recibe tu cotización en menos de 5 días.
-            </p>
+            <h2 className="text-3xl sm:text-5xl lg:text-6xl font-literata font-light mb-6 leading-tight">{l("¿Hablamos?", "Shall we talk?")}</h2>
+            <p className="text-xl sm:text-2xl font-literata font-light text-page-text/80 italic mb-4">{l("Empieza con $10,000 MXN.", "Start with $10,000 MXN.")}</p>
+            <p className="text-page-text/60 font-montserrat font-light text-base max-w-md mx-auto mb-10">{l("Agenda tu sesión de descubrimiento y recibe tu cotización en menos de 5 días.", "Schedule your discovery session and receive your quote in less than 5 days.")}</p>
 
             <div className="flex flex-wrap justify-center gap-4">
               <a
@@ -953,8 +960,7 @@ export default function CasasSurPage() {
                 href="#modelos"
                 className="group relative overflow-hidden rounded-full inline-flex items-center justify-center font-montserrat font-semibold transition-all h-12 px-8 text-sm border border-page-text/20 bg-transparent text-page-text hover:bg-page-text/5 hover:border-page-text/30"
               >
-                <span className="relative z-10 flex items-center">
-                  Ver modelos
+                <span className="relative z-10 flex items-center">{l("Ver modelos", "View models")}
                   <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                 </span>
               </a>

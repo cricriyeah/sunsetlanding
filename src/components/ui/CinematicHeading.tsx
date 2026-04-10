@@ -28,13 +28,13 @@ const containerVariants: Variants = {
 const itemVariants: Variants = {
   hidden: (i: { variant: string }) => ({
     opacity: 0,
-    filter: i.variant === "typing" ? "blur(0px)" : "blur(12px)",
     y: i.variant === "typing" ? 0 : 15,
+    filter: "none",
   }),
   visible: (i: { duration: number; variant: string }) => ({
     opacity: 1,
-    filter: "blur(0px)",
     y: 0,
+    filter: "none",
     transition: {
       duration: i.variant === "typing" ? 0.05 : i.duration,
       ease: i.variant === "typing" ? "linear" : [0.2, 0.65, 0.3, 0.9],
@@ -44,7 +44,8 @@ const itemVariants: Variants = {
 
 /**
  * Optimized and reusable Hero Animation component.
- * Splits text into characters or words and animates them sequencially.
+ * Splits text into characters or words and animates them sequentially.
+ * Uses whileInView for reliable viewport-triggered animation.
  */
 export function CinematicHeading({
   text,
@@ -64,8 +65,10 @@ export function CinematicHeading({
 
   return (
     <motion.div
+      key={text}
       initial="hidden"
-      animate="visible"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-20px" }}
       custom={{ delayChildren, staggerChildren }}
       variants={containerVariants}
     >
@@ -76,8 +79,6 @@ export function CinematicHeading({
             className="inline-block whitespace-nowrap"
           >
             {(type === "char" ? word.split("") : [word]).map((char, charIndex) => {
-              // Calculate global index for accurate stagger/delay
-              // (Note: this simple approach assumes all items are characters/words)
               return (
                 <motion.span
                   key={`${char}-${charIndex}`}
@@ -86,7 +87,7 @@ export function CinematicHeading({
                   style={{ 
                     display: "inline-block", 
                     whiteSpace: "pre",
-                    willChange: "opacity, filter, transform"
+                    willChange: "opacity, transform"
                   }}
                 >
                   {char}

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import {
@@ -12,73 +12,74 @@ import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/Button";
 import { PhotoCollage } from "@/components/PhotoCollage";
 import { CinematicHeading } from "@/components/ui/CinematicHeading";
+import { useLanguage } from "@/context/LanguageContext";
 
 // ─── Variantes globales ────────────────────────────────────────────────────
 const fadeUp = {
-  hidden: { opacity: 0, y: 30, filter: "blur(6px)" },
+  hidden: { opacity: 0, y: 20, filter: "none" },
   visible: (delay: number) => ({
-    opacity: 1, y: 0, filter: "blur(0px)",
+    opacity: 1, y: 0, filter: "none",
     transition: { duration: 0.8, delay, ease: [0.2, 0.65, 0.3, 0.9] as [number, number, number, number] },
   }),
 };
 
 // ─── Datos ─────────────────────────────────────────────────────────────────
-const benefits = [
-  { icon: Trash, title: "Recolección de basura", description: "Servicio de manejo y recolección de residuos." },
-  { icon: Shirt, title: "Lavandería", description: "Área de lavado y secado equipada." },
-  { icon: Wifi, title: "Wi-Fi", description: "Red inalámbrica de alta velocidad." },
-  { icon: Camera, title: "Sistema de cámaras", description: "Cámaras de seguridad operando 24/7." },
-  { icon: Droplets, title: "Agua", description: "Suministro constante y garantizado." },
-  { icon: Car, title: "Estacionamiento privado", description: "Cajones techados, seguros y exclusivos." },
-  { icon: Waves, title: "Alberca y Palapa", description: "Área de relajación con piscina de diseño y espacios de sombra." },
-  { icon: Utensils, title: "Restaurante", description: "Oferta gastronómica exclusiva para residentes." },
-  { icon: Flame, title: "Terraza con asador", description: "Área social equipada para convivencia." },
+const getBenefits = (l: any) => [
+  { icon: Trash, title: l("Recolección de basura", "Trash Collection"), description: l("Servicio de manejo y recolección de residuos.", "Waste management and collection service.") },
+  { icon: Shirt, title: l("Lavandería", "Laundry"), description: l("Área de lavado y secado equipada.", "Equipped washing and drying area.") },
+  { icon: Wifi, title: "Wi-Fi", description: l("Red inalámbrica de alta velocidad.", "High speed wireless network.") },
+  { icon: Camera, title: l("Sistema de cámaras", "Camera System"), description: l("Cámaras de seguridad operando 24/7.", "Security cameras operating 24/7.") },
+  { icon: Droplets, title: l("Agua", "Water"), description: l("Suministro constante y garantizado.", "Constant and guaranteed supply.") },
+  { icon: Car, title: l("Estacionamiento privado", "Private Parking"), description: l("Cajones techados, seguros y exclusivos.", "Covered, secure and exclusive parking spaces.") },
+  { icon: Waves, title: l("Alberca y Palapa", "Pool and Palapa"), description: l("Área de relajación con piscina de diseño y espacios de sombra.", "Relaxation area with designer pool and shaded spaces.") },
+  { icon: Utensils, title: l("Restaurante", "Restaurant"), description: l("Oferta gastronómica exclusiva para residentes.", "Exclusive gastronomic offer for residents.") },
+  { icon: Flame, title: l("Terraza con asador", "Terrace with BBQ"), description: l("Área social equipada para convivencia.", "Social area equipped for coexistence.") },
 ];
 
-const models = [
+const getModels = (l: any) => [
   {
-    num: "01", tag: "Planta baja", title: "1 Recámara",
-    description: "Accesibilidad total y conexión directa con los espacios comunes. Ideal para quienes buscan comodidad sin compromisos.",
+    num: "01", tag: l("Planta baja", "Ground floor"), title: l("1 Recámara", "1 Bedroom"),
+    description: l("Accesibilidad total y conexión directa con los espacios comunes. Ideal para quienes buscan comodidad sin compromisos.", "Total accessibility and direct connection with common spaces. Ideal for those looking for uncompromising comfort."),
     specs: [
-      { label: "Recámaras", value: "1" },
-      { label: "Baños", value: "1" },
-      { label: "Nivel", value: "PB" },
-      { label: "Sala · Comedor", value: "Integrados" },
-      { label: "Cocina", value: "Italiana" },
-      { label: "Terraza", value: "Privada" },
+      { label: l("Recámaras", "Bedrooms"), value: "1" },
+      { label: l("Baños", "Bathrooms"), value: "1" },
+      { label: l("Nivel", "Level"), value: "PB" },
+      { label: l("Sala · Comedor", "Living · Dining"), value: l("Integrados", "Integrated") },
+      { label: l("Cocina", "Kitchen"), value: l("Italiana", "Italian") },
+      { label: l("Terraza", "Terrace"), value: l("Privada", "Private") },
     ],
   },
   {
-    num: "02", tag: "Planta alta", title: "2 Recámaras",
-    description: "Mayor privacidad, doble amplitud y las vistas más abiertas del desarrollo. Para quienes buscan vivir en otro nivel.",
+    num: "02", tag: l("Planta alta", "Upper floor"), title: l("2 Recámaras", "2 Bedrooms"),
+    description: l("Mayor privacidad, doble amplitud y las vistas más abiertas del desarrollo. Para quienes buscan vivir en otro nivel.", "Greater privacy, double spaciousness and the most open views of the development. For those looking to live on another level."),
     specs: [
-      { label: "Recámaras", value: "2" },
-      { label: "Baños", value: "1" },
-      { label: "Nivel", value: "PA" },
-      { label: "Sala · Comedor", value: "Integrados" },
-      { label: "Cocina", value: "Italiana" },
-      { label: "Terraza", value: "Privada" },
+      { label: l("Recámaras", "Bedrooms"), value: "2" },
+      { label: l("Baños", "Bathrooms"), value: "1" },
+      { label: l("Nivel", "Level"), value: "PA" },
+      { label: l("Sala · Comedor", "Living · Dining"), value: l("Integrados", "Integrated") },
+      { label: l("Cocina", "Kitchen"), value: l("Italiana", "Italian") },
+      { label: l("Terraza", "Terrace"), value: l("Privada", "Private") },
     ],
   },
 ];
 
-const conceptLines = [
-  "Sunset Condominios nació de una pregunta simple:",
-  "¿cómo debería sentirse el hogar estratégico?",
-  "La respuesta es esta:",
-  "espacios que respiran, que dejan entrar la luz,",
-  "que no compiten con el paisaje — lo enmarcan.",
+const getConceptLines = (l: any) => [
+  l("Sunset Condominios nació de una pregunta simple:", "Sunset Condominiums was born from a simple question:"),
+  l("¿cómo debería sentirse el hogar estratégico?", "how should a strategic home feel?"),
+  l("La respuesta es esta:", "The answer is this:"),
+  l("espacios que respiran, que dejan entrar la luz,", "spaces that breathe, that let in the light,"),
+  l("que no compiten con el paisaje — lo enmarcan.", "that do not compete with the landscape — they frame it."),
 ];
 
-const scPhotos = [
-  { src: "/herocondo.png", alt: "Vista interior principal", col: "span 2", row: "span 2" },
-  { src: "/alberca.jpeg", alt: "Área de alberca" },
-  { src: "/palapa-asador.jpeg", alt: "Palapa y asadores" },
-  { src: "/afuera1.jpeg", alt: "Fachada exterior" },
-  { src: "/afuera2.jpeg", alt: "Vista panorámica" },
-  { src: "/afuera3.jpeg", alt: "Fachada principal", col: "span 2" },
-  { src: "/afuera4.png", alt: "Detalle arquitectónico", col: "span 2" },
-  { src: "/herocondo3.png", alt: "Vista general del desarrollo", col: "span 4" },
+const getScPhotos = (l: any) => [
+  { src: "/herocondo.webp", alt: l("Vista interior principal", "Main interior view"), col: "span 2", row: "span 2" },
+  { src: "/alberca.webp", alt: l("Área de alberca", "Pool area") },
+  { src: "/palapa-asador.webp", alt: l("Palapa y asadores", "Palapa and BBQs") },
+  { src: "/afuera1.webp", alt: l("Fachada exterior", "Exterior facade") },
+  { src: "/afuera2.webp", alt: l("Vista panorámica", "Panoramic view") },
+  { src: "/afuera3.webp", alt: l("Fachada principal", "Main facade"), col: "span 2" },
+  { src: "/afuera4.webp", alt: l("Detalle arquitectónico", "Architectural detail"), col: "span 2" },
+  { src: "/herocondo3.webp", alt: l("Vista general del desarrollo", "General view of development"), col: "span 4" },
 ];
 
 // ─── RevealLine ────────────────────────────────────────────────────────────
@@ -115,7 +116,7 @@ function SpecRow({ label, value, index, inView }: { label: string; value: string
 }
 
 // ─── ModelCard ─────────────────────────────────────────────────────────────
-function ModelCard({ model, index }: { model: (typeof models)[0]; index: number }) {
+function ModelCard({ model, index }: { model: ReturnType<typeof getModels>[0]; index: number }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
@@ -128,8 +129,9 @@ function ModelCard({ model, index }: { model: (typeof models)[0]; index: number 
       ref={ref}
       initial={{ opacity: 0, y: 24 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
+      whileHover={{ y: -8, transition: { duration: 0.3 } }}
       transition={{ duration: 0.7, delay: index * 0.15, ease: [0.22, 0.65, 0.3, 0.9] }}
-      className={`relative rounded-2xl p-8 sm:p-10 backdrop-blur-md border transition-card duration-500 hover:-translate-y-1 ${cardStyles}`}
+      className={`relative rounded-2xl p-8 sm:p-10 backdrop-blur-md border duration-500 ${cardStyles}`}
     >
       <div
         aria-hidden
@@ -158,45 +160,57 @@ function ModelCard({ model, index }: { model: (typeof models)[0]; index: number 
 // ─── ConceptSection (solo texto, sin marca de agua) ───────────────────────
 // ─── ConceptSection (Rediseñado con Video Vertical) ✨ ───────────────────
 function ConceptSection() {
+  const { l } = useLanguage();
+  const conceptVideoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (conceptVideoRef && conceptVideoRef.current) { conceptVideoRef.current.defaultMuted = true; conceptVideoRef.current.muted = true; conceptVideoRef.current.play().catch(() => {
+        // Fallback for blocked autoplay
+      });
+    }
+  }, []);
+
   const values = [
     {
-      title: "Ubicación estratégica",
-      description: "En una de las zonas con mayor crecimiento y plusvalía de La Paz, B.C.S.",
+      title: l("Ubicación estratégica", "Strategic location"),
+      description: l("En una de las zonas con mayor crecimiento y plusvalía de La Paz, B.C.S.", "In one of the most growing and most valuable areas of La Paz, B.C.S."),
     },
     {
-      title: "Conectividad real",
-      description: "Acceso directo a las principales arterias viales y servicios esenciales.",
+      title: l("Conectividad real", "Real connectivity"),
+      description: l("Acceso directo a las principales arterias viales y servicios esenciales.", "Direct access to main roads and essential services."),
     },
     {
-      title: "Diseño con propósito",
-      description: "Arquitectura que respira, pensada para el bienestar y la funcionalidad.",
+      title: l("Diseño con propósito", "Purposeful design"),
+      description: l("Arquitectura que respira, pensada para el bienestar y la funcionalidad.", "Architecture that breathes, designed for well-being and functionality."),
     },
     {
-      title: "Inversión con futuro",
-      description: "Preventa estratégica con alta rentabilidad proyectada y plusvalía.",
+      title: l("Inversión con futuro", "Investment with a future"),
+      description: l("Preventa estratégica con alta rentabilidad proyectada y plusvalía.", "Strategic presale with high projected profitability and appreciation."),
     },
   ];
 
   return (
-    <section className="relative pt-20 sm:pt-32 pb-24 sm:pb-32 bg-sc-bg overflow-hidden border-b border-sc-primary/10">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+    <section className="relative pt-24 sm:pt-40 pb-24 sm:pb-32 lg:pb-52 xl:pb-64 3xl:pb-56 bg-sc-bg overflow-hidden border-b border-sc-primary/10">
+      <div className="max-w-7xl mx-auto px-6 lg:px-20 xl:px-28 3xl:px-24">
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-32 items-center">
 
           {/* COLUMNA A: VIDEO VERTICAL CINEMÁTICO (Corners Rectos) */}
           <motion.div
-            initial={{ opacity: 0, x: -30, filter: "blur(10px)" }}
-            whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
-            viewport={{ once: true, margin: "-100px" }}
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0, filter: "none" }}
+            viewport={{ once: true, amount: 0.1 }}
             transition={{ duration: 1.2, ease: [0.32, 0, 0.1, 1] }}
             className="relative lg:order-1"
           >
             <div className="relative aspect-[9/16] w-full max-w-sm mx-auto overflow-hidden shadow-2xl scale-[1.02]">
               <video
+                ref={conceptVideoRef}
                 autoPlay
                 muted
                 loop
                 playsInline
+                preload="auto"
                 className="absolute inset-0 w-full h-full object-cover"
               >
                 <source
@@ -221,9 +235,7 @@ function ConceptSection() {
               variants={fadeUp}
               custom={0}
               className="animate-on-scroll font-montserrat font-medium text-[10px] sm:text-xs text-sc-primary tracking-[0.3em] uppercase block mb-6"
-            >
-              El Concepto
-            </motion.span>
+            >{l("El Concepto", "The Concept")}</motion.span>
 
             <motion.div
               initial="hidden"
@@ -233,14 +245,10 @@ function ConceptSection() {
               custom={0.2}
               className="animate-on-scroll"
             >
-              <h2 className="font-literata font-light text-3xl sm:text-5xl lg:text-6xl text-sc-text leading-tight mb-8">
-                Donde la vida<br />
-                <span className="italic text-sc-text/70">encuentra su lugar.</span>
+              <h2 className="font-literata font-light text-3xl sm:text-5xl lg:text-4xl xl:text-5xl text-sc-text leading-tight mb-8">{l("Donde la vida", "Where life")}<br />
+                <span className="italic text-sc-text/70">{l("encuentra su lugar.", "finds its place.")}</span>
               </h2>
-              <p className="font-montserrat text-base text-sc-text/80 font-light leading-relaxed mb-12 max-w-xl">
-                Sunset Condominios nace de la búsqueda por un equilibrio perfecto entre la ciudad y el refugio personal.
-                Espacios que no compiten con el entorno, sino que lo enmarcan para elevar tu día a día.
-              </p>
+              <p className="font-montserrat text-base text-sc-text/80 font-light leading-relaxed mb-12 max-w-xl">{l("Sunset Condominios nace de la búsqueda por un equilibrio perfecto entre la ciudad y el refugio personal. Espacios que no compiten con el entorno, sino que lo enmarcan para elevar tu día a día.", "Sunset Condominios is born from the search for a perfect balance between city and personal refuge. Spaces that do not compete with the environment, but rather frame it to elevate your everyday life.")}</p>
             </motion.div>
 
             {/* Grid de valores con Estética de Cards Estándar */}
@@ -253,9 +261,10 @@ function ConceptSection() {
                   viewport={{ once: true }}
                   variants={fadeUp}
                   custom={0.3 + i * 0.1}
-                  className="animate-on-scroll group p-6 rounded-2xl bg-sc-primary/5 border border-sc-primary/20 hover:bg-sc-primary/15 transition-card duration-500 hover:-translate-y-1"
+                  whileHover={{ y: -8, transition: { duration: 0.3 } }}
+                  className="animate-on-scroll group p-6 rounded-2xl bg-sc-primary/5 border border-sc-primary/20 hover:bg-sc-primary/15 transition-card duration-500"
                 >
-                  <h3 className="font-literata text-base sm:text-lg text-sc-text mb-2 group-hover:text-sc-primary transition-colors duration-300">
+                  <h3 className="font-literata text-base sm:text-lg text-sc-text mb-2 group-hover:text-sc-primary transition-all duration-500 group-hover:translate-x-1">
                     {v.title}
                   </h3>
                   <p className="font-montserrat text-xs text-sc-text/60 font-light leading-relaxed">
@@ -273,9 +282,11 @@ function ConceptSection() {
 }
 // ─── ModelsSection (ahora va después de la galería) ───────────────────────
 function ModelsSection() {
+  const { l } = useLanguage();
+  const models = getModels(l);
   return (
-    <section className="relative py-24 sm:py-32 bg-sc-bg-alt">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+    <section className="relative py-24 sm:py-32 lg:py-52 xl:py-64 3xl:py-56 bg-sc-bg-alt">
+      <div className="max-w-7xl mx-auto px-6 lg:px-20 xl:px-28 3xl:px-24">
 
         {/* Divisor con label */}
         <motion.div
@@ -285,9 +296,7 @@ function ModelsSection() {
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.6 }}
         >
-          <span className="font-montserrat font-medium text-sm text-sc-primary-dark tracking-[0.2em] uppercase block">
-            Modelos disponibles
-          </span>
+          <span className="font-montserrat font-medium text-sm text-sc-primary-dark tracking-[0.2em] uppercase block">{l("Modelos disponibles", "Available models")}</span>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 lg:gap-x-24 gap-y-16">
@@ -302,6 +311,9 @@ function ModelsSection() {
 
 // ─── Página principal ──────────────────────────────────────────────────────
 export default function SunsetCondominiosPage() {
+  const { l } = useLanguage();
+  const benefits = getBenefits(l);
+  const scPhotos = getScPhotos(l);
   return (
     <div className="min-h-screen bg-page-bg text-sc-text">
 
@@ -309,9 +321,10 @@ export default function SunsetCondominiosPage() {
       <section className="relative min-h-screen w-full overflow-hidden flex flex-col">
 
         <Image
-          src="/afuera4.png"
+          src="/afuera4.webp"
           alt="Sunset Condominios"
           fill
+          sizes="100vw"
           className="object-cover"
           priority
         />
@@ -327,17 +340,15 @@ export default function SunsetCondominiosPage() {
         </div>
 
         {/* Hero text */}
-        <div className="relative z-20 flex flex-1 items-end pb-44 sm:pb-64">
-          <div className="max-w-7xl w-full mx-auto px-6 lg:px-8">
+        <div className="relative z-20 flex flex-1 items-center pb-20 pt-24 sm:pb-24 sm:pt-32 lg:pb-40 lg:pt-52 3xl:pb-32 3xl:pt-48">
+          <div className="max-w-7xl w-full mx-auto px-6 lg:px-20 xl:px-28 3xl:px-24">
             <motion.div
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
               className="flex flex-col sm:flex-row sm:items-center gap-3 mb-8"
             >
-              <span className="w-fit px-4 py-1.5 rounded-full bg-sc-contrast/80 text-white font-montserrat font-light text-[10px] sm:text-xs tracking-widest uppercase border border-white/10 backdrop-blur-md">
-                Preventa
-              </span>
+              <span className="w-fit px-4 py-1.5 rounded-full bg-sc-contrast/80 text-white font-montserrat font-light text-[10px] sm:text-xs tracking-widest uppercase border border-white/10 backdrop-blur-md">{l("Preventa", "Presale")}</span>
             </motion.div>
 
             <div className="mb-8 flex items-center gap-4 sm:gap-6">
@@ -362,9 +373,7 @@ export default function SunsetCondominiosPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.9 }}
               className="text-lg sm:text-xl text-white/90 font-montserrat font-light max-w-2xl leading-relaxed drop-shadow-sm"
-            >
-              Un refugio de diseño contemporáneo concebido para armonizar con el horizonte; un espacio donde la sofisticación del confort moderno se entrelaza íntimamente con la belleza indómita y el espíritu eterno de la Baja.
-            </motion.p>
+            >{l("Un refugio de diseño contemporáneo concebido para armonizar con el horizonte; un espacio donde la sofisticación del confort moderno se entrelaza íntimamente con la belleza indómita y el espíritu eterno de la Baja.", "A contemporary design refuge conceived to harmonize with the horizon; a place where the sophistication of modern comfort is intimately interwoven with the untamed beauty and eternal spirit of the Baja.")}</motion.p>
           </div>
         </div>
       </section>
@@ -375,8 +384,8 @@ export default function SunsetCondominiosPage() {
       {/* ──── GALERÍA ──── */}
       <PhotoCollage
         photos={scPhotos}
-        title="El arte de vivir en la Baja Sur"
-        subtitle="Galería Exclusiva"
+        title={l("El arte de vivir en la Baja Sur", "The art of living in Baja Sur")}
+        subtitle={l("Galería Exclusiva", "Exclusive Gallery")}
         sectionBg="bg-sc-bg"
         accentColor="text-sc-contrast"
         textColor="text-sc-text"
@@ -386,19 +395,15 @@ export default function SunsetCondominiosPage() {
       <ModelsSection />
 
       {/* ──── AMENIDADES ──── */}
-      <section className="relative py-24 sm:py-32">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+      <section className="relative py-24 sm:py-32 lg:py-52 xl:py-64 3xl:py-56">
+        <div className="max-w-7xl mx-auto px-6 lg:px-20 xl:px-28 3xl:px-24">
           <motion.div
             initial="hidden" whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
+            viewport={{ once: true, amount: 0.1 }}
             custom={0} variants={fadeUp} className="animate-on-scroll mb-16"
           >
-            <span className="font-montserrat font-medium text-sm text-sc-contrast tracking-[0.2em] uppercase block mb-3">
-              Confort y Seguridad
-            </span>
-            <h2 className="text-3xl sm:text-5xl font-literata font-light text-sc-text italic">
-              Servicios y Amenidades
-            </h2>
+            <span className="font-montserrat font-medium text-sm text-sc-contrast tracking-[0.2em] uppercase block mb-3">{l("Confort y Seguridad", "Comfort and Security")}</span>
+            <h2 className="text-3xl sm:text-5xl lg:text-4xl xl:text-5xl font-literata font-light text-sc-text italic">{l("Servicios y Amenidades", "Services and Amenities")}</h2>
           </motion.div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -408,7 +413,8 @@ export default function SunsetCondominiosPage() {
                 initial="hidden" whileInView="visible"
                 viewport={{ once: true, margin: "-60px" }}
                 custom={index * 0.1} variants={fadeUp}
-                className="animate-on-scroll group p-6 rounded-2xl bg-sc-primary/5 border border-sc-primary/20 hover:bg-sc-primary/20 transition-card duration-500 hover:-translate-y-1"
+                whileHover={{ y: -8, transition: { duration: 0.3 } }}
+                className="animate-on-scroll group p-6 rounded-2xl bg-sc-primary/5 border border-sc-primary/20 hover:bg-sc-primary/20 transition-card duration-500 will-change-transform"
               >
                 <div className="w-10 h-10 rounded-xl bg-sc-primary/20 flex items-center justify-center mb-4 group-hover:bg-sc-primary/20 transition-all">
                   <item.icon className="w-5 h-5 text-sc-primary/80 group-hover:text-sc-primary transition-colors" />
@@ -422,22 +428,16 @@ export default function SunsetCondominiosPage() {
       </section>
 
       {/* ──── PRECIOS ──── */}
-      <section className="relative py-24 sm:py-32 bg-sc-bg-alt">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+      <section className="relative py-24 sm:py-32 lg:py-52 xl:py-64 3xl:py-56 bg-sc-bg-alt">
+        <div className="max-w-7xl mx-auto px-6 lg:px-20 xl:px-28 3xl:px-24">
           <motion.div
             initial="hidden" whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
+            viewport={{ once: true, amount: 0.1 }}
             custom={0} variants={fadeUp} className="animate-on-scroll text-center mb-16"
           >
-            <span className="font-montserrat font-medium text-sm text-sc-primary-dark tracking-[0.2em] uppercase block mb-3">
-              Inversión
-            </span>
-            <h2 className="text-3xl sm:text-5xl font-literata font-light text-sc-text italic mb-5">
-              Elige tu espacio
-            </h2>
-            <span className="w-fit px-4 py-1.5 rounded-full bg-sc-contrast/80 text-white font-montserrat font-light text-[10px] sm:text-xs tracking-widest uppercase border border-white/10 backdrop-blur-md">
-              Precios de preventa
-            </span>
+            <span className="font-montserrat font-medium text-sm text-sc-primary-dark tracking-[0.2em] uppercase block mb-3">{l("Inversión", "Investment")}</span>
+            <h2 className="text-3xl sm:text-5xl lg:text-4xl xl:text-5xl font-literata font-light text-sc-text italic mb-6">{l("Elige tu espacio", "Choose your space")}</h2>
+            <span className="w-fit px-4 py-1.5 rounded-full bg-sc-contrast/80 text-white font-montserrat font-light text-[10px] sm:text-xs tracking-widest uppercase border border-white/10 backdrop-blur-md">{l("Precios de preventa", "Presale prices")}</span>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-4xl mx-auto">
@@ -446,33 +446,33 @@ export default function SunsetCondominiosPage() {
               initial="hidden" whileInView="visible"
               viewport={{ once: true, margin: "-50px" }}
               custom={0.1} variants={fadeUp}
-              className="animate-on-scroll relative rounded-2xl p-8 sm:p-10 flex flex-col bg-white/40 backdrop-blur-md border border-sc-primary/15 transition-card duration-500 hover:-translate-y-1"
+              whileHover={{ y: -8, transition: { duration: 0.3 } }}
+              className="animate-on-scroll relative rounded-2xl p-8 sm:p-10 flex flex-col bg-white/40 backdrop-blur-md border border-sc-primary/15 transition-card duration-500"
             >
               <span className="font-montserrat font-medium text-sm text-sc-primary-dark tracking-[0.2em] uppercase block mb-3">Planta baja</span>
               <h3 className="text-2xl font-literata text-sc-text font-light mb-1">1 Recámara</h3>
-              <p className="text-sc-text font-montserrat text-sm font-light mb-8 leading-relaxed">Accesibilidad inmediata y conexión directa con los espacios comunes.</p>
+              <p className="text-sc-text font-montserrat text-sm font-light mb-8 leading-relaxed">{l("Accesibilidad inmediata y conexión directa con los espacios comunes.", "Immediate accessibility and direct connection with common spaces.")}</p>
               <div className="flex items-baseline gap-2 mb-8 pb-8 border-b border-sc-primary/20">
                 <span className="text-5xl font-literata font-light text-sc-text">$950,000</span>
                 <span className="text-sc-text font-montserrat text-xs font-light tracking-wider">MXN</span>
               </div>
               <ul className="space-y-3 font-montserrat text-sm text-sc-text font-light mb-8 flex-1">
-                {["1 Recámara", "1 Baño completo", "Sala · Comedor · Cocina"].map((f) => (
+                {[l("1 Recámara", "1 Bedroom"), "1 Baño completo", "Sala · Comedor · Cocina"].map((f) => (
                   <li key={f} className="flex items-center gap-3">
                     <span className="w-1 h-1 rounded-full bg-sc-primary/60 shrink-0" />{f}
                   </li>
                 ))}
               </ul>
               <div className="rounded-xl bg-sc-primary/5 p-5 space-y-2.5 font-montserrat text-xs text-sc-text">
-                <div className="flex justify-between items-center font-medium"><span>Contado</span><span className="bg-sc-primary/20 text-sc-primary-dark rounded px-2 py-0.5 text-[10px]">− $50,000 MXN</span></div>
+                <div className="flex justify-between items-center font-medium"><span>{l("Contado", "Cash")}</span><span className="bg-sc-primary/20 text-sc-primary-dark rounded px-2 py-0.5 text-[10px]">− $50,000 MXN</span></div>
                 <div className="h-px bg-sc-primary/20" />
-                <div className="flex justify-between"><span>Enganche</span><span>30%</span></div>
-                <div className="flex justify-between"><span>Mensualidades</span><span>24 pagos</span></div>
-                <div className="flex justify-between"><span>Interés anual</span><span>6%</span></div>
+                <div className="flex justify-between"><span>{l("Enganche", "Down payment")}</span><span>30%</span></div>
+                <div className="flex justify-between"><span>{l("Mensualidades", "Monthly payments")}</span><span>{l("24 pagos", "24 payments")}</span></div>
+                <div className="flex justify-between"><span>{l("Interés anual", "Annual interest")}</span><span>6%</span></div>
               </div>
 
               <div className="mt-8">
-                <Button href="/contacto" size="sm" className="w-full font-semibold">
-                  Agenda una visita
+                <Button href="/contacto" size="sm" className="w-full font-semibold">{l("Agenda una visita", "Schedule a visit")}
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </div>
@@ -483,33 +483,33 @@ export default function SunsetCondominiosPage() {
               initial="hidden" whileInView="visible"
               viewport={{ once: true, margin: "-50px" }}
               custom={0.2} variants={fadeUp}
-              className="animate-on-scroll relative rounded-2xl p-8 sm:p-10 flex flex-col bg-sc-primary/20 backdrop-blur-md border border-sc-primary/20 transition-card duration-500 hover:-translate-y-1"
+              whileHover={{ y: -8, transition: { duration: 0.3 } }}
+              className="animate-on-scroll relative rounded-2xl p-8 sm:p-10 flex flex-col bg-sc-primary/20 backdrop-blur-md border border-sc-primary/20 transition-card duration-500"
             >
               <span className="font-montserrat font-medium text-sm text-sc-primary-dark tracking-[0.2em] uppercase block mb-3">Planta alta</span>
               <h3 className="text-2xl font-literata text-sc-text font-light mb-1">2 Recámaras</h3>
-              <p className="text-sc-text font-montserrat text-sm font-light mb-8 leading-relaxed">Mayor privacidad, amplitud y las mejores vistas del desarrollo.</p>
+              <p className="text-sc-text font-montserrat text-sm font-light mb-8 leading-relaxed">{l("Mayor privacidad, amplitud y las mejores vistas del desarrollo.", "Greater privacy, spaciousness and the best views of the development.")}</p>
               <div className="flex items-baseline gap-2 mb-8 pb-8 border-b border-sc-primary/15">
                 <span className="text-5xl font-literata font-light text-sc-text">$1,500,000</span>
                 <span className="text-sc-text font-montserrat text-xs font-light tracking-wider">MXN</span>
               </div>
               <ul className="space-y-3 font-montserrat text-sm text-sc-text font-light mb-8 flex-1">
-                {["2 Recámaras", "1 Baño completo", "Sala · Comedor · Cocina"].map((f) => (
+                {[l("2 Recámaras", "2 Bedrooms"), "1 Baño completo", "Sala · Comedor · Cocina"].map((f) => (
                   <li key={f} className="flex items-center gap-3">
                     <span className="w-1 h-1 rounded-full bg-sc-primary/60 shrink-0" />{f}
                   </li>
                 ))}
               </ul>
               <div className="rounded-xl bg-sc-primary/8 p-5 space-y-2.5 font-montserrat text-xs text-sc-text">
-                <div className="flex justify-between items-center font-medium"><span>Contado</span><span className="bg-sc-primary/15 text-sc-primary-dark rounded px-2 py-0.5 text-[10px]">− $50,000 MXN</span></div>
+                <div className="flex justify-between items-center font-medium"><span>{l("Contado", "Cash")}</span><span className="bg-sc-primary/15 text-sc-primary-dark rounded px-2 py-0.5 text-[10px]">− $50,000 MXN</span></div>
                 <div className="h-px bg-sc-primary/20" />
-                <div className="flex justify-between"><span>Enganche</span><span>30%</span></div>
-                <div className="flex justify-between"><span>Mensualidades</span><span>24 pagos</span></div>
-                <div className="flex justify-between"><span>Interés anual</span><span>6%</span></div>
+                <div className="flex justify-between"><span>{l("Enganche", "Down payment")}</span><span>30%</span></div>
+                <div className="flex justify-between"><span>{l("Mensualidades", "Monthly payments")}</span><span>{l("24 pagos", "24 payments")}</span></div>
+                <div className="flex justify-between"><span>{l("Interés anual", "Annual interest")}</span><span>6%</span></div>
               </div>
 
               <div className="mt-8">
-                <Button href="/contacto" size="sm" className="w-full font-semibold">
-                  Agenda una visita
+                <Button href="/contacto" size="sm" className="w-full font-semibold">{l("Agenda una visita", "Schedule a visit")}
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </div>
@@ -519,26 +519,22 @@ export default function SunsetCondominiosPage() {
       </section>
 
       {/* ──── UBICACIÓN ──── */}
-      <section className="relative py-24 sm:py-32 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 mb-16">
+      <section className="relative py-24 sm:py-32 lg:py-52 xl:py-64 3xl:py-56 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 lg:px-20 xl:px-28 3xl:px-24 mb-16">
           <motion.div
             initial="hidden" whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
+            viewport={{ once: true, amount: 0.1 }}
             variants={fadeUp} custom={0}
             className="animate-on-scroll max-w-3xl mx-auto text-center"
           >
-            <span className="font-montserrat text-sm font-medium text-sc-contrast tracking-[0.2em] uppercase block mb-3">Ubicación</span>
-            <h2 className="text-3xl sm:text-5xl font-literata font-light text-sc-text italic mb-8">
-              Ubicacion Ideal para vivir o invertir
-            </h2>
-            <p className="text-sc-text font-montserrat text-lg font-light leading-relaxed mb-10">
-              Ubicados en una de las zonas de mayor desarrollo y plusvalía en La Paz, B.C.S., con acceso inmediato a servicios y vialidades clave de la región.
-            </p>
+            <span className="font-montserrat text-sm font-medium text-sc-contrast tracking-[0.2em] uppercase block mb-3">{l("Ubicación", "Location")}</span>
+            <h2 className="text-3xl sm:text-5xl font-literata font-light text-sc-text italic mb-8">{l("Ubicación Ideal para vivir o invertir", "Ideal location to live or invest")}</h2>
+            <p className="text-sc-text font-montserrat text-lg font-light leading-relaxed mb-10">{l("Ubicados en una de las zonas de mayor desarrollo y plusvalía en La Paz, B.C.S., con acceso inmediato a servicios y vialidades clave de la región.", "In one of the areas of greatest development and capital gain in La Paz, B.C.S., with immediate access to services and key roads in the region.")}</p>
 
             <div className="flex flex-wrap justify-center gap-x-12 gap-y-6">
               {[
-                { label: "10 min. de Centros Comerciales" },
-                { label: "20 min. del Aeropuerto Int." },
+                { label: l("10 min. de Centros Comerciales", "10 mins. from Malls") },
+                { label: l("20 min. del Aeropuerto Int.", "20 mins. from Int. Airport") },
               ].map(({ label }) => (
                 <div key={label} className="flex items-center gap-3 pb-2 border-b border-sc-primary/20">
                   <MapPin className="w-4 h-4 text-sc-contrast shrink-0" />
@@ -551,9 +547,9 @@ export default function SunsetCondominiosPage() {
 
         {/* Mapa Full Width */}
         <motion.div
-          initial={{ opacity: 0, y: 40, filter: "blur(6px)" }}
-          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          viewport={{ once: true, margin: "-100px" }}
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0, filter: "none" }}
+          viewport={{ once: true, amount: 0.1 }}
           transition={{ duration: 0.8, delay: 0.2 }}
           className="animate-on-scroll w-full relative aspect-[21/9] sm:aspect-[25/7] min-h-[450px] bg-sc-primary/5 border-y border-sc-primary/20 overflow-hidden"
         >
@@ -573,23 +569,18 @@ export default function SunsetCondominiosPage() {
       </section>
 
       {/* ──── CTA ──── */}
-      <section className="relative py-24 sm:py-32 bg-sc-contrast overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center relative z-10">
+      <section className="relative py-24 sm:py-32 lg:py-52 xl:py-64 3xl:py-56 bg-sc-contrast overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 lg:px-20 xl:px-28 3xl:px-24 text-center relative z-10">
           <motion.div
             initial="hidden" whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
             custom={0} variants={fadeUp}
             className="animate-on-scroll"
           >
-            <h2 className="text-3xl sm:text-5xl font-literata font-light text-white italic mb-6">
-              ¿Listo para empezar una nueva historia?
-            </h2>
-            <p className="text-white font-montserrat font-light text-lg max-w-xl mx-auto mb-10">
-              Agenda una visita para conocer los modelos disponibles y los planes de financiamiento.
-            </p>
-            <Button href="/contacto" size="sm" className="font-semibold">
-              Agenda una visita
-              <ArrowRight className="ml-2 h-5 w-5" />
+            <h2 className="text-3xl sm:text-5xl font-literata font-light text-white italic mb-6">{l("¿Listo para empezar una nueva historia?", "Ready to start a new story?")}</h2>
+            <p className="text-white font-montserrat font-light text-lg max-w-xl mx-auto mb-10">{l("Agenda una visita para conocer los modelos disponibles y los planes de financiamiento.", "Schedule a visit to learn about available models and financing plans.")}</p>
+            <Button href="/contacto" size="sm" className="font-semibold">{l("Agenda una visita", "Schedule a visit")}
+                  <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </motion.div>
         </div>

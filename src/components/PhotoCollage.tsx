@@ -21,6 +21,7 @@ interface PhotoCollageProps {
   sectionBg?: string;
   accentColor?: string;
   textColor?: string;
+  gradientColor?: string;
 }
 
 // ─── Variantes de animación Dreamy ──────────────────────────────────────────
@@ -50,7 +51,8 @@ export function PhotoCollage({
   subtitle, 
   sectionBg = "bg-page-bg", 
   accentColor = "text-sc-contrast", 
-  textColor = "text-page-text" 
+  textColor = "text-page-text",
+  gradientColor = "from-page-bg"
 }: PhotoCollageProps) {
   const { openLightbox } = useLightbox();
 
@@ -86,12 +88,12 @@ export function PhotoCollage({
             }}
           >
             {/* Overlay de ayuda para scroll en móvil (flecha animada) */}
-            <div className="absolute right-0 top-0 bottom-4 w-32 bg-gradient-to-l from-page-text/40 to-transparent z-10 pointer-events-none flex items-center justify-end pr-6 sm:hidden">
+            <div className={`absolute right-0 top-0 bottom-4 w-32 bg-gradient-to-l ${gradientColor} to-transparent z-10 pointer-events-none flex items-center justify-end pr-6 sm:hidden`}>
                <motion.div
                  animate={{ x: [0, 8, 0] }}
                  transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
                >
-                 <ArrowRight className="w-6 h-6 text-white/80" />
+                 <ArrowRight className={`w-6 h-6 ${accentColor.replace('text-', 'text-opacity-80 text-')}`} />
                </motion.div>
             </div>
 
@@ -103,7 +105,7 @@ export function PhotoCollage({
                 viewport={{ once: true, margin: "-50px" }}
                 variants={dreamyFade}
                 className="relative overflow-hidden group cursor-pointer"
-                onClick={() => openLightbox(photos.map(p => ({ src: p.src, alt: p.alt })), i)}
+                onClick={() => openLightbox(photos.map(p => ({ src: p.src, alt: p.alt, type: 'image' as const })), i)}
                 style={{
                   gridColumn: photo.col ?? "span 1",
                   gridRow:    photo.row ?? "span 1",

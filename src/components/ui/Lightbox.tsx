@@ -7,16 +7,16 @@ import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { useLightbox } from "@/context/LightboxContext";
 
 export function Lightbox() {
-  const { isOpen, images, currentIndex, closeLightbox, nextImage, prevImage } = useLightbox();
+  const { isOpen, items, currentIndex, closeLightbox, nextItem, prevItem } = useLightbox();
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
       if (!isOpen) return;
       if (e.key === "Escape") closeLightbox();
-      if (e.key === "ArrowRight") nextImage();
-      if (e.key === "ArrowLeft") prevImage();
+      if (e.key === "ArrowRight") nextItem();
+      if (e.key === "ArrowLeft") prevItem();
     },
-    [isOpen, closeLightbox, nextImage, prevImage]
+    [isOpen, closeLightbox, nextItem, prevItem]
   );
 
   useEffect(() => {
@@ -24,9 +24,9 @@ export function Lightbox() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [handleKeyDown]);
 
-  if (!isOpen || images.length === 0) return null;
+  if (!isOpen || items.length === 0) return null;
 
-  const currentImage = images[currentIndex];
+  const currentItem = items[currentIndex];
 
   return (
     <AnimatePresence>
@@ -49,11 +49,11 @@ export function Lightbox() {
           </button>
 
           {/* Navigation - Prev */}
-          {images.length > 1 && (
+          {items.length > 1 && (
             <button
               onClick={(e) => {
                 e.stopPropagation();
-                prevImage();
+                prevItem();
               }}
               className="absolute left-6 top-1/2 -translate-y-1/2 z-[1010] p-4 rounded-full bg-white/5 text-white hover:bg-white/10 transition-all cursor-pointer hidden md:block"
               aria-label="Anterior"
@@ -62,7 +62,7 @@ export function Lightbox() {
             </button>
           )}
 
-          {/* Image Container */}
+          {/* Content Container */}
           <motion.div
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
@@ -71,42 +71,53 @@ export function Lightbox() {
             className="relative w-full h-full max-w-6xl max-h-[85vh] p-4 md:p-12 flex flex-col items-center justify-center"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="relative w-full h-full">
-              <Image
-                src={currentImage.src}
-                alt={currentImage.alt}
-                fill
-                className="object-contain"
-                priority
-              />
+            <div className="relative w-full h-full flex items-center justify-center">
+              {currentItem.type === "video" ? (
+                <video
+                  src={currentItem.src}
+                  controls
+                  autoPlay
+                  loop
+                  muted
+                  className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
+                />
+              ) : (
+                <Image
+                  src={currentItem.src}
+                  alt={currentItem.alt}
+                  fill
+                  className="object-contain"
+                  priority
+                />
+              )}
             </div>
             
             {/* Caption */}
-            {currentImage.alt && (
+            {currentItem.alt && (
               <motion.p 
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                key={currentImage.alt}
+                key={currentItem.alt}
                 className="mt-6 font-montserrat text-white/70 text-sm md:text-base font-light tracking-wide text-center"
               >
-                {currentImage.alt}
+                {currentItem.alt}
               </motion.p>
             )}
 
             {/* Counter */}
-            {images.length > 1 && (
+            {items.length > 1 && (
               <p className="mt-2 font-montserrat text-white/40 text-xs uppercase tracking-widest">
-                {currentIndex + 1} / {images.length}
+                {currentIndex + 1} / {items.length}
               </p>
             )}
           </motion.div>
 
           {/* Navigation - Next */}
-          {images.length > 1 && (
+          {items.length > 1 && (
             <button
               onClick={(e) => {
                 e.stopPropagation();
-                nextImage();
+                nextItem();
               }}
               className="absolute right-6 top-1/2 -translate-y-1/2 z-[1010] p-4 rounded-full bg-white/5 text-white hover:bg-white/10 transition-all cursor-pointer hidden md:block"
               aria-label="Siguiente"

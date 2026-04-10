@@ -158,7 +158,7 @@ export function ShadowOverlay({
         <div
           style={{
             backgroundColor: color,
-            maskImage: `url('/mask-texture.png')`,
+            maskImage: `url('/mask-texture.webp')`,
             maskSize: sizing === "stretch" ? "100% 100%" : "cover",
             maskRepeat: "no-repeat",
             maskPosition: "center",
@@ -174,7 +174,7 @@ export function ShadowOverlay({
           style={{
             position: "absolute",
             inset: 0,
-            backgroundImage: `url("/noise-texture.png")`,
+            backgroundImage: `url("/noise-texture.webp")`,
             backgroundSize: noise.scale * 200,
             backgroundRepeat: "repeat",
             opacity: noise.opacity / 2,
