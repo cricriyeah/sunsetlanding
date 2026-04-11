@@ -42,16 +42,6 @@ export function Navbar() {
 
   const projects = [
     {
-      name: "Sunset Condominios",
-      href: "/proyectos/sunset-condominios",
-      img: "/herocondo3.webp",
-      tag: l("Preventa", "Presale"),
-      desc: l(
-        "La cúspide del confort junto al mar. Espacios pensados para fluir con la brisa.",
-        "The pinnacle of seaside comfort. Spaces designed to flow with the breeze."
-      )
-    },
-    {
       name: "Casas Sur",
       href: "/proyectos/casas-sur",
       img: "/casasur/hero.webp",
@@ -59,6 +49,17 @@ export function Navbar() {
       desc: l(
         "Vivienda modular lista en 30 días. Tu hogar, rápido y accesible.",
         "Modular housing ready in 30 days. Your home, fast and accessible."
+      ),
+      featured: true
+    },
+    {
+      name: "Sunset Condominios",
+      href: "/proyectos/sunset-condominios",
+      img: "/herocondo3.webp",
+      tag: l("Preventa", "Presale"),
+      desc: l(
+        "La cúspide del confort junto al mar. Espacios pensados para fluir con la brisa.",
+        "The pinnacle of seaside comfort. Spaces designed to flow with the breeze."
       )
     },
     {
@@ -236,6 +237,7 @@ export function Navbar() {
                               tag={project.tag}
                               desc={project.desc}
                               priority={true}
+                              featured={project.featured}
                               onClose={() => setIsMobileMenuOpen(false)}
                             />
                           </div>
@@ -369,6 +371,7 @@ export function Navbar() {
                       tag={project.tag}
                       desc={project.desc}
                       priority={true}
+                      featured={project.featured}
                       onClose={() => setIsExpanded(false)}
                     />
                   </motion.div>
@@ -383,9 +386,17 @@ export function Navbar() {
 }
 
 // Helper component for cleaner code
-function ProjectCard({ href, img, title, tag, desc, onClose, priority = false }: { href: string; img: string; title: string; tag: string; desc: string; onClose: () => void; priority?: boolean }) {
+function ProjectCard({ href, img, title, tag, desc, onClose, priority = false, featured = false }: { href: string; img: string; title: string; tag: string; desc: string; onClose: () => void; priority?: boolean; featured?: boolean }) {
+  const { l } = useLanguage();
   return (
-    <Link href={href} onClick={onClose} className="group flex flex-col sm:flex-row items-stretch bg-white/5 hover:bg-white/10 transition-all duration-500 rounded-2xl border border-white/10 overflow-hidden min-h-[140px]">
+    <Link href={href} onClick={onClose} className="group flex flex-col sm:flex-row items-stretch bg-white/5 hover:bg-white/10 transition-all duration-500 rounded-2xl border border-white/10 overflow-hidden min-h-[140px] relative">
+      {/* Featured Badge */}
+      {featured && (
+        <div className="absolute top-0 left-0 z-30 px-3 py-1.5 rounded-br-xl rounded-tl-2xl bg-page-bg font-montserrat font-bold text-[8px] tracking-[0.15em] uppercase shadow-lg overflow-hidden group/badge">
+          <div className="absolute inset-0 bg-brand-orange/80 transition-colors group-hover/badge:bg-brand-purple/25" />
+          <span className="relative z-10 text-white">★ {l("Destacado", "Featured")}</span>
+        </div>
+      )}
       <div className="w-full sm:w-[180px] h-40 sm:h-auto shrink-0 bg-black/20 overflow-hidden relative">
         <Image src={img} alt={title} fill className="object-cover" priority={priority} />
         <div className="absolute inset-0 bg-gradient-to-tr from-sc-contrast/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -393,7 +404,7 @@ function ProjectCard({ href, img, title, tag, desc, onClose, priority = false }:
       <div className="flex-1 flex flex-col justify-center text-left py-4 px-6">
         <div className="flex flex-wrap items-center gap-2 mb-1.5">
           <h3 className="text-lg sm:text-xl font-literata text-white">{title}</h3>
-          <span className="px-2 py-0.5 rounded-full bg-sc-contrast/80 text-white font-montserrat font-light text-[9px] tracking-widest uppercase border border-white/10 whitespace-nowrap">
+          <span className="px-2 py-0.5 rounded-full bg-white/10 backdrop-blur-md text-white font-montserrat font-light text-[9px] tracking-widest uppercase border border-white/5 whitespace-nowrap">
             {tag}
           </span>
         </div>

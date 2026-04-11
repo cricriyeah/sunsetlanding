@@ -47,6 +47,8 @@ import { Lightbox } from "@/components/ui/Lightbox";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { LanguageProvider } from "@/context/LanguageContext";
 import { PageTransition } from "@/components/PageTransition";
+import { CasasSurPopover } from "@/components/CasasSurPopover";
+import { CasasSurBanner } from "@/components/CasasSurBanner";
 
 export default function RootLayout({
   children,
@@ -66,6 +68,12 @@ export default function RootLayout({
 
           {/* Floating Language Toggler */}
           <LanguageSwitcher />
+
+          {/* Casas Sur Promo Popover (one-time modal) */}
+          <CasasSurPopover />
+
+          {/* Casas Sur Persistent Floating Banner */}
+          <CasasSurBanner />
         </LanguageProvider>
       </body>
     </html>

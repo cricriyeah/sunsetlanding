@@ -4,7 +4,7 @@ import React, { useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowRight, Compass, Leaf, Heart, Sparkles, Home as HomeIcon, Bath, Utensils } from "lucide-react";
+import { ArrowRight, Compass, Leaf, Heart, Sparkles, Home as HomeIcon, Bath, Utensils, Clock, KeyRound, DollarSign } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { HeroContent } from "@/components/HeroContent";
 import { Footer } from "@/components/Footer";
