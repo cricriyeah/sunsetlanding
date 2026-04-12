@@ -118,6 +118,7 @@ export function PhotoCollage({
               display: "grid",
               gridTemplateColumns: "repeat(4, 1fr)",
               gridAutoRows: "clamp(300px, 25vw, 400px)",
+              gridAutoFlow: "dense",
               gap: "4px",
             }}
           >

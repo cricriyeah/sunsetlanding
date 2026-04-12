@@ -55,10 +55,10 @@ export function Lightbox() {
                 e.stopPropagation();
                 prevItem();
               }}
-              className="absolute left-6 top-1/2 -translate-y-1/2 z-[1010] p-4 rounded-full bg-white/5 text-white hover:bg-white/10 transition-all cursor-pointer hidden md:block"
+              className="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 z-[1010] p-2 sm:p-4 rounded-full bg-white/10 text-white hover:bg-white/20 transition-all cursor-pointer"
               aria-label="Anterior"
             >
-              <ChevronLeft className="w-8 h-8" />
+              <ChevronLeft className="w-5 h-5 sm:w-8 sm:h-8" />
             </button>
           )}
 
@@ -119,10 +119,10 @@ export function Lightbox() {
                 e.stopPropagation();
                 nextItem();
               }}
-              className="absolute right-6 top-1/2 -translate-y-1/2 z-[1010] p-4 rounded-full bg-white/5 text-white hover:bg-white/10 transition-all cursor-pointer hidden md:block"
+              className="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 z-[1010] p-2 sm:p-4 rounded-full bg-white/10 text-white hover:bg-white/20 transition-all cursor-pointer"
               aria-label="Siguiente"
             >
-              <ChevronRight className="w-8 h-8" />
+              <ChevronRight className="w-5 h-5 sm:w-8 sm:h-8" />
             </button>
           )}
           

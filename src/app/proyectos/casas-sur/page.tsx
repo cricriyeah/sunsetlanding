@@ -250,6 +250,21 @@ const getFaqs = (l: any) => [
   }
 ];
 
+const getGalleryPhotos = (l: any) => [
+  { src: "/casasur/galeria/WhatsApp Image 2026-03-27 at 1.49.52 PM (1).jpg", alt: l("Interior luminoso", "Bright interior"), col: "span 2", row: "span 2" },
+  { src: "/casasur/galeria/WhatsApp Image 2026-03-27 at 1.49.52 PM (2).jpg", alt: l("Detalle de fachada", "Facade detail") },
+  { src: "/casasur/galeria/WhatsApp Image 2026-03-27 at 1.49.52 PM (3).jpg", alt: l("Espacios integrados", "Integrated spaces") },
+  { src: "/casasur/galeria/WhatsApp Image 2026-04-09 at 1.46.38 PM.jpg", alt: l("Acabados premium", "Premium finishes"), row: "span 2" },
+  { src: "/casasur/galeria/WhatsApp Image 2026-04-09 at 3.33.40 PM.jpg", alt: l("Diseño funcional", "Functional design") },
+  { src: "/casasur/galeria/WhatsApp Image 2026-04-09 at 3.33.41 PM (1).jpg", alt: l("Cocina moderna", "Modern kitchen"), col: "span 2" },
+  { src: "/casasur/galeria/WhatsApp Image 2026-04-09 at 3.33.41 PM (2).jpg", alt: l("Confort térmico", "Thermal comfort") },
+  { src: "/casasur/galeria/WhatsApp Image 2026-04-09 at 3.33.41 PM.jpg", alt: l("Instalación rápida", "Quick installation"), col: "span 2", row: "span 2" },
+  { src: "/casasur/galeria/WhatsApp Image 2026-04-09 at 3.33.42 PM (1).jpg", alt: l("Baño de lujo", "Luxury bathroom") },
+  { src: "/casasur/galeria/WhatsApp Image 2026-04-09 at 3.33.42 PM (2).jpg", alt: l("Vida modular", "Modular living") },
+  { src: "/casasur/galeria/WhatsApp Image 2026-04-09 at 3.33.42 PM.jpg", alt: l("Calidad BCS", "BCS Quality") },
+  { src: "/casasur/galeria/WhatsApp Image 2026-04-09 at 3.33.43 PM.jpg", alt: l("Tu terreno, tu casa", "Your land, your home") },
+];
+
 function FAQItem({ q, a, pdf }: { q: string, a: string, pdf?: { es: string, en: string } }) {
   const [isOpen, setIsOpen] = useState(false);
   const { l } = useLanguage();
@@ -1013,7 +1028,17 @@ export default function CasasSurPage() {
       </section>
 
       {/* ══════════════════════════════════════════════════════════════════
-          6. FAQS
+          6. GALERÍA DE RESULTADOS
+          ══════════════════════════════════════════════════════════════ */}
+      <PhotoCollage
+        photos={getGalleryPhotos(l)}
+        title={l("Estás a un paso de hacerlo realidad", "You are one step away from making it real")}
+        subtitle={l("Increíbles resultados", "Incredible results")}
+        accentColor="text-brand-blue/80"
+      />
+
+      {/* ══════════════════════════════════════════════════════════════════
+          7. FAQS
           ══════════════════════════════════════════════════════════════ */}
       <section className="relative py-16 sm:py-24 lg:py-20 bg-page-bg">
         <div className="max-w-5xl mx-auto px-6 lg:px-8">

@@ -304,6 +304,7 @@ export default function ContactoPage() {
                               <option className="bg-white text-page-text" value="Otro">Otro</option>
                               <option className="bg-white text-page-text" value="Sunset Condominios">Sunset Condominios</option>
                               <option className="bg-white text-page-text" value="Casas Sur">Casas Sur</option>
+                              <option className="bg-white text-page-text" value="Vendedor">{l("Vendedor", "Salesperson")}</option>
                             </select>
                             <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none z-20">
                               <ChevronDown className="w-4 h-4 text-page-text/40" />
