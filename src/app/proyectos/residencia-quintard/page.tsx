@@ -87,15 +87,13 @@ export default function ResidenciaQuintardPage() {
   const benefits = getBenefits(l);
   return (
     <div className="min-h-screen bg-page-bg text-page-text selection:bg-brand-orange/30">
+      <Navbar />
       {/* ──── HERO ──── */}
       <section className="relative min-h-screen w-full overflow-hidden flex flex-col">
         {/* Cinematic Gradients */}
         <div className="absolute inset-0 bg-gradient-to-br from-brand-orange/40 via-brand-orange/20 to-transparent mix-blend-multiply z-10" />
         <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-page-bg via-page-bg/80 to-transparent z-20" />
 
-        <div className="relative z-30">
-          <Navbar />
-        </div>
 
         <div className="relative z-20 flex flex-1 items-center pb-12 pt-20 sm:pb-16 sm:pt-24 lg:pb-24 lg:pt-32 text-page-text">
           <div className="max-w-7xl w-full mx-auto px-6 lg:px-8">
@@ -152,7 +150,7 @@ export default function ResidenciaQuintardPage() {
               viewport={{ once: true, amount: 0.1 }}
               variants={fadeUp}
               custom={0.2}
-              className="relative aspect-square sm:aspect-[4/3] rounded-[2.5rem] overflow-hidden shadow-2xl shadow-page-text/5 border border-page-text/5"
+              className="relative aspect-square sm:aspect-[4/3] rounded-[2.5rem] overflow-hidden shadow-sm shadow-page-text/5 border border-page-text/5"
             >
               <Image
                 src="/quintard_hero_1774501764500.webp"
@@ -190,7 +188,7 @@ export default function ResidenciaQuintardPage() {
                 custom={index * 0.1}
                 whileHover={{ y: -8, transition: { duration: 0.3 } }}
                 variants={fadeUp}
-                className="group p-8 rounded-[2rem] bg-page-bg border border-page-text/5 hover:border-brand-orange/20 transition-all duration-500 hover:shadow-xl hover:shadow-brand-orange/5"
+                className="group p-8 rounded-[2rem] bg-page-bg border border-page-text/5 hover:border-brand-orange/20 transition-all duration-500 hover:shadow-sm hover:shadow-brand-orange/5"
               >
                 <div className="w-12 h-12 rounded-2xl bg-brand-orange/10 flex items-center justify-center mb-6 group-hover:bg-brand-orange/20 transition-all duration-500 group-hover:translate-x-1">
                   <item.icon className="w-6 h-6 text-brand-orange group-hover:text-brand-orange transition-colors" />

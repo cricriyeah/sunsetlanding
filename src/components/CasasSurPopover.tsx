@@ -60,7 +60,7 @@ export function CasasSurPopover() {
             <div className="absolute -inset-3 bg-gradient-to-br from-brand-blue/30 via-brand-blue/10 to-transparent rounded-[2.5rem] blur-2xl pointer-events-none" />
 
             {/* Main card */}
-            <div className="relative bg-page-bg rounded-3xl shadow-2xl overflow-hidden">
+            <div className="relative bg-page-bg rounded-3xl shadow-sm overflow-hidden">
 
               {/* Close */}
               <button
@@ -86,7 +86,7 @@ export function CasasSurPopover() {
                 <div className="absolute inset-0 bg-gradient-to-tr from-brand-blue/20 to-transparent" />
 
                 {/* Floating badge */}
-                <div className="absolute top-4 left-4 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-page-bg font-montserrat font-bold text-[9px] tracking-widest uppercase shadow-lg overflow-hidden group/badge">
+                <div className="absolute top-4 left-4 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-page-bg font-montserrat font-bold text-[9px] tracking-widest uppercase shadow-sm overflow-hidden group/badge">
                   <div className="absolute inset-0 bg-brand-orange/80 group-hover/badge:bg-brand-purple/25 transition-colors" />
                   <Home className="relative z-10 w-3 h-3 text-white" />
                   <span className="relative z-10 text-white">{l("Proyecto Destacado", "Featured Project")}</span>
@@ -113,7 +113,7 @@ export function CasasSurPopover() {
               {/* Content */}
               <div className="px-6 sm:px-8 pt-5 pb-6 sm:pb-8">
                 <h3 className="text-2xl sm:text-3xl font-literata font-light text-page-text italic leading-tight mb-2">
-                  {l("Tu casa lista en 30 días.", "Your home ready in 30 days.")}
+                  {l("¡Tu casa lista en 30 días!", "Your home ready in 30 days!")}
                 </h3>
                 <p className="text-page-text/65 font-montserrat font-light text-sm leading-relaxed mb-6">
                   {l(
@@ -127,7 +127,7 @@ export function CasasSurPopover() {
                   <Link
                     href="/proyectos/casas-sur"
                     onClick={handleDismiss}
-                    className="group flex-1 inline-flex items-center justify-center gap-2 py-3 px-5 rounded-full bg-page-text text-white font-montserrat font-semibold text-sm hover:bg-page-text/90 transition-all hover:shadow-lg hover:shadow-page-text/15 active:scale-[0.97]"
+                    className="group flex-1 inline-flex items-center justify-center gap-2 py-3 px-5 rounded-full bg-page-text text-white font-montserrat font-semibold text-sm hover:bg-page-text/90 transition-all hover:shadow-sm hover:shadow-page-text/15 active:scale-[0.97]"
                   >
                     {l("Ver proyecto", "View project")}
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />

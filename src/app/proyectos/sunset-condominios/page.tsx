@@ -203,7 +203,7 @@ function ConceptSection() {
             transition={{ duration: 1.2, ease: [0.32, 0, 0.1, 1] }}
             className="relative lg:order-1"
           >
-            <div className="relative aspect-[9/16] w-full max-w-sm mx-auto overflow-hidden shadow-2xl scale-[1.02]">
+            <div className="relative aspect-[9/16] w-full max-w-sm mx-auto overflow-hidden shadow-sm scale-[1.02]">
               <video
                 ref={conceptVideoRef}
                 autoPlay
@@ -316,6 +316,7 @@ export default function SunsetCondominiosPage() {
   const scPhotos = getScPhotos(l);
   return (
     <div className="min-h-screen bg-page-bg text-sc-text">
+      <Navbar />
 
       {/* ──── HERO ──── */}
       <section className="relative min-h-screen w-full overflow-hidden flex flex-col">
@@ -334,10 +335,6 @@ export default function SunsetCondominiosPage() {
         <div className="absolute inset-0 bg-page-text/40 z-[1]" />
         <div className="absolute inset-0  bg-gradient-to-t from-sc-bg via-transparent to-transparent z-[2]" />
 
-        {/* Navbar */}
-        <div className="relative z-30">
-          <Navbar />
-        </div>
 
         {/* Hero text */}
         <div className="relative z-20 flex flex-1 items-center pb-20 pt-24 sm:pb-24 sm:pt-32 lg:pb-40 lg:pt-52 3xl:pb-32 3xl:pt-48">
@@ -362,7 +359,7 @@ export default function SunsetCondominiosPage() {
               />
               <CinematicHeading
                 text="Sunset Condominios"
-                className="text-3xl sm:text-5xl lg:text-6xl font-literata font-light tracking-tight mb-6 text-white drop-shadow-md"
+                className="text-3xl sm:text-5xl lg:text-6xl font-literata font-light tracking-tight mb-6 text-white drop-shadow-sm"
                 type="word"
                 delayChildren={0.4}
               />

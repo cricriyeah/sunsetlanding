@@ -38,6 +38,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-page-bg text-page-text overflow-x-hidden">
+      <Navbar />
 
       {/* ──── HERO ──── */}
       <section className="relative min-h-screen w-full overflow-hidden flex flex-col">
@@ -61,9 +62,6 @@ export default function Home() {
         <div className="absolute inset-0 z-[1] bg-gradient-to-b from-brand-orange/40 via-transparent to-transparent" />
         <div className="absolute inset-0 z-[1] bg-gradient-to-r from-brand-orange/20 via-transparent to-transparent" />
 
-        <div className="relative z-30">
-          <Navbar />
-        </div>
 
         <HeroContent />
 
@@ -200,7 +198,7 @@ export default function Home() {
               variants={fadeUp}
               custom={0.1}
               whileHover={{ y: -8, transition: { duration: 0.3 } }}
-              className="group flex flex-col items-start p-10 bg-page-bg border border-page-text/10 transition-card duration-500 hover:shadow-2xl hover:shadow-brand-blue/5 rounded-3xl"
+              className="group flex flex-col items-start p-10 bg-page-bg border border-page-text/10 transition-card duration-500 hover:shadow-sm hover:shadow-brand-blue/5 rounded-3xl"
             >
               <div className="w-12 h-12 mb-10 flex items-center justify-center bg-brand-blue/10 border border-brand-blue/20 rounded-2xl transition-card duration-500 group-hover:translate-x-1">
                 <Compass className="w-6 h-6 text-brand-blue" />
@@ -219,7 +217,7 @@ export default function Home() {
               variants={fadeUp}
               custom={0.2}
               whileHover={{ y: -8, transition: { duration: 0.3 } }}
-              className="group flex flex-col items-start p-10 bg-page-bg border border-page-text/10 transition-card duration-500 hover:shadow-2xl hover:shadow-sc-accent/5 rounded-3xl"
+              className="group flex flex-col items-start p-10 bg-page-bg border border-page-text/10 transition-card duration-500 hover:shadow-sm hover:shadow-sc-accent/5 rounded-3xl"
             >
               <div className="w-12 h-12 mb-10 flex items-center justify-center bg-sc-accent/10 border border-sc-accent/20 rounded-2xl transition-transform duration-500 group-hover:translate-x-1">
                 <Leaf className="w-6 h-6 text-sc-accent" />
@@ -238,7 +236,7 @@ export default function Home() {
               variants={fadeUp}
               custom={0.3}
               whileHover={{ y: -8, transition: { duration: 0.3 } }}
-              className="group flex flex-col items-start p-10 bg-page-bg border border-page-text/10 transition-card duration-500 hover:shadow-2xl hover:shadow-brand-orange/5 rounded-3xl"
+              className="group flex flex-col items-start p-10 bg-page-bg border border-page-text/10 transition-card duration-500 hover:shadow-sm hover:shadow-brand-orange/5 rounded-3xl"
             >
               <div className="w-12 h-12 mb-10 flex items-center justify-center bg-brand-orange/10 border border-brand-orange/20 rounded-2xl transition-transform duration-500 group-hover:translate-x-1">
                 <Heart className="w-6 h-6 text-brand-orange" />
@@ -280,7 +278,7 @@ export default function Home() {
               variants={fadeUp}
               className="animate-on-scroll"
             >
-              <Link href="/proyectos/casas-sur" className="group flex flex-col md:flex-row h-full rounded-3xl bg-page-bg border border-page-text/10 shadow-sm hover:shadow-xl hover:shadow-page-text/5 transition-card duration-500 overflow-hidden">
+              <Link href="/proyectos/casas-sur" className="group flex flex-col md:flex-row h-full rounded-3xl bg-page-bg border border-page-text/10 shadow-sm hover:shadow-sm hover:shadow-page-text/5 transition-card duration-500 overflow-hidden">
                 <div className="relative w-full md:w-[55%] aspect-[4/3] md:aspect-auto md:min-h-[380px] overflow-hidden">
                   <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-500 z-10" />
 
@@ -320,7 +318,7 @@ export default function Home() {
               variants={fadeUp}
               className="animate-on-scroll"
             >
-              <Link href="/proyectos/sunset-condominios" className="group flex flex-col md:flex-row-reverse h-full rounded-3xl bg-page-bg border border-page-text/10 shadow-sm hover:shadow-xl hover:shadow-page-text/5 transition-card duration-500 overflow-hidden">
+              <Link href="/proyectos/sunset-condominios" className="group flex flex-col md:flex-row-reverse h-full rounded-3xl bg-page-bg border border-page-text/10 shadow-sm hover:shadow-sm hover:shadow-page-text/5 transition-card duration-500 overflow-hidden">
                 <div className="relative w-full md:w-[55%] aspect-[4/3] md:aspect-auto md:min-h-[380px] overflow-hidden">
                   <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-500 z-10" />
 
@@ -375,7 +373,7 @@ export default function Home() {
             <Button
               href="/nosotros"
               size="sm"
-              className="mt-4 shadow-2xl shadow-black/20"
+              className="mt-4 shadow-sm shadow-black/20"
             >
               {l("Conocer al equipo", "Meet the team")}
               <ArrowRight className="ml-2 h-5 w-5" />

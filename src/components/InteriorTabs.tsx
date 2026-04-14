@@ -65,7 +65,7 @@ export function InteriorTabs() {
               animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
               exit={{ opacity: 0, scale: 0.98, filter: "blur(10px)" }}
               transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-              className="relative aspect-[4/3] sm:aspect-[21/9] rounded-[1rem] sm:rounded-[2rem] overflow-hidden shadow-2xl shadow-page-text/10 border border-page-text/5 group cursor-pointer"
+              className="relative aspect-[4/3] sm:aspect-[21/9] rounded-[1rem] sm:rounded-[2rem] overflow-hidden shadow-sm shadow-page-text/10 border border-page-text/5 group cursor-pointer"
               onClick={() => openLightbox(interiorTabsData.map(d => ({ src: d.image, alt: d.title, type: 'image' as const })), activeIndex)}
             >
               {/* Image */}
@@ -117,7 +117,7 @@ export function InteriorTabs() {
                 onClick={() => setActiveTab(tab.id)}
                 className={`group relative px-6 sm:px-8 py-2.5 sm:py-3 rounded-full font-montserrat text-sm sm:text-base transition-all duration-500 overflow-hidden
                   ${isActive
-                    ? "text-page-bg shadow-lg shadow-sc-primary/20 scale-105"
+                    ? "text-page-bg shadow-sm shadow-sc-primary/20 scale-105"
                     : "text-page-text hover:text-page-text bg-white/40 backdrop-blur-md border border-page-text/10 hover:border-page-text/20"
                   }`}
               >

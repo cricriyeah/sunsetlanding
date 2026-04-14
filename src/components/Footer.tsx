@@ -32,6 +32,14 @@ export function Footer() {
             <li><Link href="/nosotros" className="hover:text-white transition-colors">{l("Nosotros", "About Us")}</Link></li>
             <li><Link href="/financiamiento" className="hover:text-white transition-colors">{l("Financiamiento", "Financing")}</Link></li>
             <li><Link href="/contacto" className="hover:text-white transition-colors">{l("Contacto", "Contact")}</Link></li>
+            <li className="mt-2 text-left">
+              <Link 
+                href="/unete-a-vendedores" 
+                className="inline-block bg-white text-brand-purple px-4 py-1.5 rounded-full text-[10px] sm:text-[11px] font-bold uppercase tracking-widest hover:bg-brand-purple hover:text-white transition-all duration-300 shadow-sm"
+              >
+                {l("Únete como Vendedor", "Join as Seller")}
+              </Link>
+            </li>
           </ul>
         </div>
 

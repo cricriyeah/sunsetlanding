@@ -87,6 +87,7 @@ export default function ResidenciaArmokPage() {
   const armokPhotos = getArmokPhotos(l);
   return (
     <div className="min-h-screen bg-armok-bg text-armok-text selection:bg-brand-blue/30">
+      <Navbar />
       {/* ──── HERO ──── */}
       <section className="relative min-h-screen w-full overflow-hidden flex flex-col">
         {/* Blended background image */}
@@ -102,9 +103,6 @@ export default function ResidenciaArmokPage() {
         <div className="absolute inset-0 bg-gradient-to-br from-armok-primary/60 via-armok-primary/40 to-transparent mix-blend-multiply" />
         <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-armok-bg via-armok-bg/80 to-transparent z-10" />
 
-        <div className="relative z-30">
-          <Navbar />
-        </div>
 
         <div className="relative z-20 flex flex-1 items-center pb-20 pt-24 sm:pb-24 sm:pt-32 lg:pb-40 lg:pt-52 3xl:pb-32 3xl:pt-48">
           <div className="max-w-7xl w-full mx-auto px-6 lg:px-20 xl:px-28 3xl:px-24">
@@ -161,7 +159,7 @@ export default function ResidenciaArmokPage() {
               viewport={{ once: true, amount: 0.1 }}
               variants={fadeUp}
               custom={0.2}
-              className="relative aspect-square rounded-none overflow-hidden shadow-2xl shadow-page-text/5 border border-page-text/5"
+              className="relative aspect-square rounded-none overflow-hidden shadow-sm shadow-page-text/5 border border-page-text/5"
             >
               <Image
                 src="/amrok/amrok1.webp"

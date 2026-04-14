@@ -69,10 +69,10 @@ export default function RootLayout({
           {/* Floating Language Toggler */}
           <LanguageSwitcher />
 
-          {/* Casas Sur Promo Popover (one-time modal) */}
+          {/* Casas Sur Promo Popover (one-time per session modal) */}
           <CasasSurPopover />
 
-          {/* Casas Sur Persistent Floating Banner */}
+          {/* Casas Sur Persistent Floating Notification Bell */}
           <CasasSurBanner />
         </LanguageProvider>
       </body>

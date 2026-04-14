@@ -114,7 +114,7 @@ export function Navbar() {
   return (
     <>
       {/* ──── TOP HEADER (Always Fixed Top) ──── */}
-      <div className="fixed top-0 left-0 w-full z-[5000] py-5 sm:py-4 lg:py-5 px-4 sm:px-6 lg:px-12 pointer-events-none">
+      <div className="fixed top-0 left-0 w-full z-[1000] py-5 sm:py-4 lg:py-5 px-4 sm:px-6 lg:px-12 pointer-events-none">
         {/* Background gradient on scroll */}
         <div
           className={`absolute inset-0 bg-gradient-to-b from-page-text/50 to-transparent transition-opacity duration-700 pointer-events-none ${isScrolled ? 'opacity-100' : 'opacity-0'}`}
@@ -126,7 +126,7 @@ export function Navbar() {
           <div className="flex sm:hidden z-10">
             <button
               onClick={() => setIsMobileMenuOpen(true)}
-              className="flex items-center gap-2 h-9 px-5 rounded-full font-montserrat text-sm font-light text-white bg-white/10 backdrop-blur-md border border-white/20 shadow-xl"
+              className="flex items-center gap-2 h-9 px-5 rounded-full font-montserrat text-sm font-light text-white bg-white/10 backdrop-blur-md border border-white/20 shadow-sm"
             >
               <Menu className="w-3.5 h-3.5 opacity-80" />
               <span>{l("Menu", "Menu")}</span>
@@ -151,7 +151,7 @@ export function Navbar() {
 
           {/* Action Button - Right Column */}
           <div className="flex justify-end sm:flex-initial z-10">
-            <Button href="/contacto" size="sm" className="font-montserrat shadow-2xl shadow-white/20 font-semibold h-9 sm:h-10 px-4 sm:px-6 shrink-0">
+            <Button href="/contacto" size="sm" className="font-montserrat shadow-sm shadow-white/20 font-semibold h-9 sm:h-10 px-4 sm:px-6 shrink-0">
               <span className="hidden sm:inline">{l("Agenda una visita", "Schedule a visit")}</span>
               <span className="sm:hidden">{l("Agendar", "Schedule")}</span>
               <ArrowRight className="ml-2 h-3.5 w-3.5 sm:h-4 sm:w-4" />
@@ -169,7 +169,7 @@ export function Navbar() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[6000] sm:hidden"
+            className="fixed inset-0 z-[1100] sm:hidden"
           >
             {/* Backdrop Dimming Effect */}
             <motion.div
@@ -316,7 +316,7 @@ export function Navbar() {
             }
           }
         }}
-        className={`hidden sm:flex fixed z-[5000] left-1/2 -translate-x-1/2 backdrop-blur-xl border flex flex-col shadow-2xl overflow-hidden max-w-[calc(100vw-48px)] top-[14px] lg:top-[24px] origin-top will-change-[width,height] transform-gpu`}
+        className={`hidden sm:flex fixed z-[5000] left-1/2 -translate-x-1/2 backdrop-blur-xl border flex flex-col shadow-sm overflow-hidden max-w-[calc(100vw-48px)] top-[14px] lg:top-[24px] origin-top will-change-[width,height] transform-gpu`}
       >
         {/* Navbar Links Row (Always visible) */}
         <div className="flex w-full items-center p-1 shrink-0 h-[44px] relative justify-center">
@@ -392,7 +392,7 @@ function ProjectCard({ href, img, title, tag, desc, onClose, priority = false, f
     <Link href={href} onClick={onClose} className="group flex flex-col sm:flex-row items-stretch bg-white/5 hover:bg-white/10 transition-all duration-500 rounded-2xl border border-white/10 overflow-hidden min-h-[140px] relative">
       {/* Featured Badge */}
       {featured && (
-        <div className="absolute top-0 left-0 z-30 px-3 py-1.5 rounded-br-xl rounded-tl-2xl bg-page-bg font-montserrat font-bold text-[8px] tracking-[0.15em] uppercase shadow-lg overflow-hidden group/badge">
+        <div className="absolute top-0 left-0 z-30 px-3 py-1.5 rounded-br-xl rounded-tl-2xl bg-page-bg font-montserrat font-bold text-[8px] tracking-[0.15em] uppercase shadow-sm overflow-hidden group/badge">
           <div className="absolute inset-0 bg-brand-orange/80 transition-colors group-hover/badge:bg-brand-purple/25" />
           <span className="relative z-10 text-white">★ {l("Destacado", "Featured")}</span>
         </div>

@@ -216,8 +216,8 @@ const getFaqs = (l: any) => [
     q: l("¿Es necesaria una cimentación para mi contenedor?", "Is a foundation necessary for my container?"),
     a: l("No es estrictamente necesaria ya que existen varias opciones de soporte, sin embargo, la cimentación es la opción más recomendada para asegurar la durabilidad y estabilidad en proyectos de alta inversión. Te asesoramos para elegir la mejor base según tu terreno y modelo.", "It is not strictly necessary as there are several support options, however, a foundation is the most recommended option to ensure durability and stability in high-investment projects. We advise you to choose the best base according to your land and model."),
     pdf: {
-      es: "/docs/esp/cimentación-contenedor-sunset-2026-esp.pdf",
-      en: "/docs/esp/cimentación-contenedor-sunset-2026-esp.pdf"
+      es: "/docs/esp/cimentacion-contenedor-sunset-2026-esp.pdf",
+      en: "/docs/esp/cimentacion-contenedor-sunset-2026-esp.pdf"
     }
   },
   {
@@ -382,6 +382,7 @@ export default function CasasSurPage() {
 
   return (
     <div className="min-h-screen bg-page-bg text-page-text selection:bg-page-text/20">
+      <Navbar />
       {/* ══════════════════════════════════════════════════════════════════
           1. HERO
           ══════════════════════════════════════════════════════════════ */}
@@ -399,9 +400,6 @@ export default function CasasSurPage() {
         <div className="absolute inset-0 bg-gradient-to-br from-page-text/40 via-page-text/15 to-transparent z-10" />
         <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-page-bg via-page-bg/80 to-transparent z-20" />
 
-        <div className="relative z-30">
-          <Navbar />
-        </div>
 
         <div className="relative z-20 flex flex-1 items-center pb-20 pt-24 sm:pb-24 sm:pt-32 lg:pb-40 lg:pt-52 3xl:pb-32 3xl:pt-48 text-page-text">
           <div className="max-w-7xl w-full mx-auto px-6 lg:px-20 xl:px-28 3xl:px-24">
@@ -429,7 +427,7 @@ export default function CasasSurPage() {
             <div className="mb-1 sm:mb-4">
               <CinematicHeading
                 text={l("Tu casa lista en 30 días.", "Your house ready in 30 days.")}
-                className="text-4xl sm:text-6xl lg:text-5xl xl:text-6xl font-literata font-light tracking-tighter text-white drop-shadow-md"
+                className="text-4xl sm:text-6xl lg:text-5xl xl:text-6xl font-literata font-light tracking-tighter text-white drop-shadow-sm"
                 type="word"
                 delayChildren={0.3}
               />
@@ -437,7 +435,7 @@ export default function CasasSurPage() {
             <div className="mb-4 sm:mb-8">
               <CinematicHeading
                 text={l("Empieza solo con $10 mil MXN.", "Start with only $10k MXN.")}
-                className="text-3xl sm:text-5xl lg:text-4xl xl:text-5xl font-literata font-light tracking-tighter text-page-text italic drop-shadow-md"
+                className="text-3xl sm:text-5xl lg:text-4xl xl:text-5xl font-literata font-light tracking-tighter text-page-text italic drop-shadow-sm"
                 type="word"
                 delayChildren={0.6}
               />
@@ -484,16 +482,14 @@ export default function CasasSurPage() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}
             transition={{ duration: 0.4 }}
-            className="fixed bottom-10 left-1/2 -translate-x-1/2 z-[100] lg:hidden flex flex-col items-center gap-1.5 pointer-events-none"
+            className="fixed bottom-10 left-1/2 -translate-x-1/2 z-[100] flex flex-col items-center pointer-events-none"
           >
-            <div className="w-9 h-9 rounded-full border border-page-text/10 flex items-center justify-center bg-white/30 backdrop-blur-xl shadow-lg">
-              <motion.div
-                animate={{ y: [0, 4, 0] }}
-                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-              >
-                <ChevronDown className="w-5 h-5 text-page-text/50" />
-              </motion.div>
-            </div>
+            <motion.div
+              animate={{ y: [0, 10, 0] }}
+              transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+            >
+              <ChevronDown className="w-10 h-10 text-page-text/70" strokeWidth={1.5} />
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -525,7 +521,7 @@ export default function CasasSurPage() {
                 custom={i * 0.1}
                 whileHover={{ y: -8, transition: { duration: 0.3 } }}
                 variants={fadeUp}
-                className="animate-on-scroll group shadow-sm p-8 rounded-3xl bg-page-bg-alt border border-page-text/5 hover:shadow-md hover:shadow-page-text/10 will-change-transform"
+                className="animate-on-scroll group shadow-sm p-8 rounded-3xl bg-page-bg-alt border border-page-text/5 hover:shadow-sm hover:shadow-page-text/10 will-change-transform"
               >
                 <div className="w-14 h-14 rounded-2xl bg-brand-blue/10 flex items-center justify-center mb-5 transition-transform duration-500 border border-brand-blue/20 group-hover:translate-x-1">
                   <p.icon className="w-7 h-7 text-brand-blue/80 group-hover:scale-110 transition-transform" />
@@ -610,7 +606,7 @@ export default function CasasSurPage() {
             custom={0.3}
             className="animate-on-scroll flex justify-center"
           >
-            <div className="inline-flex flex-col sm:flex-row items-center justify-center gap-2 px-6 py-3 sm:py-2.5 rounded-3xl sm:rounded-full bg-page-bg-alt text-page-text font-montserrat text-sm sm:text-base shadow-lg shadow-black/5 text-center sm:text-left">
+            <div className="inline-flex flex-col sm:flex-row items-center justify-center gap-2 px-6 py-3 sm:py-2.5 rounded-3xl sm:rounded-full bg-page-bg-alt text-page-text font-montserrat text-sm sm:text-base shadow-sm shadow-black/5 text-center sm:text-left">
               <MapPin className="w-4 h-4 shrink-0" />
               <span className="max-w-[260px] sm:max-w-none">{l("Instalamos en terreno ejidal o privado en toda BCS.", "We install on ejidal or private land anywhere in BCS.")}</span>
             </div>
@@ -643,7 +639,7 @@ export default function CasasSurPage() {
                       key={m.id}
                       onClick={() => handleModelChange(i)}
                       className={`px-4 sm:px-6 py-2 sm:py-3 whitespace-nowrap rounded-full font-montserrat text-xs sm:text-sm font-semibold transition-all duration-300 ${activeTab === i
-                        ? "bg-page-text text-white shadow-xl shadow-page-text/20 scale-105"
+                        ? "bg-page-text text-white shadow-sm shadow-page-text/20 scale-105"
                         : "text-page-text/70 hover:text-page-text hover:bg-page-text/5"
                         }`}
                     >
@@ -655,7 +651,7 @@ export default function CasasSurPage() {
                 <button
                   onClick={() => handleModelChange("extras")}
                   className={`px-5 py-2 rounded-full font-montserrat text-xs font-semibold uppercase tracking-wider transition-all duration-300 border ${activeTab === "extras"
-                    ? "bg-brand-blue border-brand-blue text-white shadow-md shadow-brand-blue/20 scale-105"
+                    ? "bg-brand-blue border-brand-blue text-white shadow-sm shadow-brand-blue/20 scale-105"
                     : "bg-transparent border-page-text/20 text-page-text/70 hover:border-brand-blue/50 hover:text-brand-blue"
                     }`}
                 >{l("Ver Amenidades Extra", "View Extra Amenities")}</button>
@@ -674,7 +670,7 @@ export default function CasasSurPage() {
                 transition={{ duration: 0.5, ease: "easeInOut" }}
                 className="mb-12"
               >
-                <div className="bg-white border border-page-text/10 rounded-3xl p-8 sm:p-12 shadow-xl max-w-4xl mx-auto flex flex-col gap-8">
+                <div className="bg-white border border-page-text/10 rounded-3xl p-8 sm:p-12 shadow-sm max-w-4xl mx-auto flex flex-col gap-8">
                   <div className="text-center">
                     <h3 className="text-3xl sm:text-4xl font-literata font-light text-page-text mb-3">{l("Amenidades y Extras Opcionales", "Optional Amenities and Extras")}</h3>
                     <p className="font-montserrat text-page-text/70 text-base max-w-xl mx-auto">{l("Personaliza tu modelo Casas Sur con elementos adicionales diseñados para elevar tu comodidad y estilo de vida.", "Customize your Casas Sur model with additional elements designed to elevate your comfort and lifestyle.")} <span className="italic font-medium text-page-text/90">{l("Pregunte al momento de cotizar.", "Ask when quoting.")}</span>
@@ -708,7 +704,7 @@ export default function CasasSurPage() {
                       href={waLink("Extras Opcionales")}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group overflow-hidden rounded-full inline-flex items-center justify-center font-montserrat font-semibold transition-all h-12 px-8 bg-page-text text-white hover:bg-page-text/90 shadow-md"
+                      className="group overflow-hidden rounded-full inline-flex items-center justify-center font-montserrat font-semibold transition-all h-12 px-8 bg-page-text text-white hover:bg-page-text/90 shadow-sm"
                     >
                       <MessageCircle className="mr-2 h-4 w-4" />{l("Consultar Extras", "Consult Extras")}
                     </a>
@@ -727,7 +723,7 @@ export default function CasasSurPage() {
                 {/* Columna Izquierda: Media & Thumbnails */}
                 <div className="w-full lg:w-[60%] xl:w-[65%] flex flex-col gap-4">
                   {/* Media Principal (Carrusel) */}
-                  <div className="w-full h-[50vh] sm:h-[55vh] lg:h-[50vh] xl:h-[55vh] relative overflow-hidden bg-black/5 shadow-2xl shadow-black/10 group">
+                  <div className="w-full h-[50vh] sm:h-[55vh] lg:h-[50vh] xl:h-[55vh] relative overflow-hidden bg-black/5 shadow-sm shadow-black/10 group">
                     <AnimatePresence mode="wait">
                       <motion.div
                         key={activeMediaIndex}
@@ -798,7 +794,7 @@ export default function CasasSurPage() {
                     )}
 
                     {/* Etiqueta de modelo flotante */}
-                    <div className="absolute top-6 left-6 z-20 bg-white/90 backdrop-blur-md px-4 py-2 rounded-full shadow-lg flex items-center gap-2">
+                    <div className="absolute top-6 left-6 z-20 bg-white/90 backdrop-blur-md px-4 py-2 rounded-full shadow-sm flex items-center gap-2">
                       {mediaItems[activeMediaIndex].type === "video" && <Play className="w-3.5 h-3.5 text-brand-blue/80 fill-brand-blue/80" />}
                       <span className="font-montserrat font-bold text-xs uppercase tracking-wider text-page-text">
                         {mediaItems[activeMediaIndex].type === "video" ? l(`Recorrido ${activeData.name}`, `Tour ${activeData.name}`) : l(`Vista ${activeData.name}`, `View ${activeData.name}`)}
@@ -812,7 +808,7 @@ export default function CasasSurPage() {
                       {mediaItems.slice(0, 4).map((item, idx) => (
                         <div
                           key={idx}
-                          className={`flex-1 relative overflow-hidden cursor-pointer rounded-none transition-all duration-300 border-2 ${activeMediaIndex === idx ? "border-brand-green/80 shadow-md scale-[1.02] z-10" : "border-transparent opacity-70 hover:opacity-100"}`}
+                          className={`flex-1 relative overflow-hidden cursor-pointer rounded-none transition-all duration-300 border-2 ${activeMediaIndex === idx ? "border-brand-green/80 shadow-sm scale-[1.02] z-10" : "border-transparent opacity-70 hover:opacity-100"}`}
                           onClick={() => setActiveMediaIndex(idx)}
                         >
                           {item.type === "video" ? (
@@ -833,7 +829,7 @@ export default function CasasSurPage() {
 
                 {/* Columna Derecha: Specs */}
                 <div className="w-full lg:w-[40%] xl:w-[35%] flex flex-col gap-6">
-                  <div className="bg-white border border-page-text/8 rounded-3xl shadow-xl flex-1 flex flex-col overflow-hidden">
+                  <div className="bg-white border border-page-text/8 rounded-3xl shadow-sm flex-1 flex flex-col overflow-hidden">
 
                     {/* Header: Model name + badge */}
                     <div className="px-6 sm:px-8 pt-6 sm:pt-8 pb-4">
@@ -904,7 +900,7 @@ export default function CasasSurPage() {
                         href={waLink(activeData.name)}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="w-full group overflow-hidden rounded-full inline-flex items-center justify-center font-montserrat font-semibold transition-all h-13 px-6 text-sm bg-page-text text-white hover:bg-page-text/90 shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98]"
+                        className="w-full group overflow-hidden rounded-full inline-flex items-center justify-center font-montserrat font-semibold transition-all h-13 px-6 text-sm bg-page-text text-white hover:bg-page-text/90 shadow-sm hover:shadow-sm hover:scale-[1.02] active:scale-[0.98]"
                       >
                         <MessageCircle className="mr-2 h-4 w-4" />{l("Cotizar este modelo", "Quote this model")}
                       </a>
@@ -1008,7 +1004,7 @@ export default function CasasSurPage() {
                   </div>
 
                   <div className="relative group/card cursor-default">
-                    <div className="relative p-6 px-7 rounded-[2rem] bg-page-bg-alt border border-page-text/5 transition-card duration-500 hover:-translate-y-1 hover:bg-page-bg-alt/80 hover:shadow-md">
+                    <div className="relative p-6 px-7 rounded-[2rem] bg-page-bg-alt border border-page-text/5 transition-card duration-500 hover:-translate-y-1 hover:bg-page-bg-alt/80 hover:shadow-sm">
                       <span className="font-montserrat font-bold text-[10px] text-page-text/80 tracking-[0.3em] uppercase block mb-4">
                         {l("Paso", "Step")} {i + 1}
                       </span>

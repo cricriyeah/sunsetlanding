@@ -36,13 +36,13 @@ export function Lightbox() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
-          className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/95 backdrop-blur-sm"
+          className="fixed inset-0 z-[10000] flex items-center justify-center bg-black/95 backdrop-blur-sm"
           onClick={closeLightbox}
         >
           {/* Close Button */}
           <button
             onClick={closeLightbox}
-            className="absolute top-6 right-6 z-[1010] p-3 rounded-full bg-white/10 text-white hover:bg-white/20 transition-all cursor-pointer"
+            className="absolute top-6 right-6 z-[10010] p-3 rounded-full bg-white/10 text-white hover:bg-white/20 transition-all cursor-pointer"
             aria-label="Cerrar"
           >
             <X className="w-6 h-6" />
@@ -55,7 +55,7 @@ export function Lightbox() {
                 e.stopPropagation();
                 prevItem();
               }}
-              className="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 z-[1010] p-2 sm:p-4 rounded-full bg-white/10 text-white hover:bg-white/20 transition-all cursor-pointer"
+              className="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 z-[10010] p-2 sm:p-4 rounded-full bg-white/10 text-white hover:bg-white/20 transition-all cursor-pointer"
               aria-label="Anterior"
             >
               <ChevronLeft className="w-5 h-5 sm:w-8 sm:h-8" />
@@ -79,7 +79,7 @@ export function Lightbox() {
                   autoPlay
                   loop
                   muted
-                  className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
+                  className="max-w-full max-h-full object-contain rounded-lg shadow-sm"
                 />
               ) : (
                 <Image
@@ -119,7 +119,7 @@ export function Lightbox() {
                 e.stopPropagation();
                 nextItem();
               }}
-              className="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 z-[1010] p-2 sm:p-4 rounded-full bg-white/10 text-white hover:bg-white/20 transition-all cursor-pointer"
+              className="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 z-[10010] p-2 sm:p-4 rounded-full bg-white/10 text-white hover:bg-white/20 transition-all cursor-pointer"
               aria-label="Siguiente"
             >
               <ChevronRight className="w-5 h-5 sm:w-8 sm:h-8" />

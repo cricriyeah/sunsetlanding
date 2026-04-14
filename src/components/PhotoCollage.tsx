@@ -97,7 +97,7 @@ export function PhotoCollage({
                <motion.div
                  animate={{ x: [0, 10, 0] }}
                  transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
-                 className="flex items-center gap-3 bg-black/30 px-6 py-3 rounded-full border border-white/20 shadow-2xl"
+                 className="flex items-center gap-3 bg-black/30 px-6 py-3 rounded-full border border-white/20 shadow-sm"
                >
                  <span className="font-montserrat text-xs font-bold uppercase tracking-[0.3em] text-white">
                    {l("Desliza", "Swipe")}

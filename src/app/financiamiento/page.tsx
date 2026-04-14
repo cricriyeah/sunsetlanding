@@ -57,6 +57,7 @@ export default function FinanciamientoPage() {
 
   return (
     <div className="min-h-screen bg-page-bg text-page-text overflow-x-hidden">
+      <Navbar />
       {/* ──── VIDEO HERO (ATTENTION) ──── */}
       <section className="relative min-h-screen w-full overflow-hidden flex flex-col">
         {/* Background Video */}
@@ -77,15 +78,12 @@ export default function FinanciamientoPage() {
         <div className="absolute inset-0 z-[1] bg-gradient-to-b from-black/60 via-black/20 to-transparent" />
         <div className="absolute inset-x-0 bottom-0 h-1/2 z-[1] bg-gradient-to-t from-page-bg via-transparent to-transparent" />
 
-        <div className="relative z-30">
-          <Navbar />
-        </div>
 
         <div className="relative z-20 flex flex-1 items-center justify-center">
           <div className="max-w-7xl w-full mx-auto px-6 lg:px-8 text-center">
             <CinematicHeading
               text={l("¿Los bancos cobran demasiado interés?", "Do banks charge too much interest?")}
-              className="text-4xl sm:text-6xl lg:text-8xl font-literata font-light tracking-tight text-white drop-shadow-2xl"
+              className="text-4xl sm:text-6xl lg:text-8xl font-literata font-light tracking-tight text-white drop-shadow-sm"
               type="char"
               variant="typing"
               staggerChildren={0.08}
@@ -346,7 +344,7 @@ export default function FinanciamientoPage() {
               viewport={{ once: true, amount: 0.1 }}
               custom={0.2}
               variants={fadeUp}
-              className="animate-on-scroll bg-white/40 border border-page-text/5 p-10 rounded-3xl shadow-xl shadow-page-text/5 relative overflow-hidden"
+              className="animate-on-scroll bg-white/40 border border-page-text/5 p-10 rounded-3xl shadow-sm shadow-page-text/5 relative overflow-hidden"
             >
 
 

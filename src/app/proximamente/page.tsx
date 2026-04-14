@@ -24,6 +24,7 @@ const fadeUp = {
 export default function ProximamentePage() {
   return (
     <div className="min-h-screen bg-page-bg text-page-text selection:bg-sc-accent/30 flex flex-col">
+      <Navbar />
       {/* ──── HERO / MAIN CONTENT ──── */}
       <section className="relative flex-1 w-full overflow-hidden flex flex-col justify-center items-center">
         {/* Blue & Pink Gradient - Mirrored from Contact page for styling */}
@@ -40,9 +41,6 @@ export default function ProximamentePage() {
           }}
         />
 
-        <div className="relative z-30 w-full top-0 absolute">
-          <Navbar />
-        </div>
 
         <div className="relative z-20 flex flex-col items-center justify-center text-center px-6 pt-32 pb-24 lg:pt-56 lg:pb-48 3xl:pt-48 3xl:pb-40">
           <div className="max-w-4xl w-full mx-auto px-6 lg:px-20 xl:px-28 3xl:px-24">
@@ -97,7 +95,7 @@ export default function ProximamentePage() {
                     target="_blank"
                     rel="noopener noreferrer"
                     whileHover={{ y: -5, transition: { duration: 0.3 } }}
-                    className="w-12 h-12 rounded-full border border-page-text/10 flex items-center justify-center bg-white/5 backdrop-blur-sm hover:bg-sc-accent hover:border-sc-accent hover:text-white transition-all duration-500 shadow-lg shadow-black/5"
+                    className="w-12 h-12 rounded-full border border-page-text/10 flex items-center justify-center bg-white/5 backdrop-blur-sm hover:bg-sc-accent hover:border-sc-accent hover:text-white transition-all duration-500 shadow-sm shadow-black/5"
                   >
                     <social.Icon className="w-5 h-5" />
                   </motion.a>

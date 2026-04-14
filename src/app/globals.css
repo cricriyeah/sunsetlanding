@@ -39,6 +39,13 @@
 
   /* ── Custom Breakpoints ── */
   --breakpoint-3xl: 120rem; /* 1920px */
+
+  /* ── Standardized Shadows (All levels = sm) ── */
+  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+  --shadow-md: var(--shadow-sm);
+  --shadow-lg: var(--shadow-sm);
+  --shadow-xl: var(--shadow-sm);
+  --shadow-2xl: var(--shadow-sm);
 }
 
 @layer base {

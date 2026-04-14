@@ -38,7 +38,7 @@ export default function ContactoPage() {
     name: "",
     email: "",
     phone: "",
-    project: "Otro",
+    project: "",
     message: "",
   });
 
@@ -47,6 +47,13 @@ export default function ContactoPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    // Manual validation check
+    if (!formData.name || !formData.email || !formData.phone || !formData.project || !formData.message || formData.project === "") {
+      setStatus("error");
+      setErrorMessage(l("Por favor llena todos los campos.", "Please fill in all fields."));
+      return;
+    }
+
     setStatus("loading");
     setErrorMessage("");
 
@@ -82,10 +89,13 @@ export default function ContactoPage() {
 
   return (
     <div className="min-h-screen bg-page-bg text-page-text selection:bg-sc-accent/30 overflow-x-hidden">
+      <Navbar />
       {/* ──── HERO ──── */}
       <section className="relative min-h-[60vh] w-full overflow-hidden flex flex-col">
-        {/* Blue & Pink Gradient */}
-        <div className="absolute inset-0 bg-gradient-to-br from-brand-blue/80 via-sc-accent/40 to-brand-sand/10 z-0" />
+        {/* Purple & Pink Gradient */}
+        <div className="absolute inset-0 bg-gradient-to-br from-brand-purple/30 via-pink-400/20 to-page-bg z-0" />
+        <div className="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] bg-pink-500/10 blur-[120px] rounded-full z-0 animate-pulse" />
+        <div className="absolute bottom-0 left-[-5%] w-[600px] h-[600px] bg-brand-purple/10 blur-[130px] rounded-full z-0" />
         <div className="absolute inset-0 bg-gradient-to-t from-page-bg via-transparent to-transparent z-10" />
 
         {/* Noise Filter */}
@@ -98,9 +108,6 @@ export default function ContactoPage() {
           }}
         />
 
-        <div className="relative z-30">
-          <Navbar />
-        </div>
 
         <div className="relative z-20 flex flex-1 items-center justify-center pt-24 pb-12 text-center px-6 lg:pt-48 lg:pb-32">
           <div className="max-w-4xl w-full mx-auto px-6 lg:px-20 xl:px-16">
@@ -222,7 +229,7 @@ export default function ContactoPage() {
                 viewport={{ once: true }}
                 variants={fadeUp}
                 custom={0.1}
-                className="w-full bg-white/70 backdrop-blur-xl border border-white/20 rounded-[2rem] p-6 sm:p-10 lg:p-10 transition-all duration-500 shadow-2xl shadow-page-text/5"
+                className="w-full bg-white/70 backdrop-blur-xl border border-white/20 rounded-[2rem] p-6 sm:p-10 lg:p-10 transition-all duration-500 shadow-sm shadow-page-text/5"
               >
                 {/* Status Message Display */}
                 <AnimatePresence mode="wait">
@@ -284,6 +291,7 @@ export default function ContactoPage() {
                         <div className="space-y-2">
                           <label className="font-montserrat text-[10px] tracking-[0.2em] uppercase font-semibold text-page-text/60 ml-1">Teléfono</label>
                           <input
+                            required
                             name="phone"
                             value={formData.phone}
                             onChange={(e) => setFormData({...formData, phone: e.target.value})}
@@ -296,11 +304,13 @@ export default function ContactoPage() {
                           <label className="font-montserrat text-[10px] tracking-[0.2em] uppercase font-semibold text-page-text/60 ml-1">{l("Proyecto de interés", "Project of interest")}</label>
                           <div className="relative">
                             <select 
+                              required
                               name="project"
                               value={formData.project}
                               onChange={(e) => setFormData({...formData, project: e.target.value})}
                               className="w-full h-12 bg-white/50 border border-page-text/10 rounded-2xl px-5 pr-10 font-montserrat font-light text-sm focus:outline-none focus:ring-1 focus:ring-sc-accent/30 transition-all appearance-none cursor-pointer text-page-text relative z-10"
                             >
+                              <option className="bg-white text-page-text" value="" disabled>{l("Selecciona un interés", "Select an interest")}</option>
                               <option className="bg-white text-page-text" value="Otro">Otro</option>
                               <option className="bg-white text-page-text" value="Sunset Condominios">Sunset Condominios</option>
                               <option className="bg-white text-page-text" value="Casas Sur">Casas Sur</option>
@@ -343,7 +353,7 @@ export default function ContactoPage() {
                         <Button
                           disabled={status === "loading"}
                           variant="brand"
-                          className="w-full h-14 text-base font-semibold transition-all bg-brand-purple/90 hover:bg-brand-purple shadow-xl shadow-brand-purple/10 disabled:opacity-50"
+                          className="w-full h-14 text-base font-semibold transition-all bg-brand-purple/90 hover:bg-brand-purple shadow-sm shadow-brand-purple/10 disabled:opacity-50"
                         >
                           {status === "loading" ? l("Enviando...", "Sending...") : l("Enviar Mensaje", "Send Message")} 
                           <ArrowRight className="ml-3 h-5 w-5" />

@@ -24,6 +24,7 @@ export default function NosotrosPage() {
   const { l } = useLanguage();
   return (
     <div className="min-h-screen bg-page-bg text-page-text overflow-x-hidden">
+      <Navbar />
       {/* ──── HERO ──── */}
       <section className="relative min-h-screen w-full overflow-hidden flex flex-col">
         {/* Background Video */}
@@ -47,9 +48,6 @@ export default function NosotrosPage() {
         {/* Bottom: Smooth blending with page-bg */}
         <div className="absolute inset-x-0 bottom-0 h-1/3 z-[1] bg-gradient-to-t from-page-bg via-page-bg/80 to-transparent" />
 
-        <div className="relative z-30">
-          <Navbar />
-        </div>
 
         <div className="relative z-20 flex flex-1 items-center pb-20 pt-24 sm:pb-24 sm:pt-32 lg:pb-32 lg:pt-52">
           <div className="max-w-7xl w-full mx-auto px-6 lg:px-20 xl:px-28">
@@ -62,7 +60,7 @@ export default function NosotrosPage() {
 
             <CinematicHeading
               text={l("El estándar americano, arraigado en el espíritu de la Baja Sur", "The American standard, rooted in the spirit of Baja Sur")}
-              className="text-3xl sm:text-5xl lg:text-5xl xl:text-6xl font-literata font-light tracking-tight mb-8 text-white drop-shadow-md"
+              className="text-3xl sm:text-5xl lg:text-5xl xl:text-6xl font-literata font-light tracking-tight mb-8 text-white drop-shadow-sm"
               type="word"
               delayChildren={0.4}
             />
@@ -90,8 +88,8 @@ export default function NosotrosPage() {
               className="animate-on-scroll group"
             >
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 rounded-xl bg-page-text/5 border border-page-text/5 flex items-center justify-center transition-transform duration-500 group-hover:translate-x-1">
-                  <Target className="w-5 h-5 text-page-text" />
+                <div className="w-10 h-10 rounded-xl !bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center transition-transform duration-500 group-hover:translate-x-1 shadow-sm">
+                  <Target className="w-5 h-5 !text-brand-blue" />
                 </div>
                 <span className="font-montserrat font-medium text-sm text-page-text tracking-[0.2em] uppercase">{l("Nuestra Misión", "Our Mission")}</span>
               </div>
@@ -106,10 +104,10 @@ export default function NosotrosPage() {
               whileInView={{ opacity: 1, scale: 1, filter: "none" }}
               viewport={{ once: true, amount: 0.1 }}
               transition={{ duration: 1.5, delay: 0.2, ease: [0.2, 0.65, 0.3, 0.9] }}
-              className="animate-on-scroll relative aspect-[4/3] rounded-none overflow-hidden bg-page-text/[0.03] border border-page-text/10 shadow-2xl shadow-black/5"
+              className="animate-on-scroll relative aspect-[4/3] rounded-none overflow-hidden bg-page-text/[0.03] border border-page-text/10 shadow-sm shadow-black/5"
             >
               <Image src="/lpz.webp" alt="La Paz" fill className="object-cover" />
-              <div className="absolute inset-0 bg-gradient-to-tr from-brand-orange/5 to-brand-blue/5 mix-blend-overlay opacity-50" />
+              <div className="absolute inset-0 bg-gradient-to-tr from-brand-blue/10 to-brand-blue/5 mix-blend-overlay opacity-50" />
             </motion.div>
           </div>
         </div>
@@ -129,7 +127,7 @@ export default function NosotrosPage() {
             variants={fadeUp}
             className="animate-on-scroll mb-20 lg:mb-24"
           >
-            <h2 className="text-4xl sm:text-5xl lg:text-4xl xl:text-5xl font-literata font-light text-page-text">{l("Nuestros Pilares", "Our Pillars")}</h2>
+          <h2 className="text-4xl sm:text-5xl lg:text-4xl xl:text-5xl font-literata font-light text-page-text">{l("Nuestros Pilares", "Our Pillars")}</h2>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 lg:gap-x-20 gap-y-16">
@@ -176,11 +174,11 @@ export default function NosotrosPage() {
                       damping: 15,
                       delay: i * 0.15 + 0.3
                     }}
-                    className="w-full h-full rounded-full bg-brand-blue/10 flex items-center justify-center transition-all duration-500 group-hover:scale-105 group-hover:bg-brand-blue/20"
+                    className="w-full h-full rounded-full !bg-brand-blue/15 flex items-center justify-center transition-all duration-500 group-hover:scale-105 group-hover:bg-brand-blue/25 shadow-sm"
                   >
                     <v.icon
-                      className="w-8 h-8 sm:w-10 sm:h-10 text-brand-blue"
-                      strokeWidth={1.2}
+                      className="w-8 h-8 sm:w-10 sm:h-10 !text-brand-blue"
+                      strokeWidth={1.5}
                     />
                   </motion.div>
                 </div>
@@ -205,7 +203,7 @@ export default function NosotrosPage() {
             variants={fadeUp}
             className="animate-on-scroll text-center mb-20 lg:mb-28"
           >
-            <span className="font-montserrat font-medium text-sm text-brand-blue/60 tracking-[0.2em] uppercase block mb-4">{l("Conócenos", "Get to know us")}</span>
+            <span className="font-montserrat font-medium text-sm !text-brand-blue/60 tracking-[0.2em] uppercase block mb-4">{l("Conócenos", "Get to know us")}</span>
             <h2 className="text-3xl sm:text-5xl lg:text-4xl xl:text-5xl font-literata font-light text-page-text italic">{l("El Equipo", "The Team")}</h2>
           </motion.div>
 
@@ -245,7 +243,7 @@ export default function NosotrosPage() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </div>
                 <h3 className="text-xl font-literata font-medium text-page-text mb-1">{member.name}</h3>
-                <p className="font-montserrat font-medium text-[10px] text-brand-blue uppercase tracking-widest mb-3">{member.role}</p>
+                <p className="font-montserrat font-medium text-[10px] !text-brand-blue uppercase tracking-widest mb-3">{member.role}</p>
                 <p className="font-montserrat font-light text-xs text-page-text/80 leading-relaxed max-w-[95%]">{member.desc}</p>
               </motion.div>
             ))}
@@ -268,7 +266,7 @@ export default function NosotrosPage() {
             <p className="text-page-text font-montserrat font-light text-lg max-w-xl mx-auto mb-10">{l("Conócenos y descubre cómo estamos transformando el paisaje residencial de La Paz.", "Get to know us and discover how we are transforming the residential landscape of La Paz.")}</p>
             <Link
               href="/"
-              className="inline-flex items-center gap-2 rounded-full bg-page-text text-page-bg px-8 py-3 text-sm font-montserrat font-semibold hover:bg-page-text-hover transition-all shadow-lg shadow-page-text/15"
+              className="inline-flex items-center gap-2 rounded-full bg-page-text text-page-bg px-8 py-3 text-sm font-montserrat font-semibold hover:bg-page-text-hover transition-all shadow-sm shadow-page-text/15"
             >{l("Ver proyectos", "View projects")}
               <ArrowRight className="w-4 h-4" />
             </Link>
