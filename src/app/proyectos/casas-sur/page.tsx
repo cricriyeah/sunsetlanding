@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { motion, AnimatePresence, useScroll } from "framer-motion";
 import {
   Clock,
@@ -38,21 +39,10 @@ import { CinematicHeading } from "@/components/ui/CinematicHeading";
 import { useLightbox } from "@/context/LightboxContext";
 import { useLanguage } from "@/context/LanguageContext";
 import { PhotoCollage } from "@/components/PhotoCollage";
+import { standardFadeUp, standardViewport } from "@/utils/animations";
 
 /* ────────────────────────────── animations ────────────────────────────── */
-const fadeUp = {
-  hidden: { opacity: 0, y: 20, filter: "none" },
-  visible: (delay: number) => ({
-    opacity: 1,
-    y: 0,
-    filter: "none",
-    transition: {
-      duration: 0.8,
-      delay,
-      ease: [0.2, 0.65, 0.3, 0.9] as [number, number, number, number],
-    },
-  }),
-};
+
 
 function RevealLine({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   return (
@@ -61,7 +51,6 @@ function RevealLine({ children, delay = 0 }: { children: React.ReactNode; delay?
         className="block"
         initial={{ y: "100%", opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
-        viewport={{ once: true }}
         transition={{ duration: 0.75, delay, ease: [0.22, 0.65, 0.3, 0.9] }}
       >
         {children}
@@ -74,11 +63,6 @@ function RevealLine({ children, delay = 0 }: { children: React.ReactNode; delay?
 const WA_NUMBER = "5216122134747"; // ← reemplazar con número real
 
 const getProfiles = (l: any) => [
-  {
-    icon: MapPin,
-    title: l("Tengo terreno ejidal", "I have ejidal land"),
-    desc: l("Instalamos en terreno ejidal o privado, sin trámites extra.", "We install on ejidal or private land, without extra paperwork."),
-  },
   {
     icon: Zap,
     title: l("Quiero vivir ya", "I want to live now"),
@@ -103,6 +87,10 @@ const getModels = (l: any) => [
     cardName: l("Casa Esencial (20 pies)", "Essential House (20 feet)"),
     price: l("$300 mil – 420 mil MXN", "$300k – 420k MXN"),
     images: [
+      "/casasur/basico/basico_new1.webp",
+      "/casasur/basico/basico_new2.webp",
+      "/casasur/basico/basico_new3.webp",
+      "/casasur/basico/basico_new4.webp",
       "/casasur/basico/Gemini_Generated_Image_cr9dwbcr9dwbcr9d.webp",
       "/casasur/basico/Gemini_Generated_Image_s6wt45s6wt45s6wt.webp",
       "/casasur/basico/Gemini_Generated_Image_xwtt18xwtt18xwtt.webp",
@@ -110,7 +98,7 @@ const getModels = (l: any) => [
       "/casasur/basico/bano.webp",
       "/casasur/basico/interior.webp",
     ],
-    video: "https://ik.imagekit.io/ymn210s8o/videobasico.mp4",
+    video: "https://ik.imagekit.io/ymn210s8o/videobasicnuevo.mp4",
     ideal: l("Primera vivienda o renta fija", "First home or fixed rent"),
     profit: l("Renta estimada: $8,000–$12,000/mes", "Estimated rent: $8,000–$12,000/month"),
     includes: [
@@ -172,6 +160,28 @@ const getModels = (l: any) => [
       l("Diseño paisajístico incluido", "Landscaping design included"),
     ],
   },
+  {
+    id: "business",
+    name: l("Negocios", "Business"),
+    cardName: l("Modelo Comercial (Negocios)", "Commercial Model (Business)"),
+    price: l("$400 mil – 850 mil MXN", "$400k – 850k MXN"),
+    images: [
+      "/casasur/negocios/negocio1.webp",
+      "/casasur/negocios/negocio2.webp",
+      "/casasur/negocios/negocio3.webp",
+      "/casasur/negocios/negocio4.webp",
+    ],
+    video: "",
+    ideal: l("Oficinas, sucursales y emprendedores", "Offices, branches and entrepreneurs"),
+    profit: l("Renta comercial: $15,000–$30,000/mes", "Commercial rent: $15,000–$30,000/month"),
+    includes: [
+      l("Planta libre personalizable", "Customizable open floor plan"),
+      l("Medio baño incluido", "Half bath included"),
+      l("Piso de alto tráfico", "High traffic flooring"),
+      l("Aislamiento térmico y acústico", "Thermal & acoustic insulation"),
+      l("Instalación eléctrica reforzada", "Upgraded electrical setup"),
+    ],
+  },
 ];
 
 const getExtraAmenities = (l: any) => [
@@ -182,6 +192,7 @@ const getExtraAmenities = (l: any) => [
   { icon: Waves, title: l("Alberca", "Pool") },
   { icon: Sun, title: l("Paneles Solares", "Solar Panels") },
   { icon: Lock, title: l("Domótica y Cerraduras", "Home automation & Locks") },
+  { icon: Zap, title: l("Aire acondicionado", "Air conditioning") },
 ];
 
 const getProcessSteps = (l: any) => [
@@ -268,7 +279,7 @@ const getGalleryPhotos = (l: any) => [
 function FAQItem({ q, a, pdf }: { q: string, a: string, pdf?: { es: string, en: string } }) {
   const [isOpen, setIsOpen] = useState(false);
   const { l } = useLanguage();
-  
+
   return (
     <div className="border-b border-page-text/10">
       <button
@@ -290,11 +301,11 @@ function FAQItem({ q, a, pdf }: { q: string, a: string, pdf?: { es: string, en: 
               <p className="font-montserrat text-sm font-light text-page-text/70 leading-relaxed">
                 {a}
               </p>
-              
+
               {pdf && (
                 <div className="mt-4">
-                  <a 
-                    href={l(pdf.es, pdf.en)} 
+                  <a
+                    href={l(pdf.es, pdf.en)}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2.5 px-4 py-2 rounded-xl bg-page-text/5 text-page-text hover:text-brand-blue hover:bg-brand-blue/5 transition-all text-[11px] font-montserrat font-bold uppercase tracking-wider group"
@@ -316,6 +327,7 @@ export default function CasasSurPage() {
   const { l } = useLanguage();
   const [activeTab, setActiveTab] = useState<number | "extras">(0);
   const [activeMediaIndex, setActiveMediaIndex] = useState(0);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const { openLightbox } = useLightbox();
   const profiles = getProfiles(l);
   const models = getModels(l);
@@ -338,6 +350,7 @@ export default function CasasSurPage() {
   const handleModelChange = (i: number | "extras") => {
     setActiveTab(i);
     setActiveMediaIndex(0);
+    setIsDropdownOpen(false);
   };
 
   const waLink = (model?: string) => {
@@ -459,16 +472,14 @@ export default function CasasSurPage() {
                   <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                 </span>
               </a>
-              <a
-                href={waLink()}
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link
+                href="/casas-sur-cotizacion"
                 className="group relative overflow-hidden rounded-full inline-flex items-center justify-center font-montserrat font-semibold transition-all h-11 px-6 text-sm bg-brand-blue/10 text-brand-blue/90 border border-brand-blue/20 hover:bg-brand-blue/20"
               >
                 <span className="relative z-10 flex items-center">
-                  <MessageCircle className="mr-2 h-4 w-4" />{l("Cotizar ahora", "Quote now")}
+                  <ArrowRight className="mr-2 h-4 w-4" />{l("Cotizar ahora", "Quote now")}
                 </span>
-              </a>
+              </Link>
             </motion.div>
           </div>
         </div>
@@ -497,31 +508,30 @@ export default function CasasSurPage() {
       {/* ══════════════════════════════════════════════════════════════════
           2. PARA QUIÉN ES
           ══════════════════════════════════════════════════════════════ */}
-      <section className="relative py-24 sm:py-32 lg:py-52 xl:py-64 3xl:py-56">
+      <section className="relative py-24 sm:py-32">
         <div className="max-w-7xl mx-auto px-6 lg:px-20 xl:px-28 3xl:px-24">
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.1 }}
-            variants={fadeUp}
-            custom={0}
+            viewport={standardViewport}
+            variants={standardFadeUp}
             className="animate-on-scroll text-center mb-16"
           >
             <span className="font-montserrat font-medium text-sm text-brand-blue/80 tracking-[0.2em] uppercase block mb-3">{l("PERFILES", "PROFILES")}</span>
             <h2 className="text-3xl sm:text-5xl lg:text-4xl xl:text-5xl font-literata font-light text-page-text italic">{l("¿Por qué elegir Casas Sur?", "Why choose Casas Sur?")}</h2>
           </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {profiles.map((p, i) => (
               <motion.div
                 key={p.title}
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: true, margin: "-60px" }}
+                viewport={standardViewport}
+                variants={standardFadeUp}
                 custom={i * 0.1}
                 whileHover={{ y: -8, transition: { duration: 0.3 } }}
-                variants={fadeUp}
-                className="animate-on-scroll group shadow-sm p-8 rounded-3xl bg-page-bg-alt border border-page-text/5 hover:shadow-sm hover:shadow-page-text/10 will-change-transform"
+                className="animate-on-scroll group shadow-sm p-8 rounded-3xl bg-white border border-page-text/5 hover:shadow-sm hover:shadow-page-text/10 scale-100 hover:scale-[1.02] transition-all duration-500 will-change-transform"
               >
                 <div className="w-14 h-14 rounded-2xl bg-brand-blue/10 flex items-center justify-center mb-5 transition-transform duration-500 border border-brand-blue/20 group-hover:translate-x-1">
                   <p.icon className="w-7 h-7 text-brand-blue/80 group-hover:scale-110 transition-transform" />
@@ -539,14 +549,13 @@ export default function CasasSurPage() {
       {/* ══════════════════════════════════════════════════════════════════
           3. ROI STRIP (Beneficios mudados aquí)
           ══════════════════════════════════════════════════════════════ */}
-      <section className="relative py-24 sm:py-32 lg:py-52 xl:py-64 3xl:py-56 bg-page-bg">
+      <section className="relative py-24 sm:py-32 bg-page-bg">
         <div className="max-w-7xl mx-auto px-6 lg:px-20 xl:px-28 3xl:px-24">
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.1 }}
-            variants={fadeUp}
-            custom={0}
+            viewport={standardViewport}
+            variants={standardFadeUp}
             className="animate-on-scroll text-center mb-16"
           >
             <span className="font-montserrat font-medium text-xs text-brand-blue/80 tracking-[0.2em] uppercase block mb-3">{l("BENEFICIOS", "BENEFITS")}</span>
@@ -575,10 +584,10 @@ export default function CasasSurPage() {
                 <motion.div
                   initial="hidden"
                   whileInView="visible"
-                  viewport={{ once: true, margin: "-60px" }}
+                  viewport={standardViewport}
+                  variants={standardFadeUp}
                   custom={i * 0.15}
                   whileHover={{ y: -8, transition: { duration: 0.3 } }}
-                  variants={fadeUp}
                   className="animate-on-scroll flex-1 text-center group"
                 >
                   <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-brand-green/10 text-brand-green/80 mb-6 group-hover:scale-110 transition-transform duration-500 border border-brand-green/20">
@@ -601,14 +610,13 @@ export default function CasasSurPage() {
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeUp}
-            custom={0.3}
+            viewport={standardViewport}
+            variants={standardFadeUp}
             className="animate-on-scroll flex justify-center"
           >
-            <div className="inline-flex flex-col sm:flex-row items-center justify-center gap-2 px-6 py-3 sm:py-2.5 rounded-3xl sm:rounded-full bg-page-bg-alt text-page-text font-montserrat text-sm sm:text-base shadow-sm shadow-black/5 text-center sm:text-left">
+            <div className="inline-flex flex-col sm:flex-row items-center justify-center gap-2 px-6 py-3 sm:py-2.5 rounded-3xl sm:rounded-full bg-white text-page-text font-montserrat text-sm sm:text-base shadow-sm shadow-black/5 text-center sm:text-left">
               <MapPin className="w-4 h-4 shrink-0" />
-              <span className="max-w-[260px] sm:max-w-none">{l("Instalamos en terreno ejidal o privado en toda BCS.", "We install on ejidal or private land anywhere in BCS.")}</span>
+              <span className="max-w-[260px] sm:max-w-none">{l("Instalamos en tu terreno privado en toda BCS.", "We install on your private land anywhere in BCS.")}</span>
             </div>
           </motion.div>
         </div>
@@ -617,44 +625,89 @@ export default function CasasSurPage() {
       {/* ══════════════════════════════════════════════════════════════════
           4. MODELOS & VIDEOS (Nueva Interfaz) + Amenidades Compactas
           ══════════════════════════════════════════════════════════════ */}
-      <section id="modelos" className="relative scroll-mt-20 py-24 sm:py-32 lg:py-52 xl:py-64 3xl:py-56 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 lg:px-20 xl:px-28 3xl:px-24">
+      <section id="modelos" className="relative scroll-mt-20 py-24 sm:py-32 overflow-hidden">
+        <div className="max-w-[1600px] mx-auto px-6 lg:px-12 xl:px-20">
           {/* Header */}
           <div className="text-center mb-12 mt-4">
             <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.1 }}
-              variants={fadeUp}
-              custom={0}
             >
               <span className="font-montserrat font-medium text-sm text-brand-blue/80 tracking-[0.2em] uppercase block mb-3">{l("Catálogo Interactivo", "Interactive Catalog")}</span>
               <h2 className="text-3xl sm:text-5xl lg:text-4xl xl:text-5xl font-literata font-light text-page-text italic mb-8">{l("Un modelo para cada visión", "A model for every vision")}</h2>
 
-              {/* Tabs */}
-              <div className="flex flex-col items-center gap-4">
-                <div className="flex flex-wrap justify-center gap-2 sm:gap-4 p-1.5 rounded-full bg-page-text/5 inline-flex backdrop-blur-md mb-2">
-                  {models.map((m, i) => (
-                    <button
-                      key={m.id}
-                      onClick={() => handleModelChange(i)}
-                      className={`px-4 sm:px-6 py-2 sm:py-3 whitespace-nowrap rounded-full font-montserrat text-xs sm:text-sm font-semibold transition-all duration-300 ${activeTab === i
-                        ? "bg-page-text text-white shadow-sm shadow-page-text/20 scale-105"
-                        : "text-page-text/70 hover:text-page-text hover:bg-page-text/5"
-                        }`}
-                    >
-                      {m.name}
-                    </button>
-                  ))}
+              {/* Tabs / Dropdown Navegación */}
+              <div className="flex flex-col items-center gap-4 relative z-50">
+                {/* Desktop Version (Pills) */}
+                <div className="hidden sm:flex flex-col items-center gap-4">
+                  <div className="flex flex-wrap justify-center gap-2 sm:gap-4 p-1.5 rounded-full bg-page-text/5 inline-flex backdrop-blur-md mb-2">
+                    {models.map((m, i) => (
+                      <button
+                        key={m.id}
+                        onClick={() => handleModelChange(i)}
+                        className={`px-4 sm:px-6 py-2 sm:py-3 whitespace-nowrap rounded-full font-montserrat text-xs sm:text-sm font-semibold transition-all duration-300 ${activeTab === i
+                          ? "bg-page-text text-white shadow-sm shadow-page-text/20 scale-105"
+                          : "text-page-text/70 hover:text-page-text hover:bg-page-text/5"
+                          }`}
+                      >
+                        {m.name}
+                      </button>
+                    ))}
+                  </div>
+
+                  <button
+                    onClick={() => handleModelChange("extras")}
+                    className={`px-5 py-2 rounded-full font-montserrat text-xs font-semibold uppercase tracking-wider transition-all duration-300 border ${activeTab === "extras"
+                      ? "bg-brand-blue border-brand-blue text-white shadow-sm shadow-brand-blue/20 scale-105"
+                      : "bg-transparent border-page-text/20 text-page-text/70 hover:border-brand-blue/50 hover:text-brand-blue"
+                      }`}
+                  >{l("Ver Amenidades Extra", "View Extra Amenities")}</button>
                 </div>
 
-                <button
-                  onClick={() => handleModelChange("extras")}
-                  className={`px-5 py-2 rounded-full font-montserrat text-xs font-semibold uppercase tracking-wider transition-all duration-300 border ${activeTab === "extras"
-                    ? "bg-brand-blue border-brand-blue text-white shadow-sm shadow-brand-blue/20 scale-105"
-                    : "bg-transparent border-page-text/20 text-page-text/70 hover:border-brand-blue/50 hover:text-brand-blue"
-                    }`}
-                >{l("Ver Amenidades Extra", "View Extra Amenities")}</button>
+                {/* Mobile Version (Dropdown) */}
+                <div className="sm:hidden w-full relative flex flex-col gap-3">
+                  <span className="text-[10px] font-montserrat font-medium uppercase tracking-[0.3em] text-page-text text-center">
+                    {l("Elija su modelo", "Choose your model")}
+                  </span>
+                  <button
+                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                    className="w-full flex items-center justify-between px-6 py-4 bg-transparent border border-page-text text-page-text font-montserrat font-normal text-sm transition-all rounded-full shadow-none"
+                  >
+                    <span>
+                      {activeTab === "extras" 
+                        ? l("Amenidades Extra", "Extra Amenities") 
+                        : models[activeTab]?.name}
+                    </span>
+                    <ChevronDown className={`w-4 h-4 text-page-text transition-transform duration-300 ${isDropdownOpen ? "rotate-180" : ""}`} />
+                  </button>
+
+                  <AnimatePresence>
+                    {isDropdownOpen && (
+                      <motion.div
+                        initial={{ opacity: 0, y: -5, scale: 0.98 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: -5, scale: 0.98 }}
+                        transition={{ duration: 0.2 }}
+                        className="absolute top-full left-[-1px] right-[-1px] mt-2 bg-page-bg shadow-2xl overflow-hidden flex flex-col z-[60] rounded-3xl"
+                      >
+                        {models.map((m, i) => (
+                          <button
+                            key={m.id}
+                            onClick={() => handleModelChange(i)}
+                            className={`px-6 py-4 text-left font-montserrat text-sm border-b border-page-text/10 transition-colors ${activeTab === i ? "bg-page-text/5 font-bold text-page-text" : "text-page-text hover:bg-page-text/5"}`}
+                          >
+                            {m.name}
+                          </button>
+                        ))}
+                        <button
+                          onClick={() => handleModelChange("extras")}
+                          className={`px-6 py-4 text-left font-montserrat text-sm font-semibold flex items-center gap-2 transition-colors ${activeTab === "extras" ? "bg-page-text/5 text-page-text" : "text-page-text hover:bg-page-text/5"}`}
+                        >
+                          <Plus className={`w-4 h-4 ${activeTab === "extras" ? "text-page-text" : "text-page-text"}`} />
+                          {l("Amenidades Extra", "Extra Amenities")}
+                        </button>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
               </div>
             </motion.div>
           </div>
@@ -700,14 +753,12 @@ export default function CasasSurPage() {
                   </div>
 
                   <div className="flex justify-center mt-6">
-                    <a
-                      href={waLink("Extras Opcionales")}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                    <Link
+                      href="/casas-sur-cotizacion"
                       className="group overflow-hidden rounded-full inline-flex items-center justify-center font-montserrat font-semibold transition-all h-12 px-8 bg-page-text text-white hover:bg-page-text/90 shadow-sm"
                     >
-                      <MessageCircle className="mr-2 h-4 w-4" />{l("Consultar Extras", "Consult Extras")}
-                    </a>
+                      <ArrowRight className="mr-2 h-4 w-4" />{l("Consultar Extras", "Consult Extras")}
+                    </Link>
                   </div>
                 </div>
               </motion.div>
@@ -718,12 +769,12 @@ export default function CasasSurPage() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.5, ease: "easeInOut" }}
-                className="flex flex-col lg:flex-row gap-6 mb-12"
+                className="flex flex-col lg:flex-row gap-8 mb-12"
               >
                 {/* Columna Izquierda: Media & Thumbnails */}
-                <div className="w-full lg:w-[60%] xl:w-[65%] flex flex-col gap-4">
+                <div className="w-full lg:w-[70%] xl:w-[75%] flex flex-col gap-4">
                   {/* Media Principal (Carrusel) */}
-                  <div className="w-full h-[50vh] sm:h-[55vh] lg:h-[50vh] xl:h-[55vh] relative overflow-hidden bg-black/5 shadow-sm shadow-black/10 group">
+                  <div className="w-full h-[55vh] sm:h-[65vh] lg:h-[65vh] xl:h-[75vh] 3xl:h-[70vh] relative overflow-hidden bg-black/5 shadow-md shadow-black/10 group">
                     <AnimatePresence mode="wait">
                       <motion.div
                         key={activeMediaIndex}
@@ -828,7 +879,7 @@ export default function CasasSurPage() {
                 </div>
 
                 {/* Columna Derecha: Specs */}
-                <div className="w-full lg:w-[40%] xl:w-[35%] flex flex-col gap-6">
+                <div className="w-full lg:w-[30%] xl:w-[25%] flex flex-col gap-6">
                   <div className="bg-white border border-page-text/8 rounded-3xl shadow-sm flex-1 flex flex-col overflow-hidden">
 
                     {/* Header: Model name + badge */}
@@ -842,19 +893,38 @@ export default function CasasSurPage() {
                     </div>
 
                     {/* Price block */}
-                    <div className="mx-6 sm:mx-8 px-5 py-4 rounded-2xl bg-gradient-to-br from-page-text/[0.03] to-brand-blue/[0.05] border border-page-text/5 mb-2">
-                      <span className="text-[10px] font-montserrat font-bold uppercase tracking-[0.25em] text-brand-blue/50 block mb-1">
-                        {l("Inversión", "Investment")}
-                      </span>
-                      <div className="flex items-baseline gap-1.5 whitespace-nowrap">
-                        <span className="text-2xl sm:text-[1.7rem] font-literata font-semibold text-page-text tracking-tight leading-tight">
-                          {activeData.price.replace(" MXN", "")}
-                        </span>
-                        <span className="text-xs sm:text-sm font-montserrat font-bold text-brand-blue/40 uppercase">
-                          MXN
-                        </span>
+                    {activeData.id === "business" ? (
+                      <div className="mx-6 sm:mx-8 mb-2">
+                        <Link
+                          href="/casas-sur-cotizacion"
+                          className="w-full flex items-center justify-between px-5 py-4 rounded-2xl bg-page-text/5 border border-page-text/10 hover:bg-page-text/10 transition-all text-page-text group"
+                        >
+                          <div className="flex flex-col text-left">
+                            <span className="text-[10px] font-montserrat font-bold uppercase tracking-[0.25em] opacity-80 mb-1">
+                              {l("Inversión a medida", "Custom Investment")}
+                            </span>
+                            <span className="text-lg font-literata font-medium leading-tight">
+                              {l("Cotizar este modelo", "Quote this model")}
+                            </span>
+                          </div>
+                          <ArrowRight className="w-5 h-5 opacity-70 group-hover:translate-x-1 transition-transform" />
+                        </Link>
                       </div>
-                    </div>
+                    ) : (
+                      <div className="mx-6 sm:mx-8 px-5 py-4 rounded-2xl bg-gradient-to-br from-page-text/[0.03] to-brand-blue/[0.05] border border-page-text/5 mb-2">
+                        <span className="text-[10px] font-montserrat font-bold uppercase tracking-[0.25em] text-brand-blue/50 block mb-1">
+                          {l("Inversión", "Investment")}
+                        </span>
+                        <div className="flex items-baseline gap-1.5 whitespace-nowrap">
+                          <span className="text-2xl sm:text-[1.7rem] font-literata font-semibold text-page-text tracking-tight leading-tight">
+                            {activeData.price.replace(" MXN", "")}
+                          </span>
+                          <span className="text-xs sm:text-sm font-montserrat font-bold text-brand-blue/40 uppercase">
+                            MXN
+                          </span>
+                        </div>
+                      </div>
+                    )}
 
                     {/* Rent estimate */}
                     <div className="mx-6 sm:mx-8 py-3 flex items-center gap-2">
@@ -895,16 +965,16 @@ export default function CasasSurPage() {
                     </div>
 
                     {/* CTA */}
-                    <div className="px-6 sm:px-8 pb-6 sm:pb-8 pt-2">
-                      <a
-                        href={waLink(activeData.name)}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="w-full group overflow-hidden rounded-full inline-flex items-center justify-center font-montserrat font-semibold transition-all h-13 px-6 text-sm bg-page-text text-white hover:bg-page-text/90 shadow-sm hover:shadow-sm hover:scale-[1.02] active:scale-[0.98]"
-                      >
-                        <MessageCircle className="mr-2 h-4 w-4" />{l("Cotizar este modelo", "Quote this model")}
-                      </a>
-                    </div>
+                    {activeData.id !== "business" && (
+                      <div className="px-6 sm:px-8 pb-6 sm:pb-8 pt-2">
+                        <Link
+                          href="/casas-sur-cotizacion"
+                          className="w-full group overflow-hidden rounded-full inline-flex items-center justify-center font-montserrat font-semibold transition-all h-13 px-6 text-sm bg-page-text text-white hover:bg-page-text/90 shadow-sm hover:shadow-sm hover:scale-[1.02] active:scale-[0.98]"
+                        >
+                          <ArrowRight className="mr-2 h-4 w-4" />{l("Cotizar este modelo", "Quote this model")}
+                        </Link>
+                      </div>
+                    )}
                   </div>
                 </div>
               </motion.div>
@@ -919,14 +989,13 @@ export default function CasasSurPage() {
       {/* ══════════════════════════════════════════════════════════════════
           5. PROCESO
           ══════════════════════════════════════════════════════════════ */}
-      <section className="relative py-24 sm:py-32 lg:py-52 xl:py-64 3xl:py-56 overflow-hidden bg-page-bg text-page-text">
+      <section className="relative py-24 sm:py-32 overflow-hidden bg-page-bg text-page-text">
         <div className="max-w-7xl mx-auto px-6 lg:px-20 xl:px-28 3xl:px-24 relative z-10">
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.1 }}
-            variants={fadeUp}
-            custom={0}
+            viewport={standardViewport}
+            variants={standardFadeUp}
             className="animate-on-scroll text-center mb-16"
           >
             <span className="font-montserrat font-medium text-sm text-brand-blue/80 tracking-[0.2em] uppercase block mb-3">{l("Tu Camino", "Your Path")}</span>
@@ -937,12 +1006,11 @@ export default function CasasSurPage() {
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: "-60px" }}
-            variants={fadeUp}
-            custom={0.1}
+            viewport={standardViewport}
+            variants={standardFadeUp}
             className="animate-on-scroll flex justify-center mb-12"
           >
-            <div className="inline-flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 px-6 py-4 sm:py-3 rounded-3xl sm:rounded-full bg-page-bg-alt border border-page-text/10 text-center sm:text-left shadow-sm">
+            <div className="inline-flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 px-6 py-4 sm:py-3 rounded-3xl sm:rounded-full bg-white border border-page-text/10 text-center sm:text-left shadow-sm">
               <DollarSign className="w-5 h-5 text-brand-green/80 shrink-0" />
               <span className="font-montserrat text-xs sm:text-sm font-semibold leading-tight max-w-[240px] sm:max-w-none text-page-text">{l("Con $10,000 MXN de depósito iniciamos tu diseño.", "With a $10,000 MXN deposit we start your design.")}</span>
             </div>
@@ -964,7 +1032,6 @@ export default function CasasSurPage() {
                   className="text-brand-blue/40"
                   initial={{ pathLength: 0, opacity: 0 }}
                   whileInView={{ pathLength: 1, opacity: 1 }}
-                  viewport={{ once: true }}
                   transition={{ duration: 1.5, ease: "easeInOut" }}
                 />
               </svg>
@@ -974,7 +1041,6 @@ export default function CasasSurPage() {
               <motion.div
                 initial={{ height: 0 }}
                 whileInView={{ height: "100%" }}
-                viewport={{ once: true }}
                 transition={{ duration: 2, ease: "easeInOut" }}
                 className="w-full bg-gradient-to-b from-brand-blue via-brand-blue/50 to-transparent"
               />
@@ -984,11 +1050,7 @@ export default function CasasSurPage() {
               {processSteps.map((step, i) => (
                 <motion.div
                   key={step.title}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true, margin: "-60px" }}
                   custom={i * 0.15}
-                  variants={fadeUp}
                   className={`animate-on-scroll relative text-center ${i % 2 === 0 ? "lg:mt-[200px]" : "lg:mt-0"}`}
                 >
                   <div className="relative mb-6">
@@ -997,14 +1059,14 @@ export default function CasasSurPage() {
                       transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: i * 0.5 }}
                       className="relative z-10"
                     >
-                      <div className="w-16 h-16 rounded-2xl bg-page-bg border-2 border-brand-blue/10 flex items-center justify-center mx-auto relative z-10 group transition-all duration-300 hover:border-brand-blue/30 shadow-sm">
-                        <step.icon className="w-7 h-7 text-brand-blue/80 group-hover:scale-110 transition-transform" />
+                      <div className="w-16 h-16 rounded-2xl bg-brand-blue border-2 border-brand-blue/20 flex items-center justify-center mx-auto relative z-10 group transition-all duration-300 shadow-sm">
+                        <step.icon className="w-7 h-7 text-white group-hover:scale-110 transition-transform" />
                       </div>
                     </motion.div>
                   </div>
 
                   <div className="relative group/card cursor-default">
-                    <div className="relative p-6 px-7 rounded-[2rem] bg-page-bg-alt border border-page-text/5 transition-card duration-500 hover:-translate-y-1 hover:bg-page-bg-alt/80 hover:shadow-sm">
+                    <div className="relative p-6 px-7 rounded-[2rem] bg-white border border-page-text/5 transition-card duration-500 hover:-translate-y-1 hover:shadow-sm">
                       <span className="font-montserrat font-bold text-[10px] text-page-text/80 tracking-[0.3em] uppercase block mb-4">
                         {l("Paso", "Step")} {i + 1}
                       </span>
@@ -1039,22 +1101,12 @@ export default function CasasSurPage() {
       <section className="relative py-16 sm:py-24 lg:py-20 bg-page-bg">
         <div className="max-w-5xl mx-auto px-6 lg:px-8">
           <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.1 }}
-            variants={fadeUp}
-            custom={0}
             className="mb-8"
           >
             <h2 className="text-3xl sm:text-5xl font-literata font-light italic text-page-text">{l("¿Tienes preguntas?", "Do you have questions?")}</h2>
           </motion.div>
 
           <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeUp}
-            custom={0.2}
             className="border-t border-page-text/10"
           >
             {faqs.map((faq, i) => (
@@ -1067,14 +1119,13 @@ export default function CasasSurPage() {
       {/* ══════════════════════════════════════════════════════════════════
           7. CTA FINAL
           ══════════════════════════════════════════════════════════════ */}
-      <section className="relative py-16 sm:py-24 lg:py-16 text-center bg-page-bg-alt text-page-text overflow-hidden">
+      <section className="relative py-24 sm:py-32 text-center bg-white text-page-text overflow-hidden">
         <div className="max-w-3xl mx-auto px-6 relative z-10">
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.1 }}
-            variants={fadeUp}
-            custom={0}
+            viewport={standardViewport}
+            variants={standardFadeUp}
             className="animate-on-scroll"
           >
             <h2 className="text-3xl sm:text-5xl lg:text-6xl font-literata font-light mb-6 leading-tight">{l("¿Hablamos?", "Sounds good?")}</h2>
@@ -1085,17 +1136,15 @@ export default function CasasSurPage() {
             <p className="text-page-text/60 font-montserrat font-light text-base max-w-md mx-auto mb-10">{l("Agenda tu sesión de descubrimiento y recibe tu cotización en menos de 5 días.", "Schedule your discovery session and receive your quote in less than 5 days.")}</p>
 
             <div className="flex flex-wrap justify-center gap-4">
-              <a
-                href={waLink()}
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link
+                href="/casas-sur-cotizacion"
                 className="group relative overflow-hidden rounded-full inline-flex items-center justify-center font-montserrat font-semibold transition-all h-12 px-8 text-sm bg-brand-sand text-page-text hover:bg-brand-sand/90"
               >
                 <span className="relative z-10 flex items-center">
-                  <MessageCircle className="mr-2 h-4 w-4" />
-                  WhatsApp
+                  <ArrowRight className="mr-2 h-4 w-4" />
+                  {l("Cotizar ahora", "Quote now")}
                 </span>
-              </a>
+              </Link>
               <a
                 href="#modelos"
                 className="group relative overflow-hidden rounded-full inline-flex items-center justify-center font-montserrat font-semibold transition-all h-12 px-8 text-sm border border-page-text/20 bg-transparent text-page-text hover:bg-page-text/5 hover:border-page-text/30"

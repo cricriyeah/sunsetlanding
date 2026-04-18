@@ -13,15 +13,10 @@ import { Button } from "@/components/ui/Button";
 import { PhotoCollage } from "@/components/PhotoCollage";
 import { CinematicHeading } from "@/components/ui/CinematicHeading";
 import { useLanguage } from "@/context/LanguageContext";
+import { standardFadeUp, standardViewport } from "@/utils/animations";
 
 // ─── Variantes globales ────────────────────────────────────────────────────
-const fadeUp = {
-  hidden: { opacity: 0, y: 20, filter: "none" },
-  visible: (delay: number) => ({
-    opacity: 1, y: 0, filter: "none",
-    transition: { duration: 0.8, delay, ease: [0.2, 0.65, 0.3, 0.9] as [number, number, number, number] },
-  }),
-};
+
 
 // ─── Datos ─────────────────────────────────────────────────────────────────
 const getBenefits = (l: any) => [
@@ -199,7 +194,6 @@ function ConceptSection() {
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0, filter: "none" }}
-            viewport={{ once: true, amount: 0.1 }}
             transition={{ duration: 1.2, ease: [0.32, 0, 0.1, 1] }}
             className="relative lg:order-1"
           >
@@ -228,21 +222,19 @@ function ConceptSection() {
 
           {/* COLUMNA B: TEXTO Y VALORES */}
           <div className="flex flex-col lg:order-2">
-            <motion.span
+            <motion.div
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true }}
-              variants={fadeUp}
-              custom={0}
+              viewport={standardViewport}
+              variants={standardFadeUp}
               className="animate-on-scroll font-montserrat font-medium text-[10px] sm:text-xs text-sc-primary tracking-[0.3em] uppercase block mb-6"
-            >{l("El Concepto", "The Concept")}</motion.span>
+            >{l("El Concepto", "The Concept")}</motion.div>
 
             <motion.div
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true }}
-              variants={fadeUp}
-              custom={0.2}
+              viewport={standardViewport}
+              variants={standardFadeUp}
               className="animate-on-scroll"
             >
               <h2 className="font-literata font-light text-3xl sm:text-5xl lg:text-4xl xl:text-5xl text-sc-text leading-tight mb-8">{l("Donde la vida", "Where life")}<br />
@@ -258,8 +250,8 @@ function ConceptSection() {
                   key={v.title}
                   initial="hidden"
                   whileInView="visible"
-                  viewport={{ once: true }}
-                  variants={fadeUp}
+                  viewport={standardViewport}
+                  variants={standardFadeUp}
                   custom={0.3 + i * 0.1}
                   whileHover={{ y: -8, transition: { duration: 0.3 } }}
                   className="animate-on-scroll group p-6 rounded-2xl bg-sc-primary/5 border border-sc-primary/20 hover:bg-sc-primary/15 transition-card duration-500"
@@ -293,7 +285,6 @@ function ModelsSection() {
           className="mb-16"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.6 }}
         >
           <span className="font-montserrat font-medium text-sm text-sc-primary-dark tracking-[0.2em] uppercase block">{l("Modelos disponibles", "Available models")}</span>
@@ -394,25 +385,26 @@ export default function SunsetCondominiosPage() {
       {/* ──── AMENIDADES ──── */}
       <section className="relative py-24 sm:py-32 lg:py-52 xl:py-64 3xl:py-56">
         <div className="max-w-7xl mx-auto px-6 lg:px-20 xl:px-28 3xl:px-24">
-          <motion.div
-            initial="hidden" whileInView="visible"
-            viewport={{ once: true, amount: 0.1 }}
-            custom={0} variants={fadeUp} className="animate-on-scroll mb-16"
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={standardViewport}
+            variants={standardFadeUp}
+            className="animate-on-scroll mb-16"
           >
             <span className="font-montserrat font-medium text-sm text-sc-contrast tracking-[0.2em] uppercase block mb-3">{l("Confort y Seguridad", "Comfort and Security")}</span>
             <h2 className="text-3xl sm:text-5xl lg:text-4xl xl:text-5xl font-literata font-light text-sc-text italic">{l("Servicios y Amenidades", "Services and Amenities")}</h2>
           </motion.div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {benefits.map((item, index) => (
-              <motion.div
-                key={item.title}
-                initial="hidden" whileInView="visible"
-                viewport={{ once: true, margin: "-60px" }}
-                custom={index * 0.1} variants={fadeUp}
-                whileHover={{ y: -8, transition: { duration: 0.3 } }}
-                className="animate-on-scroll group p-6 rounded-2xl bg-sc-primary/5 border border-sc-primary/20 hover:bg-sc-primary/20 transition-card duration-500 will-change-transform"
-              >
+            {benefits.map((item, i) => (
+                <motion.div
+                  key={item.title}
+                  initial="hidden" whileInView="visible" viewport={standardViewport} variants={standardFadeUp}
+                  custom={i * 0.15}
+                  whileHover={{ y: -5, transition: { duration: 0.3 } }}
+                  className="animate-on-scroll group p-6 rounded-2xl bg-sc-primary/5 border border-sc-primary/20 hover:bg-sc-primary/20 transition-card duration-500 will-change-transform"
+                >
                 <div className="w-10 h-10 rounded-xl bg-sc-primary/20 flex items-center justify-center mb-4 group-hover:bg-sc-primary/20 transition-all">
                   <item.icon className="w-5 h-5 text-sc-primary/80 group-hover:text-sc-primary transition-colors" />
                 </div>
@@ -427,10 +419,12 @@ export default function SunsetCondominiosPage() {
       {/* ──── PRECIOS ──── */}
       <section className="relative py-24 sm:py-32 lg:py-52 xl:py-64 3xl:py-56 bg-sc-bg-alt">
         <div className="max-w-7xl mx-auto px-6 lg:px-20 xl:px-28 3xl:px-24">
-          <motion.div
-            initial="hidden" whileInView="visible"
-            viewport={{ once: true, amount: 0.1 }}
-            custom={0} variants={fadeUp} className="animate-on-scroll text-center mb-16"
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={standardViewport}
+            variants={standardFadeUp}
+            className="animate-on-scroll text-center mb-16"
           >
             <span className="font-montserrat font-medium text-sm text-sc-primary-dark tracking-[0.2em] uppercase block mb-3">{l("Inversión", "Investment")}</span>
             <h2 className="text-3xl sm:text-5xl lg:text-4xl xl:text-5xl font-literata font-light text-sc-text italic mb-6">{l("Elige tu espacio", "Choose your space")}</h2>
@@ -440,11 +434,8 @@ export default function SunsetCondominiosPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-4xl mx-auto">
             {/* Planta Baja */}
             <motion.div
-              initial="hidden" whileInView="visible"
-              viewport={{ once: true, margin: "-50px" }}
-              custom={0.1} variants={fadeUp}
               whileHover={{ y: -8, transition: { duration: 0.3 } }}
-              className="animate-on-scroll relative rounded-2xl p-8 sm:p-10 flex flex-col bg-white/40 backdrop-blur-md border border-sc-primary/15 transition-card duration-500"
+              initial="hidden" whileInView="visible" viewport={standardViewport} variants={standardFadeUp} className="animate-on-scroll relative rounded-2xl p-8 sm:p-10 flex flex-col bg-white/40 backdrop-blur-md border border-sc-primary/15 transition-card duration-500"
             >
               <span className="font-montserrat font-medium text-sm text-sc-primary-dark tracking-[0.2em] uppercase block mb-3">Planta baja</span>
               <h3 className="text-2xl font-literata text-sc-text font-light mb-1">1 Recámara</h3>
@@ -477,11 +468,8 @@ export default function SunsetCondominiosPage() {
 
             {/* Planta Alta */}
             <motion.div
-              initial="hidden" whileInView="visible"
-              viewport={{ once: true, margin: "-50px" }}
-              custom={0.2} variants={fadeUp}
               whileHover={{ y: -8, transition: { duration: 0.3 } }}
-              className="animate-on-scroll relative rounded-2xl p-8 sm:p-10 flex flex-col bg-sc-primary/20 backdrop-blur-md border border-sc-primary/20 transition-card duration-500"
+              initial="hidden" whileInView="visible" viewport={standardViewport} variants={standardFadeUp} className="animate-on-scroll relative rounded-2xl p-8 sm:p-10 flex flex-col bg-sc-primary/20 backdrop-blur-md border border-sc-primary/20 transition-card duration-500"
             >
               <span className="font-montserrat font-medium text-sm text-sc-primary-dark tracking-[0.2em] uppercase block mb-3">Planta alta</span>
               <h3 className="text-2xl font-literata text-sc-text font-light mb-1">2 Recámaras</h3>
@@ -519,9 +507,10 @@ export default function SunsetCondominiosPage() {
       <section className="relative py-24 sm:py-32 lg:py-52 xl:py-64 3xl:py-56 overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 lg:px-20 xl:px-28 3xl:px-24 mb-16">
           <motion.div
-            initial="hidden" whileInView="visible"
-            viewport={{ once: true, amount: 0.1 }}
-            variants={fadeUp} custom={0}
+            initial="hidden"
+            whileInView="visible"
+            viewport={standardViewport}
+            variants={standardFadeUp}
             className="animate-on-scroll max-w-3xl mx-auto text-center"
           >
             <span className="font-montserrat text-sm font-medium text-sc-contrast tracking-[0.2em] uppercase block mb-3">{l("Ubicación", "Location")}</span>
@@ -546,7 +535,6 @@ export default function SunsetCondominiosPage() {
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0, filter: "none" }}
-          viewport={{ once: true, amount: 0.1 }}
           transition={{ duration: 0.8, delay: 0.2 }}
           className="animate-on-scroll w-full relative aspect-[21/9] sm:aspect-[25/7] min-h-[450px] bg-sc-primary/5 border-y border-sc-primary/20 overflow-hidden"
         >
@@ -568,11 +556,8 @@ export default function SunsetCondominiosPage() {
       {/* ──── CTA ──── */}
       <section className="relative py-24 sm:py-32 lg:py-52 xl:py-64 3xl:py-56 bg-sc-contrast overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 lg:px-20 xl:px-28 3xl:px-24 text-center relative z-10">
-          <motion.div
-            initial="hidden" whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            custom={0} variants={fadeUp}
-            className="animate-on-scroll"
+          <motion.div 
+            initial="hidden" whileInView="visible" viewport={standardViewport} variants={standardFadeUp} className="animate-on-scroll mb-16"
           >
             <h2 className="text-3xl sm:text-5xl font-literata font-light text-white italic mb-6">{l("¿Listo para empezar una nueva historia?", "Ready to start a new story?")}</h2>
             <p className="text-white font-montserrat font-light text-lg max-w-xl mx-auto mb-10">{l("Agenda una visita para conocer los modelos disponibles y los planes de financiamiento.", "Schedule a visit to learn about available models and financing plans.")}</p>

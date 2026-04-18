@@ -19,18 +19,7 @@ import { Button } from "@/components/ui/Button";
 import { CinematicHeading } from "@/components/ui/CinematicHeading";
 import { useLanguage } from "@/context/LanguageContext";
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: (delay: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.8,
-      delay,
-      ease: [0.2, 0.65, 0.3, 0.9] as [number, number, number, number]
-    },
-  }),
-};
+
 
 export default function UneteVendedoresPage() {
   const { l } = useLanguage();
@@ -148,64 +137,57 @@ export default function UneteVendedoresPage() {
 
       {/* ──── FORM CONTENT ──── */}
       <section className="relative py-24 pb-40">
-        <div className="max-w-7xl mx-auto px-6 lg:px-20">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start">
+        <div className="max-w-5xl mx-auto px-6">
+          <div className="flex flex-col gap-16 items-center">
             
-            {/* Perks column */}
-            <div className="lg:col-span-5 space-y-16">
-              <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once:true }}>
-                <h3 className="text-2xl font-literata font-light italic text-page-text mb-12">
-                  {l("Beneficios Exclusivos", "Exclusive Benefits")}
-                </h3>
-                
-                <div className="space-y-12">
-                  <div className="flex gap-6 group">
-                    <div className="w-12 h-12 rounded-2xl bg-brand-purple/10 flex items-center justify-center shrink-0 group-hover:bg-brand-purple group-hover:text-white transition-all duration-500 shadow-sm">
-                      <TrendingUp className="w-6 h-6" />
-                    </div>
-                    <div>
-                      <h4 className="font-montserrat font-bold text-[11px] uppercase tracking-widest text-page-text mb-2">{l("Comisión del 10%", "10% Commission")}</h4>
-                      <p className="font-montserrat font-light text-sm text-page-text leading-relaxed">
-                        {l("Maximiza tus ingresos con el esquema de comisiones más alto del sector.", "Maximize your income with the highest commission scheme in the sector.")}
-                      </p>
-                    </div>
+            {/* Perks row */}
+            <motion.div className="w-full">
+              <h3 className="text-2xl font-literata font-light italic text-page-text mb-10 text-center">
+                {l("Beneficios Exclusivos", "Exclusive Benefits")}
+              </h3>
+              
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                <div className="flex flex-col items-center text-center gap-4 group p-6 rounded-[2rem] bg-white/40 border border-page-text/5 hover:border-brand-purple/20 transition-all duration-500">
+                  <div className="w-12 h-12 rounded-2xl bg-brand-purple/10 flex items-center justify-center shrink-0 group-hover:bg-brand-purple group-hover:text-white transition-all duration-500 shadow-sm">
+                    <TrendingUp className="w-6 h-6" />
                   </div>
-
-                  <div className="flex gap-6 group">
-                    <div className="w-12 h-12 rounded-2xl bg-brand-purple/10 flex items-center justify-center shrink-0 group-hover:bg-brand-purple group-hover:text-white transition-all duration-500 shadow-sm">
-                      <Users className="w-6 h-6" />
-                    </div>
-                    <div>
-                      <h4 className="font-montserrat font-bold text-[11px] uppercase tracking-widest text-page-text mb-2">{l("Crecimiento Acelerado", "Accelerated Growth")}</h4>
-                      <p className="font-montserrat font-light text-sm text-page-text leading-relaxed">
-                        {l("Acceso directo a preventas exclusivas y red de inversionistas Sunset.", "Direct access to exclusive presales and the Sunset investor network.")}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex gap-6 group">
-                    <div className="w-12 h-12 rounded-2xl bg-brand-purple/10 flex items-center justify-center shrink-0 group-hover:bg-brand-purple group-hover:text-white transition-all duration-500 shadow-sm">
-                      <Briefcase className="w-6 h-6" />
-                    </div>
-                    <div>
-                      <h4 className="font-montserrat font-bold text-[11px] uppercase tracking-widest text-page-text mb-2">{l("Portafolio Triple A", "AAA Portfolio")}</h4>
-                      <p className="font-montserrat font-light text-sm text-page-text leading-relaxed">
-                        {l("Representa los desarrollos más innovadores y sostenibles de BCS.", "Represent the most innovative and sustainable developments in BCS.")}
-                      </p>
-                    </div>
+                  <div>
+                    <h4 className="font-montserrat font-bold text-[11px] uppercase tracking-widest text-page-text mb-2">{l("Comisión del 10%", "10% Commission")}</h4>
+                    <p className="font-montserrat font-light text-sm text-page-text leading-relaxed">
+                      {l("Maximiza tus ingresos con el esquema de comisiones más alto del sector.", "Maximize your income with the highest commission scheme in the sector.")}
+                    </p>
                   </div>
                 </div>
-              </motion.div>
-            </div>
 
-            {/* Form column */}
-            <div className="lg:col-span-7 w-full">
+                <div className="flex flex-col items-center text-center gap-4 group p-6 rounded-[2rem] bg-white/40 border border-page-text/5 hover:border-brand-purple/20 transition-all duration-500">
+                  <div className="w-12 h-12 rounded-2xl bg-brand-purple/10 flex items-center justify-center shrink-0 group-hover:bg-brand-purple group-hover:text-white transition-all duration-500 shadow-sm">
+                    <Users className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <h4 className="font-montserrat font-bold text-[11px] uppercase tracking-widest text-page-text mb-2">{l("Crecimiento Acelerado", "Accelerated Growth")}</h4>
+                    <p className="font-montserrat font-light text-sm text-page-text leading-relaxed">
+                      {l("Acceso directo a preventas exclusivas y red de inversionistas Sunset.", "Direct access to exclusive presales and the Sunset investor network.")}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex flex-col items-center text-center gap-4 group p-6 rounded-[2rem] bg-white/40 border border-page-text/5 hover:border-brand-purple/20 transition-all duration-500">
+                  <div className="w-12 h-12 rounded-2xl bg-brand-purple/10 flex items-center justify-center shrink-0 group-hover:bg-brand-purple group-hover:text-white transition-all duration-500 shadow-sm">
+                    <Briefcase className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <h4 className="font-montserrat font-bold text-[11px] uppercase tracking-widest text-page-text mb-2">{l("Portafolio Triple A", "AAA Portfolio")}</h4>
+                    <p className="font-montserrat font-light text-sm text-page-text leading-relaxed">
+                      {l("Representa los desarrollos más innovadores y sostenibles de BCS.", "Represent the most innovative and sustainable developments in BCS.")}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Form row */}
+            <div className="w-full">
               <motion.div
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={fadeUp}
-                custom={0.2}
                 className="bg-white/60 backdrop-blur-2xl border border-white/40 rounded-[2.5rem] p-8 sm:p-14 transition-all duration-500 shadow-sm shadow-page-text/5"
               >
                 <AnimatePresence mode="wait">
@@ -239,7 +221,7 @@ export default function UneteVendedoresPage() {
                           required
                           type="text"
                           placeholder={l("Tu nombre y apellidos", "Your full name")}
-                          className="w-full h-14 bg-white/50 border border-page-text/10 rounded-2xl px-6 font-montserrat font-light text-sm focus:outline-none focus:ring-1 focus:ring-brand-purple/30 transition-all placeholder:text-page-text/20"
+                          className="w-full h-14 bg-white/50 border border-page-text/10 rounded-2xl px-6 font-montserrat font-light text-sm focus:outline-none focus:ring-1 focus:ring-brand-purple/30 transition-all placeholder:text-page-text"
                           value={formData.nombre}
                           onChange={(e) => setFormData({...formData, nombre: e.target.value})}
                         />
@@ -251,7 +233,7 @@ export default function UneteVendedoresPage() {
                           <input
                             required
                             type="date"
-                            className="w-full h-14 bg-white/50 border border-page-text/10 rounded-2xl px-6 font-montserrat font-light text-sm focus:outline-none focus:ring-1 focus:ring-brand-purple/30 transition-all text-page-text/60"
+                            className="w-full h-14 bg-white/50 border border-page-text/10 rounded-2xl px-6 font-montserrat font-light text-sm focus:outline-none focus:ring-1 focus:ring-brand-purple/30 transition-all text-page-text"
                             value={formData.fechaNacimiento}
                             onChange={(e) => setFormData({...formData, fechaNacimiento: e.target.value})}
                           />
@@ -262,7 +244,7 @@ export default function UneteVendedoresPage() {
                             required
                             type="tel"
                             placeholder="+52 (...) ..."
-                            className="w-full h-14 bg-white/50 border border-page-text/10 rounded-2xl px-6 font-montserrat font-light text-sm focus:outline-none focus:ring-1 focus:ring-brand-purple/30 transition-all placeholder:text-page-text/20"
+                            className="w-full h-14 bg-white/50 border border-page-text/10 rounded-2xl px-6 font-montserrat font-light text-sm focus:outline-none focus:ring-1 focus:ring-brand-purple/30 transition-all placeholder:text-page-text"
                             value={formData.celular}
                             onChange={(e) => setFormData({...formData, celular: e.target.value})}
                           />
@@ -275,7 +257,7 @@ export default function UneteVendedoresPage() {
                           required
                           type="email"
                           placeholder="tu@email.com"
-                          className="w-full h-14 bg-white/50 border border-page-text/10 rounded-2xl px-6 font-montserrat font-light text-sm focus:outline-none focus:ring-1 focus:ring-brand-purple/30 transition-all placeholder:text-page-text/20"
+                          className="w-full h-14 bg-white/50 border border-page-text/10 rounded-2xl px-6 font-montserrat font-light text-sm focus:outline-none focus:ring-1 focus:ring-brand-purple/30 transition-all placeholder:text-page-text"
                           value={formData.correo}
                           onChange={(e) => setFormData({...formData, correo: e.target.value})}
                         />
@@ -287,7 +269,7 @@ export default function UneteVendedoresPage() {
                           required
                           rows={4}
                           placeholder={l("Cuéntanos sobre tu experiencia o visión...", "Tell us about your experience or vision...")}
-                          className="w-full bg-white/50 border border-page-text/10 rounded-[2rem] p-6 font-montserrat font-light text-sm focus:outline-none focus:ring-1 focus:ring-brand-purple/30 transition-all resize-none placeholder:text-page-text/20"
+                          className="w-full bg-white/50 border border-page-text/10 rounded-[2rem] p-6 font-montserrat font-light text-sm focus:outline-none focus:ring-1 focus:ring-brand-purple/30 transition-all resize-none placeholder:text-page-text"
                           value={formData.razon}
                           onChange={(e) => setFormData({...formData, razon: e.target.value})}
                         />
@@ -333,11 +315,6 @@ export default function UneteVendedoresPage() {
       <section className="relative py-24 sm:py-32 bg-page-bg">
         <div className="max-w-6xl mx-auto px-6 lg:px-20">
           <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeUp}
-            custom={0}
             className="text-center mb-16"
           >
             <span className="font-montserrat font-medium text-sm text-brand-purple tracking-[0.2em] uppercase block mb-3">
@@ -377,15 +354,11 @@ export default function UneteVendedoresPage() {
             ].map((faq, i) => (
               <motion.div
                 key={i}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={fadeUp}
                 custom={i * 0.1}
                 className="p-8 rounded-[2rem] bg-white/40 border border-page-text/5 hover:border-brand-purple/20 transition-all duration-500"
               >
                 <h3 className="font-literata text-xl text-page-text mb-4 italic">{faq.q}</h3>
-                <p className="font-montserrat font-light text-sm text-page-text/70 leading-relaxed italic">{faq.a}</p>
+                <p className="font-montserrat font-light text-sm text-page-text leading-relaxed italic">{faq.a}</p>
               </motion.div>
             ))}
           </div>
@@ -396,17 +369,12 @@ export default function UneteVendedoresPage() {
       <section className="relative py-24 sm:py-32 bg-page-text/5">
         <div className="max-w-7xl mx-auto px-6 lg:px-20 text-center">
           <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeUp}
-            custom={0}
           >
             <div className="mb-12">
               <h3 className="text-2xl font-literata font-light text-page-text mb-2 italic">
                 {l("¿Tienes dudas adicionales? Contáctanos directamente", "Have more questions? Contact us directly")}
               </h3>
-              <p className="font-montserrat text-sm text-brand-purple font-medium tracking-widest uppercase opacity-70">
+              <p className="font-montserrat text-sm text-brand-purple font-medium tracking-widest uppercase">
                 Ing. Eric Salinas | Asesor de ventas
               </p>
             </div>

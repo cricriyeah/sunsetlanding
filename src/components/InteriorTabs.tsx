@@ -61,9 +61,9 @@ export function InteriorTabs() {
           <AnimatePresence mode="wait">
             <motion.div
               key={activeContent.id}
-              initial={{ opacity: 0, scale: 0.98, filter: "blur(10px)" }}
-              animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-              exit={{ opacity: 0, scale: 0.98, filter: "blur(10px)" }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
               transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
               className="relative aspect-[4/3] sm:aspect-[21/9] rounded-[1rem] sm:rounded-[2rem] overflow-hidden shadow-sm shadow-page-text/10 border border-page-text/5 group cursor-pointer"
               onClick={() => openLightbox(interiorTabsData.map(d => ({ src: d.image, alt: d.title, type: 'image' as const })), activeIndex)}

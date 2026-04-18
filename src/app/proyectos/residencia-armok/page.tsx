@@ -30,20 +30,7 @@ import { CinematicHeading } from "@/components/ui/CinematicHeading";
 import { useLanguage } from "@/context/LanguageContext";
 
 // ─── Variantes globales (mismo estilo que condominios) ──────────────────────
-const fadeUp = {
-  hidden: { opacity: 0, y: 20, filter: "none" },
-  visible: (delay: number) => ({
-    opacity: 1,
-    y: 0,
-    filter: "none",
-    transition: {
-      duration: 0.8,
-      delay,
-      extraDelay: 0.2,
-      ease: [0.2, 0.65, 0.3, 0.9] as [number, number, number, number],
-    },
-  }),
-};
+
 
 function RevealLine({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   return (
@@ -52,7 +39,6 @@ function RevealLine({ children, delay = 0 }: { children: React.ReactNode; delay?
         className="block"
         initial={{ y: "100%", opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
-        viewport={{ once: true }}
         transition={{ duration: 0.75, delay, ease: [0.22, 0.65, 0.3, 0.9] }}
       >
         {children}
@@ -141,11 +127,6 @@ export default function ResidenciaArmokPage() {
         <div className="max-w-7xl mx-auto px-6 lg:px-20 xl:px-28 3xl:px-24">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-32 items-center">
             <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.1 }}
-              variants={fadeUp}
-              custom={0}
             >
               <span className="font-montserrat text-sm font-medium text-armok-primary tracking-[0.2em] uppercase block mb-3">{l("El Concepto", "The Concept")}</span>
               <h2 className="text-3xl sm:text-5xl lg:text-4xl xl:text-5xl font-literata font-light text-armok-text italic mb-6">{l("Donde la solidez se vuelve etérea", "Where solidity becomes ethereal")}</h2>
@@ -154,11 +135,6 @@ export default function ResidenciaArmokPage() {
             </motion.div>
 
             <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.1 }}
-              variants={fadeUp}
-              custom={0.2}
               className="relative aspect-square rounded-none overflow-hidden shadow-sm shadow-page-text/5 border border-page-text/5"
             >
               <Image
@@ -185,11 +161,6 @@ export default function ResidenciaArmokPage() {
       <section className="relative py-24 sm:py-32 lg:py-52 xl:py-64 3xl:py-56 bg-armok-bg text-armok-text">
         <div className="max-w-7xl mx-auto px-6 lg:px-20 xl:px-28 3xl:px-24">
           <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.1 }}
-            custom={0}
-            variants={fadeUp}
             className="mb-16"
           >
             <span className="font-montserrat font-medium text-sm text-armok-primary tracking-[0.2em] uppercase block mb-3">{l("Exclusividad en Armonk", "Exclusivity in Armonk")}</span>
@@ -200,12 +171,8 @@ export default function ResidenciaArmokPage() {
             {benefits.map((item, index) => (
               <motion.div
                 key={item.title}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.1 }}
                 custom={index * 0.1}
                 whileHover={{ y: -8, transition: { duration: 0.3 } }}
-                variants={fadeUp}
                 className="group p-8 rounded-3xl bg-armok-secondary border border-armok-text/5 hover:bg-armok-primary/5 transition-colors duration-500"
               >
                 <div className="w-12 h-12 rounded-2xl bg-armok-primary/10 flex items-center justify-center mb-6 group-hover:bg-armok-primary/20 transition-transform duration-500 group-hover:translate-x-1">

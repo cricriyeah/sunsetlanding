@@ -7,19 +7,7 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { CinematicHeading } from "@/components/ui/CinematicHeading";
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 20, filter: "none" },
-  visible: (delay: number) => ({
-    opacity: 1,
-    y: 0,
-    filter: "none",
-    transition: {
-      duration: 0.8,
-      delay,
-      ease: [0.2, 0.65, 0.3, 0.9] as [number, number, number, number],
-    },
-  }),
-};
+
 
 export default function ProximamentePage() {
   return (
@@ -73,11 +61,6 @@ export default function ProximamentePage() {
 
             {/* SOCIAL BAR - Styled like contact page */}
             <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={fadeUp}
-              custom={1.4}
               className="mt-16 flex flex-col items-center gap-6"
             >
               <h3 className="text-xs font-montserrat font-medium uppercase tracking-[0.3em] text-page-text/60">

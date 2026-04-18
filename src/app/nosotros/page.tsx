@@ -9,16 +9,9 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { CinematicHeading } from "@/components/ui/CinematicHeading";
 import { useLanguage } from "@/context/LanguageContext";
+import { standardFadeUp, standardViewport } from "@/utils/animations";
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 20, filter: "none" },
-  visible: (delay: number) => ({
-    opacity: 1,
-    y: 0,
-    filter: "none",
-    transition: { duration: 0.8, delay, ease: [0.2, 0.65, 0.3, 0.9] as [number, number, number, number] },
-  }),
-};
+
 
 export default function NosotrosPage() {
   const { l } = useLanguage();
@@ -80,11 +73,6 @@ export default function NosotrosPage() {
         <div className="max-w-7xl mx-auto px-6 lg:px-20 xl:px-28 3xl:px-24">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-32 items-start">
             <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.1 }}
-              custom={0}
-              variants={fadeUp}
               className="animate-on-scroll group"
             >
               <div className="flex items-center gap-3 mb-6">
@@ -100,10 +88,10 @@ export default function NosotrosPage() {
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1, filter: "none" }}
-              viewport={{ once: true, amount: 0.1 }}
-              transition={{ duration: 1.5, delay: 0.2, ease: [0.2, 0.65, 0.3, 0.9] }}
+              initial="hidden"
+              whileInView="visible"
+              viewport={standardViewport}
+              variants={standardFadeUp}
               className="animate-on-scroll relative aspect-[4/3] rounded-none overflow-hidden bg-page-text/[0.03] border border-page-text/10 shadow-sm shadow-black/5"
             >
               <Image src="/lpz.webp" alt="La Paz" fill className="object-cover" />
@@ -120,11 +108,6 @@ export default function NosotrosPage() {
 
         <div className="max-w-7xl mx-auto px-6 lg:px-20 xl:px-28 3xl:px-24 relative z-10">
           <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.1 }}
-            custom={0}
-            variants={fadeUp}
             className="animate-on-scroll mb-20 lg:mb-24"
           >
           <h2 className="text-4xl sm:text-5xl lg:text-4xl xl:text-5xl font-literata font-light text-page-text">{l("Nuestros Pilares", "Our Pillars")}</h2>
@@ -157,23 +140,18 @@ export default function NosotrosPage() {
                 key={v.title}
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: true, amount: 0.1 }}
+                viewport={standardViewport}
                 custom={i * 0.15}
+                variants={standardFadeUp}
                 whileHover={{ y: -6, transition: { duration: 0.3 } }}
-                variants={fadeUp}
                 className="animate-on-scroll group flex items-start gap-5 sm:gap-6"
               >
                 <div className="relative w-16 h-16 sm:w-20 sm:h-20 shrink-0">
                   <motion.div
-                    initial={{ scale: 0, rotate: -15, opacity: 0 }}
-                    whileInView={{ scale: 1, rotate: 0, opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{
-                      type: "spring",
-                      stiffness: 100,
-                      damping: 15,
-                      delay: i * 0.15 + 0.3
-                    }}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={standardViewport}
+                    variants={standardFadeUp}
                     className="w-full h-full rounded-full !bg-brand-blue/15 flex items-center justify-center transition-all duration-500 group-hover:scale-105 group-hover:bg-brand-blue/25 shadow-sm"
                   >
                     <v.icon
@@ -196,11 +174,6 @@ export default function NosotrosPage() {
       <section className="relative py-24 sm:py-32 lg:py-52 xl:py-64 3xl:py-56">
         <div className="max-w-7xl mx-auto px-6 lg:px-20 xl:px-28 3xl:px-24">
           <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.1 }}
-            custom={0}
-            variants={fadeUp}
             className="animate-on-scroll text-center mb-20 lg:mb-28"
           >
             <span className="font-montserrat font-medium text-sm !text-brand-blue/60 tracking-[0.2em] uppercase block mb-4">{l("Conócenos", "Get to know us")}</span>
@@ -233,9 +206,9 @@ export default function NosotrosPage() {
                 key={member.name}
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: true, amount: 0.1 }}
+                viewport={standardViewport}
                 custom={i * 0.15}
-                variants={fadeUp}
+                variants={standardFadeUp}
                 className="animate-on-scroll group flex flex-col"
               >
                 <div className="relative aspect-[3/4] overflow-hidden rounded-none mb-6 bg-page-text/5 border border-page-text/10 shrink-0">
@@ -255,11 +228,6 @@ export default function NosotrosPage() {
       <section className="relative py-24 sm:py-32 lg:py-52 xl:py-64 3xl:py-56">
         <div className="max-w-7xl mx-auto px-6 lg:px-20 xl:px-28 3xl:px-24 text-center">
           <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.1 }}
-            custom={0}
-            variants={fadeUp}
             className="animate-on-scroll"
           >
             <h2 className="text-3xl sm:text-5xl font-literata font-light text-page-text italic mb-6">{l("Construyamos juntos", "Let's build together")}</h2>

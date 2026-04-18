@@ -17,20 +17,9 @@ import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/Button";
 import { CinematicHeading } from "@/components/ui/CinematicHeading";
 import { useLanguage } from "@/context/LanguageContext";
+import { standardFadeUp, standardViewport } from "@/utils/animations";
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 20, filter: "none" },
-  visible: (delay: number) => ({
-    opacity: 1,
-    y: 0,
-    filter: "none",
-    transition: {
-      duration: 0.8,
-      delay,
-      ease: [0.2, 0.65, 0.3, 0.9] as [number, number, number, number],
-    },
-  }),
-};
+
 
 export default function ContactoPage() {
   const { l } = useLanguage();
@@ -112,9 +101,10 @@ export default function ContactoPage() {
         <div className="relative z-20 flex flex-1 items-center justify-center pt-24 pb-12 text-center px-6 lg:pt-48 lg:pb-32">
           <div className="max-w-4xl w-full mx-auto px-6 lg:px-20 xl:px-16">
             <motion.span
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
+              initial="hidden"
+              whileInView="visible"
+              viewport={standardViewport}
+              variants={standardFadeUp}
               className="font-montserrat font-medium text-sm text-page-text tracking-[0.2em] uppercase block mb-4"
             >{l("Comienza tu historia", "Start your story")}</motion.span>
 
@@ -128,10 +118,11 @@ export default function ContactoPage() {
             </div>
 
             <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.9 }}
-              className="text-lg sm:text-xl text-page-text font-montserrat font-light max-w-2xl mx-auto leading-relaxed opacity-80"
+              initial="hidden"
+              whileInView="visible"
+              viewport={standardViewport}
+              variants={standardFadeUp}
+              className="text-lg sm:text-xl text-page-text font-montserrat font-light max-w-2xl mx-auto leading-relaxed"
             >{l("Estamos listos para materializar tu visión. Agenda una llamada privada o visítanos en nuestras oficinas en La Paz.", "We are ready to materialize your vision. Schedule a private call or visit us at our offices in La Paz.")}</motion.p>
           </div>
         </div>
@@ -139,50 +130,45 @@ export default function ContactoPage() {
 
       {/* ──── CONTACT CONTENT ──── */}
       <section className="relative py-24 lg:py-40 xl:py-48">
-        <div className="max-w-7xl mx-auto px-6 lg:px-20 xl:px-16">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-            {/* Contact Info (5 cols) */}
-            <div className="lg:col-span-5 space-y-16">
+        <div className="max-w-5xl mx-auto px-6">
+          <div className="flex flex-col gap-16 items-center">
+            {/* Contact Info row */}
+            <div className="w-full space-y-10">
               <motion.div
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={fadeUp}
-                custom={0}
               >
-                <h3 className="text-2xl font-literata font-light italic text-page-text mb-8">{l("Nuestras Oficinas", "Our Offices")}</h3>
-                <div className="space-y-8">
-                  <div className="flex gap-4 group">
+                <h3 className="text-2xl font-literata font-light italic text-page-text mb-8 text-center">{l("Nuestras Oficinas", "Our Offices")}</h3>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                  <div className="flex flex-col items-center text-center gap-3 group p-6 rounded-[2rem] bg-white/40 border border-page-text/5 hover:border-sc-accent/20 transition-all duration-500">
                     <div className="w-10 h-10 rounded-xl bg-sc-accent/10 flex items-center justify-center shrink-0 group-hover:bg-sc-accent/20 transition-all">
                       <MapPin className="w-5 h-5 text-sc-accent" />
                     </div>
                     <div>
                       <p className="font-montserrat font-semibold text-xs tracking-widest uppercase text-page-text opacity-100 mb-1">{l("Dirección", "Address")}</p>
-                      <p className="font-montserrat font-light text-base text-page-text leading-relaxed">
+                      <p className="font-montserrat font-light text-sm text-page-text leading-relaxed">
                         C. Toronja 561-local 2, Indeco, Libertad <br /> 23078 La Paz, B.C.S.
                       </p>
                     </div>
                   </div>
 
-                  <div className="flex gap-4 group">
+                  <div className="flex flex-col items-center text-center gap-3 group p-6 rounded-[2rem] bg-white/40 border border-page-text/5 hover:border-sc-accent/20 transition-all duration-500">
                     <div className="w-10 h-10 rounded-xl bg-sc-accent/10 flex items-center justify-center shrink-0 group-hover:bg-sc-accent/20 transition-all">
                       <Phone className="w-5 h-5 text-sc-accent" />
                     </div>
                     <div>
                       <p className="font-montserrat font-semibold text-xs tracking-widest uppercase text-page-text opacity-100 mb-1">{l("Teléfono", "Phone")}</p>
-                      <p className="font-montserrat font-light text-base text-page-text">
+                      <p className="font-montserrat font-light text-sm text-page-text">
                         +52 (612) 213 4747
                       </p>
                     </div>
                   </div>
 
-                  <div className="flex gap-4 group">
+                  <div className="flex flex-col items-center text-center gap-3 group p-6 rounded-[2rem] bg-white/40 border border-page-text/5 hover:border-sc-accent/20 transition-all duration-500">
                     <div className="w-10 h-10 rounded-xl bg-sc-accent/10 flex items-center justify-center shrink-0 group-hover:bg-sc-accent/20 transition-all">
                       <Mail className="w-5 h-5 text-sc-accent" />
                     </div>
                     <div>
                       <p className="font-montserrat font-semibold text-xs tracking-widest uppercase text-page-text opacity-100 mb-1">{l("Correo", "Email")}</p>
-                      <p className="font-montserrat font-light text-base text-page-text">
+                      <p className="font-montserrat font-light text-sm text-page-text">
                         contacto@sunsetbcs.com
                       </p>
                     </div>
@@ -191,14 +177,9 @@ export default function ContactoPage() {
               </motion.div>
 
               <motion.div
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={fadeUp}
-                custom={0.2}
+                className="flex justify-center"
               >
-                <h3 className="text-xl font-literata font-light italic text-page-text mb-6">{l("Síguenos", "Follow us")}</h3>
-                <div className="flex gap-4 flex-wrap">
+                <div className="flex gap-4">
                   {[Instagram, Facebook].map((Icon, i) => (
                     <a
                       key={i}
@@ -221,14 +202,9 @@ export default function ContactoPage() {
               </motion.div>
             </div>
 
-            {/* Contact Form (7 cols) */}
-            <div className="lg:col-span-7 w-full">
+            {/* Contact Form row */}
+            <div className="w-full">
               <motion.div
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={fadeUp}
-                custom={0.1}
                 className="w-full bg-white/70 backdrop-blur-xl border border-white/20 rounded-[2rem] p-6 sm:p-10 lg:p-10 transition-all duration-500 shadow-sm shadow-page-text/5"
               >
                 {/* Status Message Display */}
@@ -238,7 +214,6 @@ export default function ContactoPage() {
                       key="success"
                       initial={{ opacity: 0, scale: 0.9 }}
                       animate={{ opacity: 1, scale: 1 }}
-                      viewport={{ once: true, amount: 0.1 }}
                       transition={{ 
                         type: "spring",
                         stiffness: 100,
@@ -251,7 +226,7 @@ export default function ContactoPage() {
                         <ArrowRight className="w-8 h-8 text-green-600 -rotate-45" />
                       </div>
                       <h4 className="text-2xl font-literata font-light italic text-page-text">{l("¡Mensaje Enviado!", "Message Sent!")}</h4>
-                      <p className="font-montserrat font-light text-page-text/70 max-w-sm">{l("Gracias por tu interés en Sunset. Nos pondremos en contacto contigo lo antes posible.", "Thank you for your interest in Sunset. We will contact you as soon as possible.")}</p>
+                      <p className="font-montserrat font-light text-page-text max-w-sm">{l("Gracias por tu interés en Sunset. Nos pondremos en contacto contigo lo antes posible.", "Thank you for your interest in Sunset. We will contact you as soon as possible.")}</p>
                       <Button
                         variant="ghost"
                         onClick={() => setStatus("idle")}
@@ -262,7 +237,7 @@ export default function ContactoPage() {
                     <form onSubmit={handleSubmit} className="space-y-6">
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         <div className="space-y-2">
-                          <label className="font-montserrat text-[10px] tracking-[0.2em] uppercase font-semibold text-page-text/80 ml-1">{l("Nombre", "Name")}</label>
+                          <label className="font-montserrat text-[10px] tracking-[0.2em] uppercase font-semibold text-page-text ml-1">{l("Nombre", "Name")}</label>
                           <input
                             required
                             name="name"
@@ -270,11 +245,11 @@ export default function ContactoPage() {
                             onChange={(e) => setFormData({...formData, name: e.target.value})}
                             type="text"
                             placeholder={l("Escribe tu nombre", "Write your name")}
-                            className="w-full h-12 bg-white/50 border border-page-text/10 rounded-2xl px-5 font-montserrat font-light text-sm focus:outline-none focus:ring-1 focus:ring-sc-accent/30 transition-all text-page-text placeholder:text-page-text/30"
+                            className="w-full h-12 bg-white/50 border border-page-text/10 rounded-2xl px-5 font-montserrat font-light text-sm focus:outline-none focus:ring-1 focus:ring-sc-accent/30 transition-all text-page-text placeholder:text-page-text"
                           />
                         </div>
                         <div className="space-y-2">
-                          <label className="font-montserrat text-[10px] tracking-[0.2em] uppercase font-semibold text-page-text/60 ml-1">Email</label>
+                          <label className="font-montserrat text-[10px] tracking-[0.2em] uppercase font-semibold text-page-text ml-1">Email</label>
                           <input
                             required
                             name="email"
@@ -282,14 +257,14 @@ export default function ContactoPage() {
                             onChange={(e) => setFormData({...formData, email: e.target.value})}
                             type="email"
                             placeholder="tu@email.com"
-                            className="w-full h-12 bg-white/50 border border-page-text/10 rounded-2xl px-5 font-montserrat font-light text-sm focus:outline-none focus:ring-1 focus:ring-sc-accent/30 transition-all text-page-text placeholder:text-page-text/30"
+                            className="w-full h-12 bg-white/50 border border-page-text/10 rounded-2xl px-5 font-montserrat font-light text-sm focus:outline-none focus:ring-1 focus:ring-sc-accent/30 transition-all text-page-text placeholder:text-page-text"
                           />
                         </div>
                       </div>
 
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         <div className="space-y-2">
-                          <label className="font-montserrat text-[10px] tracking-[0.2em] uppercase font-semibold text-page-text/60 ml-1">Teléfono</label>
+                          <label className="font-montserrat text-[10px] tracking-[0.2em] uppercase font-semibold text-page-text ml-1">Teléfono</label>
                           <input
                             required
                             name="phone"
@@ -297,11 +272,11 @@ export default function ContactoPage() {
                             onChange={(e) => setFormData({...formData, phone: e.target.value})}
                             type="tel"
                             placeholder="+52 (...) ..."
-                            className="w-full h-12 bg-white/50 border border-page-text/10 rounded-2xl px-5 font-montserrat font-light text-sm focus:outline-none focus:ring-1 focus:ring-sc-accent/30 transition-all text-page-text placeholder:text-page-text/30"
+                            className="w-full h-12 bg-white/50 border border-page-text/10 rounded-2xl px-5 font-montserrat font-light text-sm focus:outline-none focus:ring-1 focus:ring-sc-accent/30 transition-all text-page-text placeholder:text-page-text"
                           />
                         </div>
                         <div className="space-y-2">
-                          <label className="font-montserrat text-[10px] tracking-[0.2em] uppercase font-semibold text-page-text/60 ml-1">{l("Proyecto de interés", "Project of interest")}</label>
+                          <label className="font-montserrat text-[10px] tracking-[0.2em] uppercase font-semibold text-page-text ml-1">{l("Proyecto de interés", "Project of interest")}</label>
                           <div className="relative">
                             <select 
                               required
@@ -317,14 +292,14 @@ export default function ContactoPage() {
                               <option className="bg-white text-page-text" value="Vendedor">{l("Vendedor", "Salesperson")}</option>
                             </select>
                             <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none z-20">
-                              <ChevronDown className="w-4 h-4 text-page-text/40" />
+                              <ChevronDown className="w-4 h-4 text-page-text" />
                             </div>
                           </div>
                         </div>
                       </div>
 
                       <div className="space-y-2">
-                        <label className="font-montserrat text-[10px] tracking-[0.2em] uppercase font-semibold text-page-text/80 ml-1">{l("Mensaje", "Message")}</label>
+                        <label className="font-montserrat text-[10px] tracking-[0.2em] uppercase font-semibold text-page-text ml-1">{l("Mensaje", "Message")}</label>
                         <textarea
                           required
                           name="message"
@@ -332,7 +307,7 @@ export default function ContactoPage() {
                           onChange={(e) => setFormData({...formData, message: e.target.value})}
                           placeholder={l("Cuéntanos sobre tu visión...", "Tell us about your vision...")}
                           rows={5}
-                          className="w-full bg-white/50 border border-page-text/10 rounded-[1.5rem] p-5 font-montserrat font-light text-sm focus:outline-none focus:ring-1 focus:ring-sc-accent/30 transition-all resize-none text-page-text placeholder:text-page-text/30"
+                          className="w-full bg-white/50 border border-page-text/10 rounded-[1.5rem] p-5 font-montserrat font-light text-sm focus:outline-none focus:ring-1 focus:ring-sc-accent/30 transition-all resize-none text-page-text placeholder:text-page-text"
                         />
                       </div>
 
@@ -358,7 +333,7 @@ export default function ContactoPage() {
                           {status === "loading" ? l("Enviando...", "Sending...") : l("Enviar Mensaje", "Send Message")} 
                           <ArrowRight className="ml-3 h-5 w-5" />
                         </Button>
-                        <p className="text-center mt-6 text-xs font-montserrat font-light text-page-text/40 italic">{l("Al enviar, aceptas nuestra política de privacidad y tratamiento de datos.", "By sending, you accept our privacy policy and data processing.")}</p>
+                        <p className="text-center mt-6 text-xs font-montserrat font-light text-page-text italic">{l("Al enviar, aceptas nuestra política de privacidad y tratamiento de datos.", "By sending, you accept our privacy policy and data processing.")}</p>
                       </div>
                     </form>
                   )}
@@ -375,13 +350,11 @@ export default function ContactoPage() {
           <motion.span
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
             className="font-montserrat font-medium text-[10px] sm:text-xs text-page-text/100 tracking-[0.2em] uppercase block mb-3"
           >{l("Ubicación", "Location")}</motion.span>
           <motion.h3
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
             transition={{ delay: 0.1 }}
             className="text-2xl sm:text-3xl lg:text-4xl font-literata font-light italic text-page-text"
           >{l("Visítanos en nuestras oficinas", "Visit us at our offices")}</motion.h3>

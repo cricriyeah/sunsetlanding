@@ -21,16 +21,9 @@ import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/Button";
 import { CinematicHeading } from "@/components/ui/CinematicHeading";
 import { useLanguage } from "@/context/LanguageContext";
+import { standardFadeUp, standardViewport } from "@/utils/animations";
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 20, filter: "none" },
-  visible: (delay: number) => ({
-    opacity: 1,
-    y: 0,
-    filter: "none",
-    transition: { duration: 0.8, delay, ease: [0.2, 0.65, 0.3, 0.9] as [number, number, number, number] },
-  }),
-};
+
 
 export default function FinanciamientoPage() {
   const { l } = useLanguage();
@@ -105,12 +98,7 @@ export default function FinanciamientoPage() {
       <section ref={contentRef} className="relative py-24 sm:py-32 flex flex-col">
         <div className="max-w-7xl w-full mx-auto px-6 lg:px-8 text-center flex flex-col items-center">
           <motion.span
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeUp}
-            custom={0.1}
-            className="animate-on-scroll font-montserrat font-medium text-sm text-page-text tracking-[0.2em] uppercase block mb-4"
+            initial="hidden" whileInView="visible" viewport={standardViewport} variants={standardFadeUp} className="animate-on-scroll font-montserrat font-medium text-sm text-page-text tracking-[0.2em] uppercase block mb-4"
           >{l("Programa Residencial", "Residential Program")}</motion.span>
 
           <CinematicHeading
@@ -121,12 +109,7 @@ export default function FinanciamientoPage() {
           />
 
           <motion.p
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeUp}
-            custom={0.4}
-            className="animate-on-scroll text-lg sm:text-xl text-page-text/80 font-montserrat font-light max-w-2xl leading-relaxed"
+            initial="hidden" whileInView="visible" viewport={standardViewport} variants={standardFadeUp} className="animate-on-scroll text-lg sm:text-xl text-page-text/80 font-montserrat font-light max-w-2xl leading-relaxed"
           >{l("Construye tu hogar ideal en La Baja con nuestro Programa 40/60. Tú pones el terreno, nosotros financiamos tu futuro.", "Build your ideal home in La Baja with our 40/60 Program. You provide the land, we finance your future.")}</motion.p>
         </div>
       </section>
@@ -148,12 +131,7 @@ export default function FinanciamientoPage() {
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.1 }}
-              custom={0}
-              variants={fadeUp}
-              className="animate-on-scroll"
+              initial="hidden" whileInView="visible" viewport={standardViewport} variants={standardFadeUp} className="animate-on-scroll"
             >
                 <div className="flex items-center gap-3 mb-6">
                   <div className="w-10 h-10 rounded-xl bg-page-text/5 border border-page-text/5 flex items-center justify-center">
@@ -190,12 +168,7 @@ export default function FinanciamientoPage() {
             </motion.div>
 
             <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.1 }}
-              custom={0.2}
-              variants={fadeUp}
-              className="animate-on-scroll grid grid-cols-1 sm:grid-cols-2 gap-6"
+              initial="hidden" whileInView="visible" viewport={standardViewport} variants={standardFadeUp} className="animate-on-scroll grid grid-cols-1 sm:grid-cols-2 gap-6"
             >
               <div className="sm:-translate-y-8">
                 <motion.div 
@@ -239,12 +212,7 @@ export default function FinanciamientoPage() {
       <section className="relative py-24 sm:py-32 bg-sc-contrast/[0.04] overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.1 }}
-            custom={0}
-            variants={fadeUp}
-            className="animate-on-scroll mb-16 text-center max-w-3xl mx-auto"
+            initial="hidden" whileInView="visible" viewport={standardViewport} variants={standardFadeUp} className="animate-on-scroll mb-16 text-center max-w-3xl mx-auto"
           >
             <span className="font-montserrat font-medium text-sm text-page-text tracking-[0.2em] uppercase block mb-3">{l("El Camino", "The Path")}</span>
             <h2 className="text-3xl sm:text-5xl font-literata font-light text-page-text italic">{l("Pasos del Proceso", "Process Steps")}</h2>
@@ -252,12 +220,7 @@ export default function FinanciamientoPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 sm:gap-16">
             <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.1 }}
-              custom={0.1}
-              variants={fadeUp}
-              className="animate-on-scroll relative flex flex-col sm:flex-row items-start gap-6"
+              initial="hidden" whileInView="visible" viewport={standardViewport} variants={standardFadeUp} className="animate-on-scroll relative flex flex-col sm:flex-row items-start gap-6"
             >
               <div className="shrink-0 w-12 h-12 rounded-2xl bg-white border border-page-text/5 shadow-sm flex items-center justify-center font-literata text-xl text-sc-contrast">1</div>
               <div>
@@ -274,12 +237,7 @@ export default function FinanciamientoPage() {
             </motion.div>
 
             <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.1 }}
-              custom={0.2}
-              variants={fadeUp}
-              className="animate-on-scroll relative flex flex-col sm:flex-row items-start gap-6"
+              initial="hidden" whileInView="visible" viewport={standardViewport} variants={standardFadeUp} className="animate-on-scroll relative flex flex-col sm:flex-row items-start gap-6"
             >
               <div className="shrink-0 w-12 h-12 rounded-2xl bg-white border border-page-text/5 shadow-sm flex items-center justify-center font-literata text-xl text-sc-contrast-light">2</div>
               <div>
@@ -304,12 +262,7 @@ export default function FinanciamientoPage() {
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
             <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.1 }}
-              custom={0}
-              variants={fadeUp}
-              className="animate-on-scroll"
+              initial="hidden" whileInView="visible" viewport={standardViewport} variants={standardFadeUp} className="animate-on-scroll"
             >
               <span className="font-montserrat font-medium text-sm text-page-text tracking-[0.2em] uppercase block mb-3">{l("Transparencia", "Transparency")}</span>
               <h2 className="text-3xl sm:text-4xl font-literata font-light text-page-text italic mb-8">{l("Esquemas de Pagos", "Payment Schemes")}</h2>
@@ -339,12 +292,7 @@ export default function FinanciamientoPage() {
             </motion.div>
 
             <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.1 }}
-              custom={0.2}
-              variants={fadeUp}
-              className="animate-on-scroll bg-white/40 border border-page-text/5 p-10 rounded-3xl shadow-sm shadow-page-text/5 relative overflow-hidden"
+              initial="hidden" whileInView="visible" viewport={standardViewport} variants={standardFadeUp} className="animate-on-scroll bg-white/40 border border-page-text/5 p-10 rounded-3xl shadow-sm shadow-page-text/5 relative overflow-hidden"
             >
 
 
@@ -390,12 +338,7 @@ export default function FinanciamientoPage() {
       <section className="relative py-24 sm:py-32 bg-sc-contrast text-white overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center relative z-10">
           <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.1 }}
-            variants={fadeUp}
-            custom={0}
-            className="animate-on-scroll"
+            initial="hidden" whileInView="visible" viewport={standardViewport} variants={standardFadeUp} className="animate-on-scroll"
           >
             <h2 className="text-3xl sm:text-5xl font-literata font-light text-white italic mb-6">{l("¿Listo para dar el primer paso?", "Ready to take the first step?")}</h2>
             <p className="text-white font-montserrat font-light text-lg max-w-xl mx-auto mb-10">{l("Agenda tu entrevista inicial para definir los alcances de tu proyecto y conocer nuestros planes flexibles.", "Schedule your initial interview to define the scope of your project and learn about our flexible plans.")}</p>

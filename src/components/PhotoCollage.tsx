@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useLightbox } from "@/context/LightboxContext";
 import { Search, ArrowRight } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
+import { standardFadeUp, standardViewport } from "@/utils/animations";
 
 // ─── Tipos ─────────────────────────────────────────────────────────────────
 export interface Photo {
@@ -25,25 +26,7 @@ interface PhotoCollageProps {
   gradientColor?: string;
 }
 
-// ─── Variantes de animación Dreamy ──────────────────────────────────────────
-const dreamyFade = {
-  hidden: { 
-    opacity: 0, 
-    scale: 1.08, 
-    filter: "blur(15px)",
-    y: 20
-  },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    filter: "blur(0px)",
-    y: 0,
-    transition: {
-      duration: 1.2,
-      ease: [0.22, 1, 0.36, 1] as [number, number, number, number], // expo out
-    },
-  },
-};
+// The standardized animations are now imported from utils
 
 // ─── Componente ────────────────────────────────────────────────────────────
 export function PhotoCollage({ 
@@ -70,10 +53,10 @@ export function PhotoCollage({
       {/* Header */}
       <div className="max-w-7xl mx-auto px-6 lg:px-8 mb-12">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 1, ease: [0.2, 0.65, 0.3, 0.9] }}
+          initial="hidden"
+          whileInView="visible"
+          viewport={standardViewport}
+          variants={standardFadeUp}
         >
           <span className={`font-montserrat text-sm font-medium ${accentColor} tracking-[0.2em] uppercase block mb-3`}>
             {subtitle}
@@ -129,8 +112,9 @@ export function PhotoCollage({
                 key={i}
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: true, margin: "-50px" }}
-                variants={dreamyFade}
+                viewport={standardViewport}
+                variants={standardFadeUp}
+                custom={i * 0.1}
                 className="relative overflow-hidden group cursor-pointer"
                 onClick={() => openLightbox(photos.map(p => ({ src: p.src, alt: p.alt, type: 'image' as const })), i)}
                 style={{

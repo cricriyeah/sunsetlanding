@@ -20,19 +20,7 @@ import { Button } from "@/components/ui/Button";
 import { CinematicHeading } from "@/components/ui/CinematicHeading";
 import { useLanguage } from "@/context/LanguageContext";
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 20, filter: "none" },
-  visible: (delay: number) => ({
-    opacity: 1,
-    y: 0,
-    filter: "none",
-    transition: {
-      duration: 0.8,
-      delay,
-      ease: [0.2, 0.65, 0.3, 0.9] as [number, number, number, number],
-    },
-  }),
-};
+
 
 function RevealLine({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   return (
@@ -132,11 +120,6 @@ export default function ResidenciaQuintardPage() {
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
             <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.1 }}
-              variants={fadeUp}
-              custom={0}
             >
               <span className="font-montserrat text-sm font-medium text-brand-orange tracking-[0.2em] uppercase block mb-3">{l("El Concepto", "The Concept")}</span>
               <h2 className="text-3xl sm:text-5xl font-literata font-light text-page-text italic mb-8">{l("Diálogo entre la piedra y el horizonte.", "Dialogue between the stone and the horizon.")}</h2>
@@ -145,11 +128,6 @@ export default function ResidenciaQuintardPage() {
             </motion.div>
 
             <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.1 }}
-              variants={fadeUp}
-              custom={0.2}
               className="relative aspect-square sm:aspect-[4/3] rounded-[2.5rem] overflow-hidden shadow-sm shadow-page-text/5 border border-page-text/5"
             >
               <Image
@@ -167,11 +145,6 @@ export default function ResidenciaQuintardPage() {
       <section className="relative py-24 sm:py-32 bg-page-text/5 text-page-text">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.1 }}
-            custom={0}
-            variants={fadeUp}
             className="mb-16 text-center lg:text-left"
           >
             <span className="font-montserrat font-medium text-sm text-brand-orange tracking-[0.2em] uppercase block mb-3">{l("Ficha Técnica", "Technical Sheet")}</span>
@@ -182,12 +155,8 @@ export default function ResidenciaQuintardPage() {
             {benefits.map((item, index) => (
               <motion.div
                 key={item.title}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.1 }}
                 custom={index * 0.1}
                 whileHover={{ y: -8, transition: { duration: 0.3 } }}
-                variants={fadeUp}
                 className="group p-8 rounded-[2rem] bg-page-bg border border-page-text/5 hover:border-brand-orange/20 transition-all duration-500 hover:shadow-sm hover:shadow-brand-orange/5"
               >
                 <div className="w-12 h-12 rounded-2xl bg-brand-orange/10 flex items-center justify-center mb-6 group-hover:bg-brand-orange/20 transition-all duration-500 group-hover:translate-x-1">

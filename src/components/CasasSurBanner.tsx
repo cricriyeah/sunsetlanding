@@ -13,7 +13,8 @@ import {
   Home,
   Briefcase,
   ChevronRight,
-  TrendingUp
+  TrendingUp,
+  HardHat
 } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 
@@ -124,16 +125,16 @@ export function CasasSurBanner() {
             />
 
             <motion.div
-              initial={{ opacity: 0, x: 60, y: 0, scale: 0.95 }}
-              animate={{ opacity: 1, x: 0, y: 0, scale: 1 }}
-              exit={{ opacity: 0, x: 60, scale: 0.95 }}
-              transition={{ type: "spring", damping: 25, stiffness: 200 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 20 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
               className="fixed bottom-24 right-6 sm:right-8 z-[6001] w-[calc(100vw-48px)] max-w-sm"
             >
               <div className="relative bg-page-bg rounded-[32px] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)] overflow-hidden border border-page-text/5">
                 
                 {/* Header */}
-                <div className="px-6 py-5 border-b border-page-text/5 flex items-center justify-between bg-white/60 backdrop-blur-xl">
+                <div className="px-6 py-5 border-b border-page-text/5 flex items-center justify-between bg-white/60 backdrop-blur-md">
                   <div>
                     <h3 className="font-montserrat font-bold text-[10px] uppercase tracking-[0.25em] text-page-text/40">
                       {l("Sunset Novedades", "Sunset Newsroom")}
@@ -202,6 +203,28 @@ export function CasasSurBanner() {
                       </p>
                     </div>
                     <div className="w-9 h-9 rounded-full bg-white border border-page-text/10 flex items-center justify-center text-page-text shadow-sm group-hover:bg-brand-purple group-hover:text-white transition-all transform group-hover:translate-x-1 shrink-0">
+                      <ChevronRight className="w-5 h-5" />
+                    </div>
+                  </Link>
+
+                  {/* CARD 3: PROFESIONALES */}
+                  <Link 
+                    href="/unete-a-profesionales" 
+                    onClick={() => setIsOpen(false)}
+                    className="group relative bg-brand-orange/5 rounded-2xl overflow-hidden border border-brand-orange/20 hover:bg-brand-orange/10 transition-all hover:shadow-lg hover:shadow-brand-orange/[0.05] flex items-center p-4 gap-4"
+                  >
+                    <div className="w-12 h-12 rounded-xl bg-brand-orange text-white flex items-center justify-center shrink-0 shadow-lg shadow-brand-orange/20">
+                      <HardHat className="w-6 h-6" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <h4 className="font-literata italic text-base text-page-text leading-tight mb-1">
+                        {l("¿Eres profesional de obra?", "Are you an industry professional?")}
+                      </h4>
+                      <p className="text-[11px] text-page-text/60 font-montserrat leading-tight">
+                        {l("Sube tu información y participa en nuestros próximos proyectos.", "Upload your information and participate in our upcoming projects.")}
+                      </p>
+                    </div>
+                    <div className="w-9 h-9 rounded-full bg-white border border-page-text/10 flex items-center justify-center text-page-text shadow-sm group-hover:bg-brand-orange group-hover:text-white transition-all transform group-hover:translate-x-1 shrink-0">
                       <ChevronRight className="w-5 h-5" />
                     </div>
                   </Link>

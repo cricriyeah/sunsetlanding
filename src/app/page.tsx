@@ -11,16 +11,9 @@ import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/Button";
 import { CinematicHeading } from "@/components/ui/CinematicHeading";
 import { useLanguage } from "@/context/LanguageContext";
+import { standardFadeUp, standardViewport } from "@/utils/animations";
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 20, filter: "none" },
-  visible: (delay: number) => ({
-    opacity: 1,
-    y: 0,
-    filter: "none",
-    transition: { duration: 0.8, delay, ease: [0.2, 0.65, 0.3, 0.9] as [number, number, number, number] },
-  }),
-};
+
 
 export default function Home() {
   const { l } = useLanguage();
@@ -74,14 +67,15 @@ export default function Home() {
 
           {/* Header - Cinematic Reveal */}
           <div className="mb-16 lg:mb-24">
-            <motion.span
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={standardViewport}
+              variants={standardFadeUp}
               className="font-montserrat text-xs font-semibold text-page-text/60 tracking-[0.3em] uppercase block mb-6"
             >
               {l("Nuestra Filosofía", "Our Philosophy")}
-            </motion.span>
+            </motion.div>
             <CinematicHeading
               text={l("Diseñamos el equilibrio entre la luz y el silencio", "We design the balance between light and silence")}
               className="text-4xl sm:text-6xl lg:text-5xl xl:text-6xl font-literata font-light text-page-text leading-[1.1] max-w-4xl"
@@ -98,9 +92,8 @@ export default function Home() {
               <motion.div
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: true }}
-                variants={fadeUp}
-                custom={0.4}
+                viewport={standardViewport}
+                variants={standardFadeUp}
                 className="space-y-8"
               >
                 <p className="text-page-text font-montserrat font-light text-lg lg:text-xl leading-relaxed max-w-md">
@@ -126,10 +119,10 @@ export default function Home() {
 
                 {/* Image 1: Main Exterior Anchor (Afuera 3) */}
                 <motion.div
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true, margin: "-20px" }}
-                  transition={{ duration: 1.2, ease: [0.2, 0.65, 0.3, 0.9] }}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={standardViewport}
+                  variants={standardFadeUp}
                   className="col-span-7 h-full relative rounded-none overflow-hidden group"
                 >
                   <Image
@@ -146,10 +139,10 @@ export default function Home() {
                 <div className="col-span-5 grid grid-rows-2 gap-3">
                   {/* Image 2: Alberca */}
                   <motion.div
-                    initial={{ opacity: 0, x: 20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true, margin: "-50px" }}
-                    transition={{ duration: 1, delay: 0.2, ease: [0.2, 0.65, 0.3, 0.9] }}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={standardViewport}
+                    variants={standardFadeUp}
                     className="relative rounded-none overflow-hidden group"
                   >
                     <Image
@@ -162,10 +155,10 @@ export default function Home() {
 
                   {/* Image 3: Bano */}
                   <motion.div
-                    initial={{ opacity: 0, x: 20, filter: "none" }}
-                    whileInView={{ opacity: 1, x: 0, filter: "none" }}
-                    viewport={{ once: true, margin: "-50px" }}
-                    transition={{ duration: 1, delay: 0.4, ease: [0.2, 0.65, 0.3, 0.9] }}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={standardViewport}
+                    variants={standardFadeUp}
                     className="relative rounded-none overflow-hidden group"
                     style={{ 
                       display: "inline-block", 
@@ -192,11 +185,6 @@ export default function Home() {
             
             {/* Pillar 1: Vanguardia */}
             <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={fadeUp}
-              custom={0.1}
               whileHover={{ y: -8, transition: { duration: 0.3 } }}
               className="group flex flex-col items-start p-10 bg-page-bg border border-page-text/10 transition-card duration-500 hover:shadow-sm hover:shadow-brand-blue/5 rounded-3xl"
             >
@@ -211,11 +199,6 @@ export default function Home() {
 
             {/* Pillar 2: Naturaleza */}
             <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={fadeUp}
-              custom={0.2}
               whileHover={{ y: -8, transition: { duration: 0.3 } }}
               className="group flex flex-col items-start p-10 bg-page-bg border border-page-text/10 transition-card duration-500 hover:shadow-sm hover:shadow-sc-accent/5 rounded-3xl"
             >
@@ -230,11 +213,6 @@ export default function Home() {
 
             {/* Pillar 3: Bienestar */}
             <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={fadeUp}
-              custom={0.3}
               whileHover={{ y: -8, transition: { duration: 0.3 } }}
               className="group flex flex-col items-start p-10 bg-page-bg border border-page-text/10 transition-card duration-500 hover:shadow-sm hover:shadow-brand-orange/5 rounded-3xl"
             >
@@ -257,9 +235,8 @@ export default function Home() {
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: "-20px" }}
-            custom={0}
-            variants={fadeUp}
+            viewport={standardViewport}
+            variants={standardFadeUp}
             className="animate-on-scroll mb-20 text-center max-w-3xl mx-auto"
           >
             <span className="font-montserrat text-sm font-medium text-page-text tracking-[0.2em] uppercase block mb-4">{l("Nuestras Obras", "Our Works")}</span>
@@ -273,9 +250,9 @@ export default function Home() {
             <motion.div
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, margin: "-60px" }}
+              viewport={standardViewport}
+              variants={standardFadeUp}
               custom={0.1}
-              variants={fadeUp}
               className="animate-on-scroll"
             >
               <Link href="/proyectos/casas-sur" className="group flex flex-col md:flex-row h-full rounded-3xl bg-page-bg border border-page-text/10 shadow-sm hover:shadow-sm hover:shadow-page-text/5 transition-card duration-500 overflow-hidden">
@@ -313,9 +290,9 @@ export default function Home() {
             <motion.div
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, margin: "-60px" }}
+              viewport={standardViewport}
+              variants={standardFadeUp}
               custom={0.2}
-              variants={fadeUp}
               className="animate-on-scroll"
             >
               <Link href="/proyectos/sunset-condominios" className="group flex flex-col md:flex-row-reverse h-full rounded-3xl bg-page-bg border border-page-text/10 shadow-sm hover:shadow-sm hover:shadow-page-text/5 transition-card duration-500 overflow-hidden">
@@ -359,9 +336,8 @@ export default function Home() {
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: "-20px" }}
-            custom={0}
-            variants={fadeUp}
+            viewport={standardViewport}
+            variants={standardFadeUp}
             className="animate-on-scroll"
           >
             <h2 className="text-3xl sm:text-5xl font-literata font-light italic mb-6">

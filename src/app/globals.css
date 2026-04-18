@@ -130,19 +130,7 @@
   }
 }
 
-/* ── Anti-flicker for Framer Motion scroll animations ──
-   Elements with this class start invisible via pure CSS,
-   preventing the visible → hidden → animate FOUC on mobile.
-   Framer Motion overrides these styles once JS hydrates.
-   Added a fallback animation so elements don't stay hidden forever if JS fails. */
-@keyframes fallback-reveal {
-  to { opacity: 1; }
-}
-.animate-on-scroll {
-  opacity: 0;
-  will-change: transform, opacity;
-  animation: fallback-reveal 0.1s 3s forwards;
-}
+/* -- Anti-flicker classes removed to avoid conflict with framer motion -- */
 
 /* ── Card transition utility ──
    Use instead of transition-all on elements that ALSO have
